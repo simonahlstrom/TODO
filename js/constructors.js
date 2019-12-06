@@ -28,10 +28,16 @@ function Task(data, objLabel) {
   this.creator = data.creator
 
   this.done = false
-  this.subtasks = []
+  
+  // create subtasks
+  this.subtasks = function() {
+
+  }
+  
   this.subsDL = function() {
     //code functionality to get deadline from this.subtasks
   }
+  
   this.createTask = function() {
     // create task w/ icon from labelobject
     let task = $('div')
@@ -39,11 +45,13 @@ function Task(data, objLabel) {
     let name = this.taskName
     task.append(icon, name)
 
-    //create subtasks
+    //create subtasks to present
     for (let subtask of this.subtasks) {
       let subtaskContainer = $('<div>')
       let subName = $('<div>')
-      subName.html()
+      subName.html(
+        // get name from subtaskobject later 
+      )
       
       if (!this.creator) {
         let claimBox = $('div', {
