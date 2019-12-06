@@ -43,9 +43,9 @@ CREATE TABLE `Labels` (
 CREATE TABLE `Subtasks` (
   `subId` int(11) NOT NULL,
   `subName` varchar(100) NOT NULL,
-  `deadline` date NOT NULL,
+  `deadline` date DEFAULT '0',
   `completed` tinyint(1) NOT NULL DEFAULT '0',
-  `claimedName` varchar(100) NOT NULL,
+  `claimedName` varchar(100) DEFAULT '0',
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -112,6 +112,15 @@ CREATE TABLE `User` (
   `password` varchar(100) NOT NULL,
   `occupation` varchar(100) NOT NULL,
   `themeId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Color` (
+  `rgb` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Icon` (
+  `url` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
