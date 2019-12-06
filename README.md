@@ -4,3 +4,4 @@
  let something
 
  function func() {}
+ safasfadf
