@@ -43,10 +43,11 @@ CREATE TABLE `Labels` (
 CREATE TABLE `Subtasks` (
   `subId` int(11) NOT NULL,
   `subName` varchar(100) NOT NULL,
-  `deadline` date DEFAULT '0',
+  `deadline` date NOT NULL DEFAULT '0',
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   `claimedName` varchar(100) DEFAULT '0',
-  `userId` int(11) NOT NULL
+  `userId` int(11) DEFAULT NULL,
+  `taskId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -222,7 +223,8 @@ ALTER TABLE `Labels`
 -- Constraints for table `Subtasks`
 --
 ALTER TABLE `Subtasks`
-  ADD CONSTRAINT `subtasks_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`);
+  ADD CONSTRAINT `subtasks_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`),
+  ADD CONSTRAINT `subtasks_ibfk_2` FOREIGN KEY (`taskId`) REFERENCES `Tasks` (`taskId`);
 
 --
 -- Constraints for table `TaskMembers`
