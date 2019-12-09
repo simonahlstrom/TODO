@@ -29,18 +29,61 @@ function Task(data, objLabel) {
 
   this.done = false
   
-  // create subtasks
-  this.subtasks = function() {
+  // create subtasks (currently based on submitting a form)
+  this.subtasks = function(parentTask) {
+    let form = $('<form>', {'id': 'subtaskForm'})
+    
+    let nameLabel = $('<label>', {
+      for: name, 
+      html: 'Name of subtask'
+    })
+    let dlLabel = $('<label>', {
+      for: dl, 
+      html: 'Does this subtask have a deadline?'
+    })
+    
+    let name = $('<input type=text>', {'id': 'subtaskName',})
+    let dl = $('<input type=date>', {'id': 'deadline'})
 
+    // object for subtask
+    let subtask = {
+      subName = name.val(),
+      deadline = dl.val(),
+      completed = 0,
+      claimedName = 0,
+      userId = user.userId,
+      taskId = parentTask
+    }
+    
+    let submit = $('<input type=submit>', {
+      'id': 'subtaskSubmit'
+    }).click((e) => {
+      e.preventDefault()
+      // redirect $.get path later, for now it's X. posts the subtask to DB
+      $.get('X', subtask)
+      .done((data) => {
+        let response = JSON.parse(data)
+        // cl is just a function that c.logs the parameter passed to it
+        cl(response)
+      })
+      .fail((error) => {
+        cl(error())
+      })
+    })
+
+    $(form).append(nameLabel, name, dlLabel, dl, submit)
+    $('APPEND FORM HERE').append(form)
+
+    return subtask
   }
   
-  this.subsDL = function() {
+  this.subDL = function() {
     //code functionality to get deadline from this.subtasks
   }
   
   this.createTask = function() {
     // create task w/ icon from labelobject
-    let task = $('div')
+    let task = $('<div>')
     let icon = this.label.element
     let name = this.taskName
     task.append(icon, name)
