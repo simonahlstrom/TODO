@@ -25,12 +25,13 @@ function Task(data, objLabel) {
   this.taskName = data.taskName
   this.shareCode = data.code
   this.label = objLabel
+  
   this.creator = data.creator
-
   this.done = false
+  this.subtasks = data.subtasks
   
   // create subtasks (currently based on submitting a form)
-  this.subtasks = function(this) {
+  this.createSubtask = function(this) {
     let form = $('<form>', {'id': 'subtaskForm'})
     
     let nameLabel = $('<label>', {
@@ -51,7 +52,7 @@ function Task(data, objLabel) {
     }).click((e, this) => {
       e.preventDefault()
 
-      // fill subtaskobject with values to be posted
+      // fill subtask-object with values to be posted
       let subtask = {
         subName = name.val(),
         deadline = dl.val(),
@@ -69,7 +70,7 @@ function Task(data, objLabel) {
         cl(response)
       })
       .fail((error) => {
-        cl(error())
+        cl(error)
       })
     })
 
