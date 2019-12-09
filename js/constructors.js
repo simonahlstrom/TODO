@@ -24,7 +24,8 @@ function Task(data, objLabel) {
   this.taskId = data.taskId
   this.taskName = data.taskName
   this.shareCode = data.code
-  this.label = objLabel
+  this.label = objLabel.labelName
+  this.labelId = objLabel.labelId
   
   this.creator = data.creator
   this.done = false
@@ -59,11 +60,12 @@ function Task(data, objLabel) {
         completed = 0,
         claimedName = 0,
         userId = user.userId,
-        taskId = this.taskId
+        taskId = this.taskId,
+        labelId = this.labelId
       }
 
-      // redirect $.get path later, for now it's X. posts the subtask to DB
-      $.get('X', subtask)
+      // posts the subtask to DB
+      $.get('../php/postSubtask.php', subtask)
       .done((data) => {
         let response = JSON.parse(data)
         // cl is just a function that c.logs the parameter passed to it
