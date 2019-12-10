@@ -32,7 +32,7 @@ function Task(data, objLabel) {
   this.subtasks = data.subtasks
   
   // create subtasks (currently based on submitting a form)
-  this.createSubtask = function(this) {
+  this.createSubtask = function() {
     let form = $('<form>', {'id': 'subtaskForm'})
     
     let nameLabel = $('<label>', {
@@ -50,18 +50,18 @@ function Task(data, objLabel) {
     let submit = $('<input type=submit>', {
       'id': 'subtaskSubmit'
       // will this work here? test it
-    }).click((e, this) => {
+    }).click((e) => {
       e.preventDefault()
 
       // fill subtask-object with values to be posted
       let subtask = {
-        subName = name.val(),
-        deadline = dl.val(),
-        completed = 0,
-        claimedName = 0,
-        userId = user.userId,
-        taskId = this.taskId,
-        labelId = this.labelId
+        subName: name.val(),
+        deadline: dl.val(),
+        completed: 0,
+        claimedName: 0,
+        userId: user.userId,
+        taskId: this.taskId,
+        labelId: this.labelId
       }
 
       // posts the subtask to DB
