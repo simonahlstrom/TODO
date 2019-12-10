@@ -18,6 +18,7 @@ function Label(data) {
   this.icon = data.icon
   this.activated = data.activated
   this.labelId = data.labelId
+  this.taskIds = []
   this.element = $('<div>', {
       "class": "label",
   }).css({
