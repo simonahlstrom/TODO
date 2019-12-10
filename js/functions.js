@@ -1,6 +1,3 @@
-function gatherData(userId) {
-    //get info from
-}
 
 //Runs editTask with action to create new task
 $('#add').click(function() {editTask("new")})
@@ -8,26 +5,13 @@ $('#add').click(function() {editTask("new")})
 function cl(x) {
   console.log(x)
 }
-
+//error message for get
 function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
     console.log(errorThrown)
   }
 
 
-function getUserData(userId) {
-    //varför börjar den ett steg upp i foldern?
-    //hämtar data från DB
-    $.get("php/getAllData.php", {userId: userId})
-    .done((data)=>{
-        cl(data)
-        data = JSON.parse(data)
-        cl(data)
-
-    
-    })
-    .fail(error)
-}
 
 //Generate share code func
 function makeid(length) {

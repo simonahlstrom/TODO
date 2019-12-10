@@ -1,3 +1,14 @@
+:root {
+    --maincolor: beige;
+    --accentColor: blue;
+    --subColor: red;
+}
+
+body {
+    background-color: var(--maincolor);
+    color: var(--accentColor);
+}
+
 .flex {
     display: flex;
     justify-content: center;

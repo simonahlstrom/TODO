@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 10, 2019 at 10:38 AM
+-- Generation Time: Dec 10, 2019 at 02:57 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
@@ -68,7 +68,9 @@ CREATE TABLE `Labels` (
 --
 
 INSERT INTO `Labels` (`labelId`, `userId`, `labelName`, `color`, `icon`) VALUES
-(1, 2, 'label_1', 'rgba(200, 51, 030, .8)', 'url.png');
+(1, 2, 'label_1', 'rgba(200, 51, 030, .8)', 'url.png'),
+(3, 2, 'label_3', 'rgba(100, 0, 230, .6)', 'url3.png'),
+(4, 2, 'label_2', 'rgba(100, 251, 230, .8)', 'url2.png');
 
 -- --------------------------------------------------------
 
@@ -91,7 +93,14 @@ CREATE TABLE `Subtasks` (
 --
 
 INSERT INTO `Subtasks` (`subId`, `subName`, `deadline`, `completed`, `claimedName`, `userId`, `taskId`) VALUES
-(4, 'test', NULL, 0, '0', 2, 1);
+(4, 'test', NULL, 0, '0', 2, 1),
+(12, 'subtest2', NULL, 0, '0', 2, 1),
+(13, 'subtest3', '2019-12-23', 0, '0', 2, 3),
+(14, 'subtest4', NULL, 0, '0', 2, 1),
+(15, 'subtest5', '2020-01-21', 0, '0', 2, 4),
+(16, 'subtest6', '2019-12-20', 0, '0', 2, 4),
+(17, 'subtest7', '2020-01-12', 0, '0', 2, 4),
+(18, 'subtest8', NULL, 0, '0', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -110,7 +119,10 @@ CREATE TABLE `TaskMembers` (
 --
 
 INSERT INTO `TaskMembers` (`taskId`, `userId`, `creator`) VALUES
-(1, 2, 2);
+(1, 2, 2),
+(2, 2, 0),
+(3, 2, 1),
+(4, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -130,7 +142,10 @@ CREATE TABLE `Tasks` (
 --
 
 INSERT INTO `Tasks` (`taskId`, `taskName`, `code`, `added`) VALUES
-(1, 'TestTask', '', '2019-12-09 14:13:01');
+(1, 'TestTask', '', '2019-12-09 14:13:01'),
+(2, 'TestTask2', 'AuSU', '2019-12-10 10:59:39'),
+(3, 'Task3', 'ux56', '2019-12-10 13:06:27'),
+(4, 'Task4', 'as9s', '2019-12-10 13:06:27');
 
 -- --------------------------------------------------------
 
@@ -148,7 +163,10 @@ CREATE TABLE `TasksInLabelRel` (
 --
 
 INSERT INTO `TasksInLabelRel` (`taskId`, `labelId`) VALUES
-(1, 1);
+(1, 1),
+(2, 1),
+(3, 3),
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -253,19 +271,19 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `Labels`
 --
 ALTER TABLE `Labels`
-  MODIFY `labelId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `labelId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `Subtasks`
 --
 ALTER TABLE `Subtasks`
-  MODIFY `subId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `subId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `Tasks`
 --
 ALTER TABLE `Tasks`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `Theme`

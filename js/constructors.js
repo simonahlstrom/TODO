@@ -3,7 +3,13 @@ function User(data) {
   this.username = data.username
   this.email = data.email
   this.occupation = data.occupation
-  this.theme = data.theme
+  this.theme = { 
+    Id: data.themeId, 
+    name: data.themeName,
+    mainColor: data.mainColor,
+    accentColor: data.accentColor,
+    subColor: data.subColor
+  }
 }
 
 function Label(data) {
@@ -12,6 +18,7 @@ function Label(data) {
   this.icon = data.icon
   this.activated = data.activated
   this.labelId = data.labelId
+  this.taskIds = []
   this.element = $('<div>', {
       "class": "label",
   }).css({
@@ -29,7 +36,7 @@ function Task(data, objLabel) {
   
   this.creator = data.creator
   this.done = false
-  this.subtasks = data.subtasks
+  this.subtasks = []
   
   // create subtasks (currently based on submitting a form)
   this.createSubtask = function() {
