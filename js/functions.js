@@ -11,9 +11,9 @@ function cl(x) {
 }
 
 //function to edit or create a new task
-function editTask (obj, action) {
+function editTask (i, action) {
 
-  //Name of task input
+//Name of task input
 $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
 $('<input>', {
   "id": "taskNameInput",
@@ -37,6 +37,22 @@ $('<input>', {
   appendTo: "#subtaskInputs"
 }).click(function() {
   $('<div>', {html: $('#subtaskNameInput').val(), appendTo: "#subtaskContainer"})
+})
+
+$('<input>', {
+  "id": "radioDeadline",
+  name: "radio",
+  type: "radio",
+  value: "Deadline",
+  appendTo: "#content"
+})
+
+$('<input>', {
+  "id": "radioAlways",
+  name: "radio",
+  type: "radio",
+  value: "Always",
+  appendTo: "#content"
 })
 
 //Subtask list
