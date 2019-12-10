@@ -1,66 +1,9 @@
-←
-phpMyAdmin
-HomeEmpty session dataphpMyAdmin documentationDocumentationNavigation panel settingsReload navigation panel
-RecentFavorites
-Collapse allUnlink from main panel
-New
-Expand/CollapseDatabase operations244914-helpnelson
-Expand/CollapseDatabase operationscapApp
-Expand/CollapseDatabase operationsClassical
-Expand/CollapseDatabase operationsExam
-Expand/CollapseDatabase operationsImpact
-Expand/CollapseDatabase operationsinformation_schema
-Expand/CollapseDatabase operationsmysql
-Expand/CollapseDatabase operationsNelson
-Expand/CollapseDatabase operationsPainters
-Expand/CollapseDatabase operationsperformance_schema
-Expand/CollapseDatabase operationsrestaurants
-Expand/CollapseDatabase operationssys
-Expand/CollapseDatabase operationsTEST
-Database operationsTODO
-NewNew
-Expand/CollapseStructureColor
-Expand/CollapseStructureIcon
-Expand/CollapseStructureLabels
-Expand/CollapseStructureSubtasks
-Expand/CollapseStructureTaskMembers
-Expand/CollapseStructureTasks
-Expand/CollapseStructureTasksInLabelRel
-Expand/CollapseStructureTheme
-Expand/CollapseStructureUser
-Server: localhost:8889 »Database: TODO
-Structure Structure
-SQL SQL
-Search Search
-Query Query
-Export Export
-Import Import
-Operations Operations
-Privileges Privileges
-Routines Routines
-Events Events
-Triggers Triggers
-Designer Designer
-Click on the bar to scroll to top of page
-SQL Query Console Console
-ascendingdescendingOrder:Debug SQLExecution orderTime takenOrder by:Group queries
-Some error occurred while getting SQL debug info.
-OptionsSet default
-Always expand query messages
-Show query history at start
-Show current browsing query
- Execute queries on Enter and insert new line with Shift + Enter. To make this permanent, view settings.
-Switch to dark theme
-
-[ Back ]
-
-[ Refresh ]
 -- phpMyAdmin SQL Dump
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 10, 2019 at 01:27 PM
+-- Generation Time: Dec 10, 2019 at 02:57 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
@@ -177,7 +120,9 @@ CREATE TABLE `TaskMembers` (
 
 INSERT INTO `TaskMembers` (`taskId`, `userId`, `creator`) VALUES
 (1, 2, 2),
-(2, 2, 0);
+(2, 2, 0),
+(3, 2, 1),
+(4, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -388,9 +333,3 @@ ALTER TABLE `TasksInLabelRel`
 --
 ALTER TABLE `User`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`themeId`) REFERENCES `Theme` (`themeId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-[ Back ]
-
-[ Refresh ]
-Open new phpMyAdmin window

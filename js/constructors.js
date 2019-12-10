@@ -36,7 +36,7 @@ function Task(data, objLabel) {
   
   this.creator = data.creator
   this.done = false
-  this.subtasks = data.subtasks
+  this.subtasks = []
   
   // create subtasks (currently based on submitting a form)
   this.createSubtask = function() {
