@@ -29,6 +29,17 @@ function getUserData(userId) {
     .fail(error)
 }
 
+//Generate share code func
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 //function to edit or create a new task
 function editTask (i, action) {
 
@@ -40,14 +51,24 @@ function editTask (i, action) {
     appendTo: "#content"
   })
 
+  //Label dropdown
+  $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
+  $('<select>', {
+    "id": "labelSelect",
+    value: "label",
+    appendTo: "#content"
+  })
+
   //Add subtask button, input, click function
   $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
   $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
+
   $('<input>', {
     "id": "subtaskNameInput",
     type: "text",
     appendTo: "#subtaskInputs"
   })
+
   $('<input>', {
     "id": "addSubtask",
     "class": "round",
@@ -55,7 +76,12 @@ function editTask (i, action) {
     value: "",
     appendTo: "#subtaskInputs"
   }).click(function() {
-    $('<div>', {html: $('#subtaskNameInput').val(), appendTo: "#subtaskContainer"})
+    //adds substask to subtaskContainer
+    $('<div>', {
+      html: "Name: " + $('#subtaskNameInput').val() + " Deadline: " + $('#date').val() + " Share ID " + makeid(4),
+      appendTo: "#subtaskContainer"
+    })
+    prepareSubtasks($('#subtaskNameInput').val(), makeid(4))
   })
 
   $('<label>', {for: "radioAll", html: "All", appendTo: "#content"})
@@ -67,8 +93,10 @@ function editTask (i, action) {
     appendTo: "#content",
     change: function(checked) {
       $('#date').remove()
+      $('label[for="date"]').remove()
     }
   })
+
   $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#content"})
   $('<input>', {
     "id": "radioDeadline",
@@ -87,7 +115,8 @@ function editTask (i, action) {
       }
     }
   })
-  $('<label>', {for: "radioDeadline", html: "Always", appendTo: "#content"})
+
+  $('<label>', {for: "radioAlways", html: "Always", appendTo: "#content"})
   $('<input>', {
     "id": "radioAlways",
     name: "radio",
@@ -96,31 +125,27 @@ function editTask (i, action) {
     appendTo: "#content",
     change: function(checked) {
       $('#date').remove()
+      $('label[for="date"]').remove()
     }
   })
-
 
   $('<div>', {
     "id": "dateContainer",
     appendTo: "#content"
   })
+
   //Subtask list
+  $('<div>', {html: "Subtasks", appendTo: "#content"}).css("font-size", "20px")
   $('<div>', {
     "id": "subtaskContainer",
     appendTo: "#content"
   }).css({
     width: "80vw",
     height: "100px",
-    backgroundColor: "lightgrey"
+    border: "2px solid lightgray"
   })
 
-  //Label dropdown
-  $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
-  $('<select>', {
-    "id": "labelSelect",
-    value: "label",
-    appendTo: "#content"
-  })
+
   labels.forEach(function(item) {
     $('<option>', {
       value: item,
@@ -156,4 +181,20 @@ function editTask (i, action) {
   if (action != "new") {
     //prefilled inputs from obj
   }
+}
+
+function prepareSubtasks(name, code, subId) {
+  subtaskArray.push([])
+  subtaskArray[subtaskArray.length-1].push(subId)
+  subtaskArray[subtaskArray.length-1].push(name)
+  subtaskArray[subtaskArray.length-1].push(code)
+
+  if ($('#radioAll:checked').val()) {
+    subtaskArray[subtaskArray.length-1].push(document.querySelector('label[for="radioAll"]').innerHTML)
+  } else if ($('#radioAlways:checked').val()) {
+    subtaskArray[subtaskArray.length-1].push(document.querySelector('label[for="radioAlways"]').innerHTML)
+  } else {
+    subtaskArray[subtaskArray.length-1].push($('#date').val())
+  }
+  cl(subtaskArray)
 }
