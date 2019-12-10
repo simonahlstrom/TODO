@@ -43,7 +43,7 @@ CREATE TABLE `Labels` (
 CREATE TABLE `Subtasks` (
   `subId` int(11) NOT NULL,
   `subName` varchar(100) NOT NULL,
-  `deadline` date NOT NULL DEFAULT '0',
+  `deadline` date DEFAULT NULL,
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   `claimedName` varchar(100) DEFAULT '0',
   `userId` int(11) DEFAULT NULL,

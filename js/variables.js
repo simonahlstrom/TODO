@@ -1,4 +1,4 @@
 let editTaskButtons = ["Save", "Delete", "Cancel"]
 
-//temporary label array
+//test variables
 let labels = ["Home", "Work", "School"]
