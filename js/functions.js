@@ -16,7 +16,9 @@ function error(jqXHR, textStatus, errorThrown) {
 
 
 function getUserData(userId) {
-    $.get("../php/getAllData.php", {userId: userId})
+    //varför börjar den ett steg upp i foldern?
+    //hämtar data från DB
+    $.get("php/getAllData.php", {userId: userId})
     .done((data)=>{
         cl(data)
         data = JSON.parse(data)

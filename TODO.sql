@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 10, 2019 at 09:37 AM
+-- Generation Time: Dec 10, 2019 at 10:38 AM
 -- Server version: 5.7.26
--- PHP Version: 7.3.7
+-- PHP Version: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,6 +24,13 @@ CREATE TABLE `Color` (
   `rgb` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Color`
+--
+
+INSERT INTO `Color` (`rgb`) VALUES
+('rgba(200, 51, 030, .8)');
+
 -- --------------------------------------------------------
 
 --
@@ -34,6 +41,13 @@ CREATE TABLE `Icon` (
   `url` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Icon`
+--
+
+INSERT INTO `Icon` (`url`, `type`) VALUES
+('url.png', 'theme');
 
 -- --------------------------------------------------------
 
@@ -48,6 +62,13 @@ CREATE TABLE `Labels` (
   `color` varchar(100) NOT NULL,
   `icon` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Labels`
+--
+
+INSERT INTO `Labels` (`labelId`, `userId`, `labelName`, `color`, `icon`) VALUES
+(1, 2, 'label_1', 'rgba(200, 51, 030, .8)', 'url.png');
 
 -- --------------------------------------------------------
 
@@ -84,6 +105,13 @@ CREATE TABLE `TaskMembers` (
   `creator` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `TaskMembers`
+--
+
+INSERT INTO `TaskMembers` (`taskId`, `userId`, `creator`) VALUES
+(1, 2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -102,7 +130,7 @@ CREATE TABLE `Tasks` (
 --
 
 INSERT INTO `Tasks` (`taskId`, `taskName`, `code`, `added`) VALUES
-(1, 'TestTask', '', '2019-12-09 15:13:01');
+(1, 'TestTask', '', '2019-12-09 14:13:01');
 
 -- --------------------------------------------------------
 
@@ -114,6 +142,13 @@ CREATE TABLE `TasksInLabelRel` (
   `taskId` int(11) NOT NULL,
   `labelId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TasksInLabelRel`
+--
+
+INSERT INTO `TasksInLabelRel` (`taskId`, `labelId`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +253,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `Labels`
 --
 ALTER TABLE `Labels`
-  MODIFY `labelId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `labelId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `Subtasks`
