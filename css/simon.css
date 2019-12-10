@@ -1,0 +1,16 @@
+.popup {
+  height: 50vh;
+  width: 50vw;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  opacity: 0;
+  background-color: whitesmoke;
+  border: 1px solid grey;
+  border-radius: 20px;
+  transition: opacity .5s ease;
+}
+
+.active {
+  opacity: 1;
+}
