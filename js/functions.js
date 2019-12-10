@@ -16,13 +16,13 @@ function error(jqXHR, textStatus, errorThrown) {
 //function to edit or create a new task
 function editTask (i, action) {
 
-//Name of task input
-$('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
-$('<input>', {
-  "id": "taskNameInput",
-  type: "text",
-  appendTo: "#content"
-})
+  //Name of task input
+  $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
+  $('<input>', {
+    "id": "taskNameInput",
+    type: "text",
+    appendTo: "#content"
+  })
 
   //Add subtask button, input, click function
   $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
@@ -42,31 +42,61 @@ $('<input>', {
     $('<div>', {html: $('#subtaskNameInput').val(), appendTo: "#subtaskContainer"})
   })
 
-$('<input>', {
-  "id": "radioDeadline",
-  name: "radio",
-  type: "radio",
-  value: "Deadline",
-  appendTo: "#content"
-})
+  $('<label>', {for: "radioAll", html: "All", appendTo: "#content"})
+  $('<input>', {
+    "id": "radioAll",
+    name: "radio",
+    type: "radio",
+    checked: true,
+    appendTo: "#content",
+    change: function(checked) {
+      $('#date').remove()
+    }
+  })
+  $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#content"})
+  $('<input>', {
+    "id": "radioDeadline",
+    name: "radio",
+    type: "radio",
+    checked: false,
+    appendTo: "#content",
+    change: function(checked) {
+      if (checked) {
+        $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
+        $('<input>', {
+          "id": "date",
+          type: "text",
+          appendTo: "#dateContainer"
+        }).datepicker()
+      }
+    }
+  })
+  $('<label>', {for: "radioDeadline", html: "Always", appendTo: "#content"})
+  $('<input>', {
+    "id": "radioAlways",
+    name: "radio",
+    type: "radio",
+    checked: false,
+    appendTo: "#content",
+    change: function(checked) {
+      $('#date').remove()
+    }
+  })
 
-$('<input>', {
-  "id": "radioAlways",
-  name: "radio",
-  type: "radio",
-  value: "Always",
-  appendTo: "#content"
-})
 
-//Subtask list
-$('<div>', {
-  "id": "subtaskContainer",
-  appendTo: "#content"
-}).css({
-  width: "80vw",
-  height: "100px",
-  backgroundColor: "lightgrey"
-})
+  $('<div>', {
+    "id": "dateContainer",
+    appendTo: "#content"
+  })
+  //Subtask list
+  $('<div>', {
+    "id": "subtaskContainer",
+    appendTo: "#content"
+  }).css({
+    width: "80vw",
+    height: "100px",
+    backgroundColor: "lightgrey"
+  })
 
   //Label dropdown
   $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
