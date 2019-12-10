@@ -1,6 +1,3 @@
-function gatherData(userId) {
-    //get info from
-}
 
 //Runs editTask with action to create new task
 $('#add').click(function() {editTask("new")})
@@ -8,27 +5,16 @@ $('#add').click(function() {editTask("new")})
 function cl(x) {
   console.log(x)
 }
-
+//error message for get
 function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
     console.log(errorThrown)
   }
 
 
-function getUserData(userId) {
-    $.get("../php/getAllData.php", {userId: userId})
-    .done((data)=>{
-        cl(data)
-        data = JSON.parse(data)
-        cl(data)
-
-    
-    })
-    .fail(error)
-}
 
 //function to edit or create a new task
-function editTask (obj, action) {
+function editTask (i, action) {
 
   //Name of task input
   $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
@@ -56,6 +42,52 @@ function editTask (obj, action) {
     $('<div>', {html: $('#subtaskNameInput').val(), appendTo: "#subtaskContainer"})
   })
 
+  $('<label>', {for: "radioAll", html: "All", appendTo: "#content"})
+  $('<input>', {
+    "id": "radioAll",
+    name: "radio",
+    type: "radio",
+    checked: true,
+    appendTo: "#content",
+    change: function(checked) {
+      $('#date').remove()
+    }
+  })
+  $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#content"})
+  $('<input>', {
+    "id": "radioDeadline",
+    name: "radio",
+    type: "radio",
+    checked: false,
+    appendTo: "#content",
+    change: function(checked) {
+      if (checked) {
+        $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
+        $('<input>', {
+          "id": "date",
+          type: "text",
+          appendTo: "#dateContainer"
+        }).datepicker()
+      }
+    }
+  })
+  $('<label>', {for: "radioDeadline", html: "Always", appendTo: "#content"})
+  $('<input>', {
+    "id": "radioAlways",
+    name: "radio",
+    type: "radio",
+    checked: false,
+    appendTo: "#content",
+    change: function(checked) {
+      $('#date').remove()
+    }
+  })
+
+
+  $('<div>', {
+    "id": "dateContainer",
+    appendTo: "#content"
+  })
   //Subtask list
   $('<div>', {
     "id": "subtaskContainer",

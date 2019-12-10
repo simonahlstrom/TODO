@@ -1,13 +1,9 @@
 <?php
 include('connectToDB.php');
-echo "hi";
 
+// Fetches all tasks and subtasks
 $pdo = connectDB();
 $query = "SELECT * FROM User 
-JOIN TaskMembers ON User.userId=TaskMembers.userId
-JOIN Tasks ON TaskMembers.taskId=Tasks.taskId
-JOIN Labels ON User.userId=Labels.userId
-JOIN Subtasks ON Tasks.taskId=Subtasks.taskId
 JOIN Theme ON User.themeId=Theme.themeId
 WHERE User.userId = ?";
 
