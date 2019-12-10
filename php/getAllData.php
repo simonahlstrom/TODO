@@ -1,5 +1,6 @@
 <?php
 include('connectToDB.php');
+echo "hi";
 
 $pdo = connectDB();
 $query = "SELECT * FROM User 
