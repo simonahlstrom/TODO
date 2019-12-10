@@ -30,15 +30,15 @@ function getUserData(userId) {
 }
 
 //function to edit or create a new task
-function editTask (obj, action) {
+function editTask (i, action) {
 
-  //Name of task input
-  $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
-  $('<input>', {
-    "id": "taskNameInput",
-    type: "text",
-    appendTo: "#content"
-  })
+//Name of task input
+$('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
+$('<input>', {
+  "id": "taskNameInput",
+  type: "text",
+  appendTo: "#content"
+})
 
   //Add subtask button, input, click function
   $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
@@ -58,15 +58,31 @@ function editTask (obj, action) {
     $('<div>', {html: $('#subtaskNameInput').val(), appendTo: "#subtaskContainer"})
   })
 
-  //Subtask list
-  $('<div>', {
-    "id": "subtaskContainer",
-    appendTo: "#content"
-  }).css({
-    width: "80vw",
-    height: "100px",
-    backgroundColor: "lightgrey"
-  })
+$('<input>', {
+  "id": "radioDeadline",
+  name: "radio",
+  type: "radio",
+  value: "Deadline",
+  appendTo: "#content"
+})
+
+$('<input>', {
+  "id": "radioAlways",
+  name: "radio",
+  type: "radio",
+  value: "Always",
+  appendTo: "#content"
+})
+
+//Subtask list
+$('<div>', {
+  "id": "subtaskContainer",
+  appendTo: "#content"
+}).css({
+  width: "80vw",
+  height: "100px",
+  backgroundColor: "lightgrey"
+})
 
   //Label dropdown
   $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
