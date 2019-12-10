@@ -3,22 +3,37 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 02, 2019 at 03:29 PM
+-- Generation Time: Dec 10, 2019 at 09:37 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `TODO`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Color`
+--
+
+CREATE TABLE `Color` (
+  `rgb` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Icon`
+--
+
+CREATE TABLE `Icon` (
+  `url` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -50,6 +65,13 @@ CREATE TABLE `Subtasks` (
   `taskId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Subtasks`
+--
+
+INSERT INTO `Subtasks` (`subId`, `subName`, `deadline`, `completed`, `claimedName`, `userId`, `taskId`) VALUES
+(4, 'test', NULL, 0, '0', 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +96,13 @@ CREATE TABLE `Tasks` (
   `code` varchar(4) NOT NULL,
   `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Tasks`
+--
+
+INSERT INTO `Tasks` (`taskId`, `taskName`, `code`, `added`) VALUES
+(1, 'TestTask', '', '2019-12-09 15:13:01');
 
 -- --------------------------------------------------------
 
@@ -100,6 +129,13 @@ CREATE TABLE `Theme` (
   `accentColor` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Theme`
+--
+
+INSERT INTO `Theme` (`themeId`, `themeName`, `mainColor`, `subColor`, `accentColor`) VALUES
+(1, 'light', 'whitesmoke', 'grey', 'red');
+
 -- --------------------------------------------------------
 
 --
@@ -115,14 +151,12 @@ CREATE TABLE `User` (
   `themeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `Color` (
-  `rgb` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Dumping data for table `User`
+--
 
-CREATE TABLE `Icon` (
-  `url` varchar(100) NOT NULL,
-  `type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `User` (`userId`, `username`, `email`, `password`, `occupation`, `themeId`) VALUES
+(2, 'Simon', 'test@test.com', 'test', 'test', 1);
 
 --
 -- Indexes for dumped tables
@@ -140,7 +174,8 @@ ALTER TABLE `Labels`
 --
 ALTER TABLE `Subtasks`
   ADD PRIMARY KEY (`subId`),
-  ADD KEY `userId` (`userId`);
+  ADD KEY `userId` (`userId`),
+  ADD KEY `subtasks_ibfk_2` (`taskId`);
 
 --
 -- Indexes for table `TaskMembers`
@@ -189,25 +224,25 @@ ALTER TABLE `Labels`
 -- AUTO_INCREMENT for table `Subtasks`
 --
 ALTER TABLE `Subtasks`
-  MODIFY `subId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `Tasks`
 --
 ALTER TABLE `Tasks`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `Theme`
 --
 ALTER TABLE `Theme`
-  MODIFY `themeId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `themeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -245,7 +280,3 @@ ALTER TABLE `TasksInLabelRel`
 --
 ALTER TABLE `User`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`themeId`) REFERENCES `Theme` (`themeId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
