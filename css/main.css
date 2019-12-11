@@ -22,3 +22,7 @@ body {
 #content {
     position: relative;
 }
+
+#content *{
+    margin: auto;
+}

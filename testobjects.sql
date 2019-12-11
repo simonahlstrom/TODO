@@ -29,8 +29,3 @@ INSERT INTO `TasksInLabelRel` (`taskId`, `labelId`) VALUES
 
 
 
-
-
-
-INSERT INTO `TasksInLabelRel` (`taskId`, `labelId`) VALUES
-(1, 1);

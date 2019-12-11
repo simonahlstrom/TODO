@@ -31,9 +31,7 @@ function getTaskAndLabelData(userId) {
     //Fetches all labelData
     $.get("php/getAllLabelData.php", {userId: userId})
     .done((data)=>{
-        
         data = JSON.parse(data)
-        cl(data)
 
         for (let i=0; i<data[0].length; i++) {
             allLabels.push(new Label(data[0][i]))
@@ -43,24 +41,44 @@ function getTaskAndLabelData(userId) {
                 if(data[1][j].labelId == allLabels[allLabels.length-1].labelId) {
                     allLabels[allLabels.length-1].taskIds.push(data[1][j].taskId)
                 }
-            }
-
-            
+            }  
         }
-
-
-
     })
     .fail(error)
 
 
-    // $.get("php/getAllTaskData.php", {userId: userId})
-    // .done((data)=>{
-    //     data = JSON.parse(data)
-    //     cl(data)
+    $.get("php/getAllTaskData.php", {userId: userId})
+    .done((data)=>{
+        data = JSON.parse(data)
+        cl(data)
+        //data[0] = array of subTaskobjects
+        //data[1] = array of Taskobjects 
 
-    // })
-    // .fail(error)
+       //puts the right labelObject in the taskobject
+        for (let i=0; i<data[1].length; i++){
+            let label
+            for (let j=0; j<allLabels.length; j++){
+                if (allLabels[j].taskIds.includes(data[1][i].taskId.toString())) {
+                    label = allLabels[j]
+                } 
+            }
+            
+        //adds the task into allTask-array
+            allTasks.push(new Task(data[1][i], label))
+
+        //puts the tasks subtasksin in the subtaskproperty
+            for (let j=0; j<data[0].length; j++) {
+                if (data[0][j].taskId == data[1][i].taskId) {
+                    allTasks[allTasks.length-1].subtasks.push(data[0][j])
+                }
+
+            }
+
+           
+        }
+
+    })
+    .fail(error)
 }
 
 
