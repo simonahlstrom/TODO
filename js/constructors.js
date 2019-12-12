@@ -38,10 +38,14 @@ function Task(data, objLabel) {
   this.done = false
   this.subtasks = []
   this.taskMembers = []
+  this.urgent
   
   this.subDL = function() {
-    //code functionality to get deadline from this.subtasks
+    let a = this.subtasks.sort((a, b) => (a.deadline > b.deadline) ? 1 : -1)
+    this.urgent = a[0].deadline
   }
+
+  this.createTask
   
   // this.createTask = function() {
   //   // create task w/ icon from labelobject
