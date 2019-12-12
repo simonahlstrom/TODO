@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/simon.css">
     <title>TODO</title>
 </head>
 <body>
@@ -18,15 +20,16 @@
       </div>
     </header>
     <main>
-      <div id="content"></div>
+      <div id="content">
+        <div id="popup" class="popup flex"></div>
+      </div>
     </main>
     <div id="controlBar">
-      <div id="controls">
+      <div id="controls" class="flex">
         <div id="home">H</div>
         <div id="filter">F</div>
         <div id="completed">C</div>
         <div id="add">A</div>
-        <div id="shareContainer"></div>
       </div>
     </div>
   </div>
@@ -36,5 +39,6 @@
   <script src="js/constructors.js"></script>
   <script src="js/functions.js"></script>
   <script src="js/setup.js"></script>
+  <script src="js/simon.js"></script>
 </body>
 </html>

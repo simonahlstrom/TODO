@@ -1,6 +1,6 @@
 
 //Runs editTask with action to create new task
-$('#add').click(function() {editTask("new")})
+$('#add').click(function() {editTask(0)})
 
 function cl(x) {
   console.log(x)
@@ -25,153 +25,328 @@ function makeid(length) {
 }
 
 //function to edit or create a new task
-function editTask (i, action) {
+function editTask (a) {
+  $('#content').html("")
 
-  //Name of task input
-  $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
-  $('<input>', {
-    "id": "taskNameInput",
-    type: "text",
-    appendTo: "#content"
-  })
-
-  //Label dropdown
-  $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
-  $('<select>', {
-    "id": "labelSelect",
-    value: "label",
-    appendTo: "#content"
-  })
-
-  //Add subtask button, input, click function
-  $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
-  $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
-
-  $('<input>', {
-    "id": "subtaskNameInput",
-    type: "text",
-    appendTo: "#subtaskInputs"
-  })
-
-  $('<input>', {
-    "id": "addSubtask",
-    "class": "round",
-    type: "button",
-    value: "",
-    appendTo: "#subtaskInputs"
-  }).click(function() {
-    //adds substask to subtaskContainer
-    $('<div>', {
-      html: "Name: " + $('#subtaskNameInput').val() + " Deadline: " + $('#date').val() + " Share ID " + makeid(4),
-      appendTo: "#subtaskContainer"
-    })
-    prepareSubtasks($('#subtaskNameInput').val(), makeid(4))
-  })
-
-  $('<label>', {for: "radioAll", html: "All", appendTo: "#content"})
-  $('<input>', {
-    "id": "radioAll",
-    name: "radio",
-    type: "radio",
-    checked: true,
-    appendTo: "#content",
-    change: function(checked) {
-      $('#date').remove()
-      $('label[for="date"]').remove()
-    }
-  })
-
-  $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#content"})
-  $('<input>', {
-    "id": "radioDeadline",
-    name: "radio",
-    type: "radio",
-    checked: false,
-    appendTo: "#content",
-    change: function(checked) {
-      if (checked) {
-        $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
-        $('<input>', {
-          "id": "date",
-          type: "text",
-          appendTo: "#dateContainer"
-        }).datepicker()
-      }
-    }
-  })
-
-  $('<label>', {for: "radioAlways", html: "Always", appendTo: "#content"})
-  $('<input>', {
-    "id": "radioAlways",
-    name: "radio",
-    type: "radio",
-    checked: false,
-    appendTo: "#content",
-    change: function(checked) {
-      $('#date').remove()
-      $('label[for="date"]').remove()
-    }
-  })
-
-  $('<div>', {
-    "id": "dateContainer",
-    appendTo: "#content"
-  })
-
-  //Subtask list
-  $('<div>', {html: "Subtasks", appendTo: "#content"}).css("font-size", "20px")
-  $('<div>', {
-    "id": "subtaskContainer",
-    appendTo: "#content"
-  }).css({
-    width: "80vw",
-    height: "100px",
-    border: "2px solid lightgray"
-  })
-
-
-  labels.forEach(function(item) {
-    $('<option>', {
-      value: item,
-      html: item,
-      appendTo: "#labelSelect"
-    })
-  })
-
-
-  //Edit buttons
-  $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
-  editTaskButtons.forEach(function(item) {
+  if (a == "new") {
+    let code = makeid(4)
+    //Name of task input
+    $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
     $('<input>', {
-      "class": "flex",
-      "id": "editTaskButton" + item,
-      value: item,
-      type: "button",
-      appendTo: "#buttonContainer"
-    }).click(function() {
-      if(item == "Save") {
-        console.log("New task saved")
-        //Save to DB
-      } else if (item == "Delete") {
-        console.log("Task deleted")
-        //Popup, remove from DB
+      "id": "taskNameInput",
+      type: "text",
+      appendTo: "#content"
+    })
+
+    //Label dropdown
+    $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
+    $('<select>', {
+      "id": "labelSelect",
+      value: "label",
+      appendTo: "#content"
+    })
+
+
+    let active = true
+    $('<div>', {html: "Share code: " + code, appendTo: "#content", "id": "shareCode"})
+    $('<input>', {type: "checkbox", appendTo: "#shareCode", change: function() {    
+      if (active) {
+        active = false
+        $('<div>', {"id": "shareContainer", appendTo: "#shareCode"}).css({
+          minHeight: "100px",
+          border: "2px solid lightgray"
+        })
       } else {
-        //return to Home
+        $('#shareContainer').remove()
+        active = true}
+    }})
+
+    //Add subtask button, input, click function
+    $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
+    $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
+
+    $('<input>', {
+      "id": "subtaskNameInput",
+      type: "text",
+      appendTo: "#subtaskInputs"
+    })
+
+    $('<input>', {
+      "id": "addSubtask",
+      type: "button",
+      value: "+",
+      appendTo: "#subtaskInputs"
+    }).click(function() {
+      //adds substask to subtaskContainer
+      prepareSubtasks($('#subtaskNameInput').val(), makeid(4))
+      $('<div>', {
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + subtaskArray[subtaskArray.length-1][2],
+        appendTo: "#subtaskContainer"
+      })
+    })
+
+    $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
+    $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
+    $('<input>', {
+      "id": "radioAll",
+      name: "radio",
+      type: "radio",
+      checked: true,
+      appendTo: "#radioAllContainer",
+      change: function(checked) {
+        $('#date').remove()
+        $('label[for="date"]').remove()
       }
     })
-  })
+
+    $('<div>', {"id": "radioDeadlineContainer", appendTo: "#content"})
+    $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#radioDeadlineContainer"})
+    $('<input>', {
+      "id": "radioDeadline",
+      name: "radio",
+      type: "radio",
+      checked: false,
+      appendTo: "#radioDeadlineContainer",
+      change: function(checked) {
+        if (checked) {
+          $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
+          $('<input>', {
+            "id": "date",
+            type: "text",
+            appendTo: "#dateContainer"
+          }).datepicker()
+        }
+      }
+    })
+
+    $('<div>', {"id": "radioAlwaysContainer", appendTo: "#content"})
+    $('<label>', {for: "radioAlways", html: "Always", appendTo: "#radioAlwaysContainer"})
+    $('<input>', {
+      "id": "radioAlways",
+      name: "radio",
+      type: "radio",
+      checked: false,
+      appendTo: "#radioAlwaysContainer",
+      change: function(checked) {
+        $('#date').remove()
+        $('label[for="date"]').remove()
+      }
+    })
+
+    $('<div>', {
+      "id": "dateContainer",
+      appendTo: "#radioDeadlineContainer"
+    })
+
+    //Subtask list
+    $('<div>', {html: "Subtasks", appendTo: "#content"}).css("font-size", "20px")
+    $('<div>', {
+      "id": "subtaskContainer",
+      appendTo: "#content"
+    }).css({
+      minHeight: "100px",
+      border: "2px solid lightgray"
+    })
 
 
-  if (action != "new") {
-    //prefilled inputs from obj
+    allLabels.forEach(function(item) {
+      $('<option>', {
+        value: item.labelName,
+        html: item.labelName,
+        appendTo: "#labelSelect"
+      })
+    })
+
+
+    //Edit buttons
+    $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
+    editTaskButtons.forEach(function(item) {
+      $('<input>', {
+        "class": "flex",
+        "id": "editTaskButton" + item,
+        value: item,
+        type: "button",
+        appendTo: "#buttonContainer"
+      }).click(function() {
+        if(item == "Save") {
+          console.log("New task saved")
+          //Save to DB
+        } else if (item == "Delete") {
+          console.log("Task deleted")
+          //Popup, remove from DB
+        } else {
+          //return to Home
+        }
+      })
+    })
+  } else {
+
+    let obj = allTasks[a]
+    //Name of task input
+    $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
+    $('<input>', {
+      "id": "taskNameInput",
+      type: "text",
+      value: obj.taskName,
+      appendTo: "#content"
+    })
+
+    //Label dropdown
+    $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
+    $('<select>', {
+      "id": "labelSelect",
+      value: "label",
+      appendTo: "#content"
+    })
+
+
+    let active = true
+    $('<div>', {html: "Share code: " + obj.shareCode, appendTo: "#content", "id": "shareCode"})
+    $('<input>', {type: "checkbox", appendTo: "#shareCode", change: function() {    
+      if (active) {
+        active = false
+        $('<div>', {"id": "shareContainer", appendTo: "#shareCode"}).css({
+          minHeight: "100px",
+          border: "2px solid lightgray"
+        })
+      } else {
+        $('#shareContainer').remove()
+        active = true}
+    }})
+
+    //Add subtask button, input, click function
+    $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
+    $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
+
+    $('<input>', {
+      "id": "subtaskNameInput",
+      type: "text",
+      appendTo: "#subtaskInputs"
+    })
+
+    $('<input>', {
+      "id": "addSubtask",
+      type: "button",
+      value: "+",
+      appendTo: "#subtaskInputs"
+    }).click(function() {
+      //adds substask to subtaskContainer
+      prepareSubtasks($('#subtaskNameInput').val(), "")
+      $('<div>', {
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + subtaskArray[subtaskArray.length-1][2],
+        appendTo: "#subtaskContainer"
+      })
+    })
+
+    $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
+    $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
+    $('<input>', {
+      "id": "radioAll",
+      name: "radio",
+      type: "radio",
+      checked: true,
+      appendTo: "#radioAllContainer",
+      change: function(checked) {
+        $('#date').remove()
+        $('label[for="date"]').remove()
+      }
+    })
+
+    $('<div>', {"id": "radioDeadlineContainer", appendTo: "#content"})
+    $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#radioDeadlineContainer"})
+    $('<input>', {
+      "id": "radioDeadline",
+      name: "radio",
+      type: "radio",
+      checked: false,
+      appendTo: "#radioDeadlineContainer",
+      change: function(checked) {
+        if (checked) {
+          $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
+          $('<input>', {
+            "id": "date",
+            type: "text",
+            appendTo: "#dateContainer"
+          }).datepicker()
+        }
+      }
+    })
+
+    $('<div>', {"id": "radioAlwaysContainer", appendTo: "#content"})
+    $('<label>', {for: "radioAlways", html: "Always", appendTo: "#radioAlwaysContainer"})
+    $('<input>', {
+      "id": "radioAlways",
+      name: "radio",
+      type: "radio",
+      checked: false,
+      appendTo: "#radioAlwaysContainer",
+      change: function(checked) {
+        $('#date').remove()
+        $('label[for="date"]').remove()
+      }
+    })
+
+    $('<div>', {
+      "id": "dateContainer",
+      appendTo: "#radioDeadlineContainer"
+    })
+
+    //Subtask list
+    $('<div>', {html: "Subtasks", appendTo: "#content"}).css("font-size", "20px")
+    $('<div>', {
+      "id": "subtaskContainer",
+      appendTo: "#content"
+    }).css({
+      minHeight: "100px",
+      border: "2px solid lightgray"
+    })
+
+
+      allLabels.forEach(function(item) {
+      $('<option>', {
+        value: item.labelName,
+        html: item.labelName,
+        appendTo: "#labelSelect"
+      })
+    })
+
+    allTasks[a].subtasks.forEach(function(item) {
+      prepareSubtasks(item.subName, item.subId)
+      $('<div>', {
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + item.deadline,
+        appendTo: "#subtaskContainer"
+      })
+    })
+
+
+    //Edit buttons
+    $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
+    editTaskButtons.forEach(function(item) {
+      $('<input>', {
+        "class": "flex",
+        "id": "editTaskButton" + item,
+        value: item,
+        type: "button",
+        appendTo: "#buttonContainer"
+      }).click(function() {
+        if(item == "Save") {
+          console.log("New task saved")
+          //Save to DB
+        } else if (item == "Delete") {
+          console.log("Task deleted")
+          //Popup, remove from DB
+        } else {
+          //return to Home
+        }
+      })
+    })
   }
 }
 
-function prepareSubtasks(name, code, subId) {
+function prepareSubtasks(name, subId) {
   subtaskArray.push([])
   subtaskArray[subtaskArray.length-1].push(subId)
   subtaskArray[subtaskArray.length-1].push(name)
-  subtaskArray[subtaskArray.length-1].push(code)
 
   if ($('#radioAll:checked').val()) {
     subtaskArray[subtaskArray.length-1].push(document.querySelector('label[for="radioAll"]').innerHTML)
@@ -180,5 +355,4 @@ function prepareSubtasks(name, code, subId) {
   } else {
     subtaskArray[subtaskArray.length-1].push($('#date').val())
   }
-  cl(subtaskArray)
 }
