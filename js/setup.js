@@ -7,7 +7,7 @@ function updateTheme(theme) {
     })
 }
 
-function Setup (userId) {
+function setup (userId) {
     $.get("php/getUserData.php", {userId: userId})
     .done((data)=>{
         data = JSON.parse(data)
@@ -31,6 +31,7 @@ function getTaskAndLabelData(userId) {
     $.get("php/getAllLabelData.php", {userId: userId})
     .done((data)=>{
         data = JSON.parse(data)
+        allLabels = []
 
         for (let i=0; i<data[0].length; i++) {
             allLabels.push(new Label(data[0][i]))
@@ -49,6 +50,7 @@ function getTaskAndLabelData(userId) {
             cl(data)
             //data[0] = array of subTaskobjects
             //data[1] = array of Taskobjects
+            allTasks = []
 
         //puts the right labelObject in the taskobject
             for (let i=0; i<data[1].length; i++) {
@@ -98,4 +100,4 @@ function getTaskAndLabelData(userId) {
 }
 
 
-Setup(2)
+setup(2)

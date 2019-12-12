@@ -15,7 +15,7 @@ $sql->execute();
 $answer1 = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
 //get tasks
-$query = "SELECT Tasks.* FROM User 
+$query = "SELECT Tasks.*, TaskMembers.creator FROM User 
 JOIN TaskMembers ON User.userId=TaskMembers.userId
 JOIN Tasks ON TaskMembers.taskId=Tasks.taskId
 WHERE TaskMembers.userId = ?";
