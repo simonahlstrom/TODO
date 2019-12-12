@@ -1,6 +1,6 @@
 
 //Runs editTask with action to create new task
-$('#add').click(function() {editTask(0)})
+$('#add').click(function() {editTask("new")})
 
 function cl(x) {
   console.log(x)
@@ -10,8 +10,6 @@ function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
     console.log(errorThrown)
   }
-
-
 
 //Generate share code func
 function makeid(length) {
@@ -151,7 +149,7 @@ function editTask (a) {
 
     allLabels.forEach(function(item) {
       $('<option>', {
-        value: item.labelName,
+        value: item.labelId,
         html: item.labelName,
         appendTo: "#labelSelect"
       })
@@ -169,8 +167,7 @@ function editTask (a) {
         appendTo: "#buttonContainer"
       }).click(function() {
         if(item == "Save") {
-          console.log("New task saved")
-          //Save to DB
+          saveTask(code)
         } else if (item == "Delete") {
           console.log("Task deleted")
           //Popup, remove from DB
@@ -355,4 +352,22 @@ function prepareSubtasks(name, subId) {
   } else {
     subtaskArray[subtaskArray.length-1].push($('#date').val())
   }
+}
+
+function saveTask(code) {
+  code = code
+
+  $.get('php/uploadTask.php', {
+    taskName: $('#taskNameInput').val(),
+     labelId: $('#labelSelect').val(),
+     code: code,
+     userId: User.userId
+    })
+
+    .done(function(data){
+      cl(data)
+    })
+    .fail(error)
+  
+  
 }
