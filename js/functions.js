@@ -413,7 +413,7 @@ function saveSubtask() {
 
   subtaskArray.forEach(function(item) {
     $.get('php/uploadSubtask.php', {
-      subtaskName: $('#taskNameInput').val(),
+      subtaskName: item[0],
       deadline: $('#dead').val(),
       code: code,
       userId: user.userId
