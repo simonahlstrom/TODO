@@ -1,6 +1,6 @@
 // GENERAL FUNCTIONS
 // info about user from cookies, logged in or not
-let loggedIn = false
+let loggedIn = true
 let timeout = true
 
 // create a popup to be removed with external clickevent or timeout if the timeout parameter is passed
@@ -138,3 +138,4 @@ function login() {
 }
 
 init()
+setup(2)

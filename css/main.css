@@ -15,18 +15,9 @@ body {
     align-items: center;
 }
 
-
-
-
-/* #content *{
-    margin: auto;
+#controls > div {
+  cursor: pointer;
 }
-
-label { float: left; width: 10em; margin-right: 1em;}
-
-select {width: 144px;}
- */
-
 
 
 /* SIMONS CSS */
@@ -116,3 +107,13 @@ border: 1px solid black;
     justify-content: space-between;
     align-items: center;
 }
+
+
+/* #content *{
+    margin: auto;
+}
+
+label { float: left; width: 10em; margin-right: 1em;}
+
+select {width: 144px;}
+ */
