@@ -71,9 +71,15 @@ function register() {
         })
         .done((data) => {
           data = JSON.parse(data)
-          userId = data
-          cl(userId)
+          userdata = data
           hidePopup()
+          $.get('php/add.php', userdata[0])
+          .done((data) => {
+            setup(data)
+          })
+          .fail((error) => {
+            cl(error)
+          })
           // home()
         })
         .fail((error) => {
@@ -81,7 +87,6 @@ function register() {
         })
       } else {
         $("#popup").append($("<p>Passwords don't match</p>"))
-        cl("Passwords don't match")
       }
     })
   ]
