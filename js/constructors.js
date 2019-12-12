@@ -45,7 +45,9 @@ function Task(data, objLabel) {
     this.urgent = a[0].deadline
   }
 
-  this.createTask
+  this.element = function() {
+    let element = ("div" )
+  }
   
   // this.createTask = function() {
   //   // create task w/ icon from labelobject

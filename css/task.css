@@ -1,0 +1,12 @@
+#task1 div{
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.taskHead{
+    display: flex;
+}
+
+.subtasks div {
+    display: flex;
+}
