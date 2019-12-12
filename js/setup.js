@@ -7,7 +7,7 @@ function updateTheme(theme) {
     })
 }
 
-function Setup (userId) {
+function setup (userId) {
     $.get("php/getUserData.php", {userId: userId})
     .done((data)=>{
         data = JSON.parse(data)
@@ -96,6 +96,3 @@ function getTaskAndLabelData(userId) {
     
 
 }
-
-
-Setup(2)

@@ -50,44 +50,47 @@ function register() {
     $('<label for="email">E-mail: </label>'),
     $('<input type="text" name="email" id="email">'),
     $('<label for="password">Password: </label>'),
-    $('<input type="text" name="password" id="password">'),
+    $('<input type="password" name="password" id="password">'),
     $('<label for="passwordControl">Repeat password: </label>'),
-    $('<input type="text" name="passwordControl" id="passwordControl">'),
+    $('<input type="password" name="passwordControl" id="passwordControl">'),
     $('<label for="occupation">(Optional) Occupation: </label>'),
     $('<input type="text" name="occupation" id="occupation">'),
-    $('<input type="button" value="Submit" class="button">').click(() => {
-      if ($("#password").val() == $("#passwordControl").val()) {
-        let username = $("#username").val()
-        let email = $("#email").val()
-        let password = $("#password").val()
-        let occupation = $("#occupation").val()
-
-        $.get('php/register.php', {
-          username: username,
-          email: email,
-          password: password,
-          occupation: occupation
-        })
-        .done((data) => {
-          data = JSON.parse(data)
-          userdata = data
-          hidePopup()
-          $.get('php/add.php', userdata[0])
+    $("<div class='buttonContainer'>").append(
+      $('<input type="button" value="&#8617" class="button">').click(() => { init()}),
+      $('<input type="button" value="Submit" class="button">').click(() => {
+        if ($("#password").val() == $("#passwordControl").val()) {
+          let username = $("#username").val()
+          let email = $("#email").val()
+          let password = $("#password").val()
+          let occupation = $("#occupation").val()
+  
+          $.get('php/register.php', {
+            username: username,
+            email: email,
+            password: password,
+            occupation: occupation
+          })
           .done((data) => {
-            setup(data)
+            data = JSON.parse(data)
+            userdata = data
+            hidePopup()
+            $.get('php/add.php', userdata[0])
+            .done((data) => {
+              setup(data)
+            })
+            .fail((error) => {
+              cl(error)
+            })
+            // home()
           })
           .fail((error) => {
             cl(error)
           })
-          // home()
-        })
-        .fail((error) => {
-          cl(error)
-        })
-      } else {
-        $("#popup").append($("<p>Passwords don't match</p>"))
-      }
-    })
+        } else {
+          $("#popup").append($("<p>Passwords don't match</p>"))
+        }
+      })
+    ),
   ]
 
   popup(registerUI)
@@ -98,40 +101,41 @@ function login() {
     $('<label for="username">Username: </label>'),
     $('<input type="text" name="username" id="username">'),
     $('<label for="password">Password: </label>'),
-    $('<input type="text" name="password" id="password">'),
-    $('<input type="button" value="Log In" class="button">').click(() => {
-      if ($("#username").val() && $("#password").val()) {
-        let username = $("#username").val()
-        let password = $("#password").val()
-        $.get('php/login.php', {
-          username: username,
-          password: password
-        })
-        .done((data) => {
-          cl("DONE")
-          data = JSON.parse(data)
-          userId = data[0].userId
-          cl(userId)
-  
-          if (userId) {
-            setup(userId)
-          } else {
-            $("#popup").append($("<p>Username and password does not match</p>"))
-            setTimeout(() => {
-              $("#popup p").remove()
-            }, 2000)
-          }
-        })
-        .fail((error) => {
-          cl(error)
-        })
-      } else {
-        $("#popup").append($("<p>Please fill in both fields</p>"))
-        setTimeout(() => {
-          $("#popup p").remove()
-        }, 2000)
-      }
-    })
+    $('<input type="password" name="password" id="password">'),
+    $("<div class='buttonContainer'>").append(
+      $('<input type="button" value="&#8617" class="button">').click(() => { init()}),
+      $('<input type="button" value="Log In" class="button">').click(() => {
+        if ($("#username").val() && $("#password").val()) {
+          let username = $("#username").val()
+          let password = $("#password").val()
+          $.get('php/login.php', {
+            username: username,
+            password: password
+          })
+          .done((data) => {
+            data = JSON.parse(data)
+            console.log(data)
+    
+            if (data[0] != undefined) {
+              setup(data[0].userId)
+              hidePopup()
+            } else {
+              $("#popup").append($("<p>Username and password does not match</p>"))
+              setTimeout(() => {
+                $("#popup p").remove()
+              }, 2000)
+            }
+          })
+          .fail((error) => {
+            cl(error)
+          })
+        } else {
+          $("#popup").append($("<p>Please fill in both fields</p>"))
+          setTimeout(() => {
+            $("#popup p").remove()
+          }, 2000)
+        }
+    }))
   ]
 
   popup(loginUI)

@@ -1,6 +1,7 @@
 body {
   font-family: 'Fira Sans Condensed', sans-serif;
   margin: 0px;
+  transition: background-color .3s ease, color .3s ease;
 }
 
 .popup {
@@ -11,7 +12,7 @@ body {
   background-color: var(--mainColor);
   border: 1px solid grey;
   border-radius: 10px;
-  transition: opacity .5s ease;
+  transition: opacity .3s ease;
   justify-content: flex-start;
   width: calc(100vw - 52px);
 }
@@ -49,22 +50,23 @@ main {
   height: 30px;
   margin: 10px;
   border-radius: 10px;
-  border: 2px solid var(--accentColor);
+  background-color: var(--accentColor);
   font-family: 'Fira Sans Condensed', sans-serif;
   font-size: 15px;
   transition: all .2s;
-}
-
-.button:hover {
-  background-color: var(--accentColor);
   color: var(--mainColor);
 }
+
+/* .button:hover {
+  background-color: var(--accentColor);
+  color: var(--mainColor);
+} */
 
 label {
   margin: 5px;
 }
 
-#popup input[type="text"], #popup label {
+#popup input[type="text"], #popup input[type="password"], #popup label {
   width: 80%;
   height: 20px;
   text-align: left;
