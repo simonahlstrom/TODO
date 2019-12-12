@@ -15,10 +15,13 @@ body {
     align-items: center;
 }
 
-.round {
-    border-radius: 50%;
-}
 
 #content *{
     margin: auto;
+    margin-top: 10px;
 }
+
+label { float: left; width: 10em; margin-right: 1em;}
+
+select {width: 144px;}
+
