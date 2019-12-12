@@ -1,6 +1,7 @@
 // GENERAL FUNCTIONS
 // info about user from cookies, logged in or not
 let loggedIn = false
+let timeout = true
 
 // create a popup to be removed with external clickevent or timeout if the timeout parameter is passed
 function popup(message, timeout) {
@@ -31,7 +32,7 @@ function init() {
       $("<h2>Welcome!</h2>"),
       $("<div>Welcome to this app, it will do things to make your life easier. Here we'll explain exactly how it works and why it's amazing.</div>"),
       $("<div class='buttonContainer'>").append(
-        $('<input type="button" value="Login" class="button">').click(() => {
+        $('<input type="button" value="Log In" class="button">').click(() => {
         login()
       }),
       $('<input type="button" value="Register" class="button">').click(() => {
@@ -55,9 +56,7 @@ function register() {
     $('<label for="occupation">(Optional) Occupation: </label>'),
     $('<input type="text" name="occupation" id="occupation">'),
     $('<input type="button" value="Submit" class="button">').click(() => {
-      cl("ONE")
       if ($("#password").val() == $("#passwordControl").val()) {
-        cl("TWO")
         let username = $("#username").val()
         let email = $("#email").val()
         let password = $("#password").val()
@@ -95,25 +94,47 @@ function register() {
 }
 
 function login() {
-  $("#login").click(() => {
-    if ($("#username").val() && $("#password").val()) {
-      $.get('login.php', {
-        username: username,
-        password: password
-      })
-      .done((data) => {
-        data = JSON.parse(data)
-        userId = data[0]
+  let loginUI = [
+    $('<label for="username">Username: </label>'),
+    $('<input type="text" name="username" id="username">'),
+    $('<label for="password">Password: </label>'),
+    $('<input type="text" name="password" id="password">'),
+    $('<input type="button" value="Log In" class="button">').click(() => {
+      if ($("#username").val() && $("#password").val()) {
+        let username = $("#username").val()
+        let password = $("#password").val()
+        $.get('php/login.php', {
+          username: username,
+          password: password
+        })
+        .done((data) => {
+          cl("DONE")
+          data = JSON.parse(data)
+          userId = data[0].userId
+          cl(userId)
+  
+          if (userId) {
+            setup(userId)
+          } else {
+            $("#popup").append($("<p>Username and password does not match</p>"))
+            setTimeout(() => {
+              $("#popup p").remove()
+            }, 2000)
+          }
+        })
+        .fail((error) => {
+          cl(error)
+        })
+      } else {
+        $("#popup").append($("<p>Please fill in both fields</p>"))
+        setTimeout(() => {
+          $("#popup p").remove()
+        }, 2000)
+      }
+    })
+  ]
 
-        if (userId) {
-          // home()
-        } else {
-          let message = ["Login failed"]
-          popup(message, timeout)
-        }
-      })
-    }
-  })
+  popup(loginUI)
 }
 
 init()
