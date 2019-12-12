@@ -76,11 +76,12 @@ function Task(data, objLabel) {
 
 
 sharedContainer = function(obj) {
- 
+  if (obj.creator){
     $("<p>", {
       html: "Share code: " + obj.shareCode,
       appendTo: "#shareContainer"
     })
+  }
 
     $("<div>", {
       "id": "taskMembers",

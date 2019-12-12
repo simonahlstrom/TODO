@@ -98,6 +98,3 @@ function getTaskAndLabelData(userId) {
     
 
 }
-
-
-setup(2)
