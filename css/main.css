@@ -97,9 +97,15 @@ body {
 
 /* create task css */
 
-  #shareContainer {
-    width: 95vw;
-    border: 1px solid black;
+#shareContainer {
+width: 95vw;
+border: 1px solid black;
+}
+
+#shareContainer div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
