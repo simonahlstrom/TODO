@@ -1,5 +1,5 @@
 :root {
-    --maincolor: beige;
+    --mainColor: beige;
     --accentColor: blue;
     --subColor: red;
 }
@@ -19,10 +19,6 @@ body {
     border-radius: 50%;
 }
 
-#content {
-    position: relative;
-}
-
-#content *{
+/* #content *{
     margin: auto;
-}
+} */
