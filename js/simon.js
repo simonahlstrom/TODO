@@ -23,6 +23,16 @@ function hidePopup() {
   $("#popup").removeClass("active")
 }
 
+// function to click buttons w/ enter-key, DOES NOT WORK YET, maybe fix later
+// let buttons = $(".button")
+// for (let button of buttons) {
+//   button.addEventListener("keyup", (e) => {
+//     if (e.keyCode === 13) {
+//       button.click()
+//     }
+//   })
+// }
+
 // handling login and welcome message
 function init() {
   if (loggedIn) {
