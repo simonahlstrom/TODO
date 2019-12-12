@@ -38,57 +38,6 @@ function Task(data, objLabel) {
   this.done = false
   this.subtasks = []
   this.taskMembers = []
-
-  
-  // create subtasks (currently based on submitting a form)
-  this.createSubtask = function() {
-    // let form = $('<form>', {'id': 'subtaskForm'})
-    
-    // let nameLabel = $('<label>', {
-    //   for: name, 
-    //   html: 'Name of subtask'
-    // })
-    // let dlLabel = $('<label>', {
-    //   for: dl, 
-    //   html: 'Does this subtask have a deadline?'
-    // })
-    
-    // let name = $('<input type=text>', {'id': 'subtaskName',})
-    // let dl = $('<input type=date>', {'id': 'deadline'})
-    
-    let submit = $('<input type=submit>', {
-      'id': 'subtaskSubmit'
-      // will this work here? test it
-    }).click((e) => {
-      e.preventDefault()
-
-      // fill subtask-object with values to be posted
-      let subtask = {
-        subName: name.val(),
-        deadline: dl.val(),
-        completed: 0,
-        claimedName: 0,
-        userId: user.userId,
-        taskId: this.taskId
-      }
-
-      // posts the subtask to DB
-      $.get('../php/postSubtask.php', subtask)
-      .done((data) => {
-        let response = JSON.parse(data)
-        // cl is just a function that c.logs the parameter passed to it
-        cl(response)
-      })
-      .fail((error) => {
-        cl(error)
-      })
-    })
-
-    // $(form).append(nameLabel, name, dlLabel, dl, submit)
-    // $('APPEND FORM HERE').append(form)
-
-    // return subtask
-  }
   
   this.subDL = function() {
     //code functionality to get deadline from this.subtasks
@@ -126,23 +75,43 @@ function Task(data, objLabel) {
 
 
 
-sharedContainer = function() {
- 
+sharedContainer = function(obj) {
+  if (obj.creator){
     $("<p>", {
-      html: "Share code: " + this.shareCode,
+      html: "Share code: " + obj.shareCode,
       appendTo: "#shareContainer"
     })
+  }
 
     $("<div>", {
       "id": "taskMembers",
       appendTo: "#shareContainer"
     })
 
-    data.forEach(function(obj) {
+    obj.taskMembers.forEach(function(item) {
+      let owner
+
       $("<div>", {
-        html: obj.username,
+        class: "taskMember",
+        html: "<div>" + item.username + "</div>",
         appendTo: "#shareContainer"
+      }).css({
+        height: "20px"
       })
+
+      if(user.userId == item.userId) {
+        owner = $("<div>", {
+          html: "(o)",
+          appendTo: ".taskMember:last-child"
+
+        }).css({
+          height: "20px",
+          width: "20px",
+          border: "1px solid var(--accentColor)",
+          borderRadius: "50%",
+          padding: "3px",
+        })
+      } 
     })
   //create interface
 
