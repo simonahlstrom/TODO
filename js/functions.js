@@ -54,6 +54,7 @@ function editTask (a) {
           minHeight: "100px",
           border: "2px solid lightgray"
         })
+
       } else {
         $('#shareContainer').remove()
         active = true}
@@ -76,7 +77,7 @@ function editTask (a) {
       appendTo: "#subtaskInputs"
     }).click(function() {
       //adds substask to subtaskContainer
-      prepareSubtasks($('#subtaskNameInput').val(), makeid(4))
+      prepareSubtasks($('#subtaskNameInput').val())
       $('<div>', {
         html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + subtaskArray[subtaskArray.length-1][2],
         appendTo: "#subtaskContainer"
@@ -206,6 +207,44 @@ function editTask (a) {
           minHeight: "100px",
           border: "2px solid lightgray"
         })
+
+        /* if (obj.creator){
+          $("<p>", {
+            html: "Share code: " + obj.shareCode,
+            appendTo: "#shareContainer"
+          })
+        }
+      
+          $("<div>", {
+            appendTo: "#shareContainer"
+          })
+      
+          obj.taskMembers.forEach(function(item) {
+            let owner
+      
+            $("<div>", {
+              class: "taskMember",
+              html: "<div>" + item.username + "</div>",
+              appendTo: "#shareContainer"
+            }).css({
+              height: "20px"
+            })
+      
+            if(user.userId == item.userId) {
+              owner = $("<div>", {
+                html: "(o)",
+                appendTo: ".taskMember:last-child"
+      
+              }).css({
+                height: "20px",
+                width: "20px",
+                border: "1px solid var(--accentColor)",
+                borderRadius: "50%",
+                padding: "3px",
+              })
+            }
+          }) */
+
       } else {
         $('#shareContainer').remove()
         active = true}
@@ -361,13 +400,29 @@ function saveTask(code) {
     taskName: $('#taskNameInput').val(),
      labelId: $('#labelSelect').val(),
      code: code,
-     userId: User.userId
+     userId: user.userId
     })
 
     .done(function(data){
       cl(data)
     })
     .fail(error)
+}
+
+function saveSubtask() {
+
+  subtaskArray.forEach(function(item) {
+    $.get('php/uploadSubtask.php', {
+      subtaskName: $('#taskNameInput').val(),
+      deadline: $('#dead').val(),
+      code: code,
+      userId: user.userId
+    })
   
+    .done(function(data){
+      cl(data)
+    })
+    .fail(error)
+  })
   
 }
