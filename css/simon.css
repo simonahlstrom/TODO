@@ -1,6 +1,7 @@
 body {
   font-family: 'Fira Sans Condensed', sans-serif;
   margin: 0px;
+  transition: background-color .3s ease, color .3s ease;
 }
 
 .popup {
@@ -11,7 +12,7 @@ body {
   background-color: var(--mainColor);
   border: 1px solid grey;
   border-radius: 10px;
-  transition: opacity .5s ease;
+  transition: opacity .3s ease;
   justify-content: flex-start;
   width: calc(100vw - 52px);
 }
@@ -25,6 +26,41 @@ header {
   background-color: var(--accentColor);
 }
 
+#header {
+  height: 100%;
+  justify-content: space-between;
+}
+
+#header > * {
+  flex-grow: 1;
+}
+
+#todoLogo {
+  color: var(--mainColor);
+  font-size: 35px;
+  margin-left: 10px;
+  justify-content: left;
+}
+
+#profileIcon, #mauLogo a {
+  height: 35px;
+  width: 35px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#profileIcon {
+  background-image: url(../icons/personIcon.png);
+}
+
+#mauLogo a {
+  background-image: url(../icons/mau.png);
+}
+
+#mauLogo {
+  justify-content: right;
+}
+
 main {
   height: 80vh;
   position: relative;
@@ -36,9 +72,33 @@ main {
   width: calc(100vw - 20px);
 }
 
+#controls {
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+#controls div {
+  height: 40px;
+  width: 40px;
+  background-size: cover;
+}
+
 #controlBar {
   height: 10vh;
   background-color: var(--subColor);
+}
+
+#home {
+  background-image: url(../icons/house.png);
+}
+#filter {
+  background-image: url(../icons/funnel.png);
+}
+#completed {
+  background-image: url(../icons/folder.png);
+}
+#add {
+  background-image: url(../icons/plus.png);
 }
 
 /* .buttonContainer {
@@ -49,22 +109,24 @@ main {
   height: 30px;
   margin: 10px;
   border-radius: 10px;
-  border: 2px solid var(--accentColor);
+  background-color: var(--accentColor);
   font-family: 'Fira Sans Condensed', sans-serif;
   font-size: 15px;
   transition: all .2s;
+  color: var(--mainColor);
+  border: none;
 }
 
-.button:hover {
+/* .button:hover {
   background-color: var(--accentColor);
   color: var(--mainColor);
-}
+} */
 
 label {
   margin: 5px;
 }
 
-#popup input[type="text"], #popup label {
+#popup input[type="text"], #popup input[type="password"], #popup label {
   width: 80%;
   height: 20px;
   text-align: left;
