@@ -33,13 +33,15 @@ header {
 
 #header > * {
   flex-grow: 1;
+  flex-basis: 100px;
 }
 
 #todoLogo {
   color: var(--mainColor);
-  font-size: 35px;
+  font-size: 30px;
   margin-left: 10px;
   justify-content: left;
+  font-family: 'Fredoka One', cursive;
 }
 
 #profileIcon, #mauLogo a {
@@ -51,6 +53,7 @@ header {
 
 #profileIcon {
   background-image: url(../icons/personIcon.png);
+  background-position: center;
 }
 
 #mauLogo a {
@@ -59,6 +62,7 @@ header {
 
 #mauLogo {
   justify-content: right;
+  margin-right: 10px;
 }
 
 main {
@@ -78,8 +82,8 @@ main {
 }
 
 #controls div {
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
   background-size: cover;
 }
 
