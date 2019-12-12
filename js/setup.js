@@ -26,7 +26,6 @@ function Setup (userId) {
 function getTaskAndLabelData(userId) {
     //varför börjar den ett steg upp i foldern?
     //hämtar data från DB
-
     
     //Fetches all labelData
     $.get("php/getAllLabelData.php", {userId: userId})
@@ -43,42 +42,59 @@ function getTaskAndLabelData(userId) {
                 }
             }  
         }
-    })
-    .fail(error)
 
+        $.get("php/getAllTaskData.php", {userId: userId})
+        .done((data)=>{
+            data = JSON.parse(data)
+            cl(data)
+            //data[0] = array of subTaskobjects
+            //data[1] = array of Taskobjects
 
-    $.get("php/getAllTaskData.php", {userId: userId})
-    .done((data)=>{
-        data = JSON.parse(data)
-        cl(data)
-        //data[0] = array of subTaskobjects
-        //data[1] = array of Taskobjects 
+        //puts the right labelObject in the taskobject
+            for (let i=0; i<data[1].length; i++) {
+                let label
+                let taskMembers
 
-       //puts the right labelObject in the taskobject
-        for (let i=0; i<data[1].length; i++){
-            let label
-            for (let j=0; j<allLabels.length; j++){
-                if (allLabels[j].taskIds.includes(data[1][i].taskId.toString())) {
-                    label = allLabels[j]
-                } 
-            }
-            
-        //adds the task into allTask-array
-            allTasks.push(new Task(data[1][i], label))
-
-        //puts the tasks subtasksin in the subtaskproperty
-            for (let j=0; j<data[0].length; j++) {
-                if (data[0][j].taskId == data[1][i].taskId) {
-                    allTasks[allTasks.length-1].subtasks.push(data[0][j])
+                for (let j=0; j<allLabels.length; j++){
+                    if (allLabels[j].taskIds.includes(data[1][i].taskId.toString())) {
+                        label = allLabels[j]
+                    } 
                 }
 
+                //adds the task into allTask-array
+                allTasks.push(new Task(data[1][i], label))
+
+                //puts the tasks subtasksin in the subtaskproperty
+                for (let j=0; j<data[0].length; j++) {
+                    if (data[0][j].taskId == data[1][i].taskId) {
+                        allTasks[allTasks.length-1].subtasks.push(data[0][j])
+                    }
+
+                }
+                
+                //puts Taskmembers into the task
+                $.get('php/getSharedData.php', {taskId: data[1][i].taskId})
+                .done(function(data){
+                taskMembers = JSON.parse(data)
+                console.log(allTasks[i])
+                
+                allTasks[i].taskMembers = taskMembers
+                
+                })
+                .fail(error)
+                
+                
             }
-
-           
-        }
-
+        })
+        .fail(error)
     })
     .fail(error)
+
+
+
+
+    
+
 }
 
 

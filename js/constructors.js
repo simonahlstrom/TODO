@@ -37,6 +37,8 @@ function Task(data, objLabel) {
   this.creator = data.creator
   this.done = false
   this.subtasks = []
+  this.taskMembers = []
+
   
   // create subtasks (currently based on submitting a form)
   this.createSubtask = function() {
@@ -67,8 +69,7 @@ function Task(data, objLabel) {
         completed: 0,
         claimedName: 0,
         userId: user.userId,
-        taskId: this.taskId,
-        labelId: this.labelId
+        taskId: this.taskId
       }
 
       // posts the subtask to DB
@@ -93,28 +94,57 @@ function Task(data, objLabel) {
     //code functionality to get deadline from this.subtasks
   }
   
-  this.createTask = function() {
-    // create task w/ icon from labelobject
-    let task = $('<div>')
-    let icon = this.label.element
-    let name = this.taskName
-    task.append(icon, name)
+  // this.createTask = function() {
+  //   // create task w/ icon from labelobject
+  //   let task = $('<div>')
+  //   let icon = this.label.element
+  //   let name = this.taskName
+  //   task.append(icon, name)
 
-    //create subtasks to present
-    for (let subtask of this.subtasks) {
-      let subtaskContainer = $('<div>')
-      let subName = $('<div>')
-      subName.html(
-        // get name from subtaskobject later 
-      )
+  //   //create subtasks to present
+  //   for (let subtask of this.subtasks) {
+  //     let subtaskContainer = $('<div>')
+  //     let subName = $('<div>')
+  //     subName.html(
+  //       // get name from subtaskobject later 
+  //     )
       
-      if (!this.creator) {
-        let claimBox = $('div', {
-          html: "CLAIM"
-        }).click(function() {
-          // code the function to claim subtask later
-        })
-      }
-    }
-  }
+  //     if (!this.creator) {
+  //       let claimBox = $('div', {
+  //         html: "CLAIM"
+  //       }).click(function() {
+  //         // code the function to claim subtask later
+  //       })
+  //     }
+  //   }
+  // }
+}
+
+
+
+
+
+
+
+sharedContainer = function() {
+ 
+    $("<p>", {
+      html: "Share code: " + this.shareCode,
+      appendTo: "#shareContainer"
+    })
+
+    $("<div>", {
+      "id": "taskMembers",
+      appendTo: "#shareContainer"
+    })
+
+    data.forEach(function(obj) {
+      $("<div>", {
+        html: obj.username,
+        appendTo: "#shareContainer"
+      })
+    })
+  //create interface
+
+
 }

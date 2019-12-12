@@ -14,15 +14,17 @@ $sql->bindParam(1, $_GET['userId']);
 $sql->execute();
 $answer1 = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-$query = "SELECT Tasks.*  FROM User 
+//get tasks
+$query = "SELECT Tasks.* FROM User 
 JOIN TaskMembers ON User.userId=TaskMembers.userId
 JOIN Tasks ON TaskMembers.taskId=Tasks.taskId
-WHERE User.userId = ?";
+WHERE TaskMembers.userId = ?";
 
 $sql = $pdo->prepare($query);
 $sql->bindParam(1, $_GET['userId']);
 $sql->execute();
 $answer2 = $sql->fetchAll(\PDO::FETCH_ASSOC);
+
 
 $arr = array();
 $arr[] = $answer1;
