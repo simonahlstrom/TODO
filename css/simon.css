@@ -1,0 +1,71 @@
+body {
+  font-family: 'Fira Sans Condensed', sans-serif;
+  margin: 0px;
+}
+
+.popup {
+  flex-direction: column;
+  padding: 15px;
+  position: absolute;
+  opacity: 0;
+  background-color: var(--mainColor);
+  border: 1px solid grey;
+  border-radius: 10px;
+  transition: opacity .5s ease;
+  justify-content: flex-start;
+  width: calc(100vw - 52px);
+}
+
+.active {
+  opacity: 1;
+}
+
+header {
+  height: 10vh;
+  background-color: var(--accentColor);
+}
+
+main {
+  height: 80vh;
+  position: relative;
+}
+
+#content {
+  padding: 10px;
+  height: calc(80vh - 20px);
+  width: calc(100vw - 20px);
+}
+
+#controlBar {
+  height: 10vh;
+  background-color: var(--subColor);
+}
+
+/* .buttonContainer {
+
+} */
+
+.button {
+  height: 30px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid var(--accentColor);
+  font-family: 'Fira Sans Condensed', sans-serif;
+  font-size: 15px;
+  transition: all .2s;
+}
+
+.button:hover {
+  background-color: var(--accentColor);
+  color: var(--mainColor);
+}
+
+label {
+  margin: 5px;
+}
+
+#popup input[type="text"], #popup label {
+  width: 80%;
+  height: 20px;
+  text-align: left;
+}
