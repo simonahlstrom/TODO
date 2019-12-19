@@ -112,7 +112,7 @@ function editTask (a) {
             "id": "date",
             type: "text",
             appendTo: "#dateContainer"
-          }).datepicker()
+          }).datepicker({dateFormat: "yy-mm-dd"})
         }
       }
     })
@@ -339,7 +339,7 @@ function editTask (a) {
 
       allLabels.forEach(function(item) {
       $('<option>', {
-        value: item.labelName,
+        value: item.labelId,
         html: item.labelName,
         appendTo: "#labelSelect"
       })
@@ -397,25 +397,32 @@ function saveTask(code) {
 
   $.get('php/uploadTask.php', {
     taskName: $('#taskNameInput').val(),
-     labelId: $('#labelSelect').val(),
-     code: code,
-     userId: user.userId
+    labelId: $('#labelSelect').val(),
+    code: code,
+    userId: user.userId
     })
 
     .done(function(data){
       cl(data)
+      saveSubtask(code)
     })
     .fail(error)
 }
 
-function saveSubtask() {
+function saveSubtask(code) {
+  code = code
 
   subtaskArray.forEach(function(item) {
+    
+    if (item[2=="All"]){
+      deadline = null
+    } else {deadline = item[2]}
     $.get('php/uploadSubtask.php', {
-      subtaskName: item[0],
-      deadline: $('#dead').val(),
-      code: code,
-      userId: user.userId
+      taskName: $('#taskNameInput').val(),
+      subtaskName: item[1],
+      deadline: deadline,
+      userId: user.userId,
+      code: code
     })
   
     .done(function(data){
