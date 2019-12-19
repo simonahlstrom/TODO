@@ -31,8 +31,7 @@ function Task(data, objLabel) {
   this.taskId = data.taskId
   this.taskName = data.taskName
   this.shareCode = data.code
-  this.label = objLabel.labelName
-  this.labelId = objLabel.labelId
+  this.label = objLabel
   
   this.creator = data.creator
   this.done = false
