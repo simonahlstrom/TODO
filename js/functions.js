@@ -78,7 +78,7 @@ function editTask (a) {
       //adds substask to subtaskContainer
       prepareSubtasks($('#subtaskNameInput').val())
       $('<div>', {
-        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + subtaskArray[subtaskArray.length-1][2],
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
         appendTo: "#subtaskContainer"
       })
     })
@@ -114,20 +114,6 @@ function editTask (a) {
             appendTo: "#dateContainer"
           }).datepicker({dateFormat: "yy-mm-dd"})
         }
-      }
-    })
-
-    $('<div>', {"id": "radioAlwaysContainer", appendTo: "#content"})
-    $('<label>', {for: "radioAlways", html: "Always", appendTo: "#radioAlwaysContainer"})
-    $('<input>', {
-      "id": "radioAlways",
-      name: "radio",
-      type: "radio",
-      checked: false,
-      appendTo: "#radioAlwaysContainer",
-      change: function(checked) {
-        $('#date').remove()
-        $('label[for="date"]').remove()
       }
     })
 
@@ -384,9 +370,7 @@ function prepareSubtasks(name, subId) {
   subtaskArray[subtaskArray.length-1].push(name)
 
   if ($('#radioAll:checked').val()) {
-    subtaskArray[subtaskArray.length-1].push(document.querySelector('label[for="radioAll"]').innerHTML)
-  } else if ($('#radioAlways:checked').val()) {
-    subtaskArray[subtaskArray.length-1].push(document.querySelector('label[for="radioAlways"]').innerHTML)
+    subtaskArray[subtaskArray.length-1].push()
   } else {
     subtaskArray[subtaskArray.length-1].push($('#date').val())
   }
@@ -395,40 +379,44 @@ function prepareSubtasks(name, subId) {
 function saveTask(code) {
   code = code
 
-  $.get('php/uploadTask.php', {
-    taskName: $('#taskNameInput').val(),
-    labelId: $('#labelSelect').val(),
-    code: code,
-    userId: user.userId
-    })
-
-    .done(function(data){
-      cl(data)
-      saveSubtask(code)
-    })
-    .fail(error)
+  if ($('#taskNameInput').val()) {
+    $.get('php/uploadTask.php', {
+      taskName: $('#taskNameInput').val(),
+      labelId: $('#labelSelect').val(),
+      code: code,
+      userId: user.userId
+      })
+  
+      .done(function(data){
+        cl(data)
+        saveSubtask(code)
+      })
+      .fail(error)
+  } else {
+    popup("Please fill out all the fields").click(hidePopup)
+  }
 }
 
 function saveSubtask(code) {
-  code = code
 
   subtaskArray.forEach(function(item) {
     
-    if (item[2=="All"]){
-      deadline = null
-    } else {deadline = item[2]}
-    $.get('php/uploadSubtask.php', {
-      taskName: $('#taskNameInput').val(),
-      subtaskName: item[1],
-      deadline: deadline,
-      userId: user.userId,
-      code: code
-    })
-  
-    .done(function(data){
-      cl(data)
-    })
-    .fail(error)
+    if ($('#subtaskNameInput')) {
+      $.get('php/uploadSubtask.php', {
+        taskName: $('#taskNameInput').val(),
+        subName: item[1],
+        deadline: item[2],
+        userId: user.userId,
+        code: code
+      })
+      .done(function(data){
+        cl(data)
+      })
+      .fail(error)
+    } else {
+      popup("Please fill out all the fields").click(hidePopup)
+    }
+    
   })
   
 }
