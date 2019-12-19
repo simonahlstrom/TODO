@@ -1,27 +1,9 @@
 // info about user from cookies, logged in or not
 // loggedIn should contain userId from cookie, now set to true for developing
-let loggedIn = true
+
+// let loggedIn = true
 let timeout = true
 
-// handling login and welcome message
-function init() {
-  if (loggedIn) {
-    setup(2)
-  } else {
-    let info = [
-      $("<h2>Welcome!</h2>"),
-      $("<div>Welcome to this app, it will do things to make your life easier. Here we'll explain exactly how it works and why it's amazing.</div>"),
-      $("<div class='buttonContainer'>").append(
-        $('<input type="button" value="Log In" class="button">').click(() => {
-        login()
-      }),
-      $('<input type="button" value="Register" class="button">').click(() => {
-        register()
-      }))
-    ]
-    popup(info)
-  }
-}
 
 // register functionality
 function register() {
@@ -122,5 +104,3 @@ function login() {
   popup(loginUI)
 }
 
-// function to initialize checks (loggedIn or not) when loading the page
-init()

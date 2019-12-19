@@ -1,26 +1,6 @@
 // GENERAL FUNCTIONS
 
-// create a popup to be removed with external clickevent or timeout if the timeout parameter is passed
-function popup(message, timeout) {
-  let pop = $('#popup')
-  pop.empty()
-  for (let item of message) {
-    pop.append(item)
-  }
-  pop.addClass('active')
 
-  if (timeout) {
-    setTimeout(() => {
-      pop.removeClass('active')
-    }, 1000)
-  }
-
-  return pop
-}
-
-function hidePopup() {
-  $("#popup").removeClass("active")
-}
 
 // function to click buttons w/ enter-key, DOES NOT WORK YET, maybe fix later
 // let buttons = $(".button")
