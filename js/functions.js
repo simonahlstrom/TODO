@@ -28,19 +28,27 @@ function popup(message, timeout) {
   for (let item of message) {
     pop.append(item)
   }
-  pop.addClass('active')
+  $(".ghost").addClass('active')
 
   if (timeout) {
     setTimeout(() => {
-      pop.removeClass('active')
+      $(".ghost").removeClass('active')
     }, 1000)
   }
+
+  $(".ghost").click((e) => {
+    cl(e.target)
+      if (e.target == pop.parent()) {
+        cl("IN")
+      hidePopup()
+    }
+  })
 
   return pop
 }
 
 function hidePopup() {
-  $("#popup").removeClass("active")
+  $(".ghost").removeClass("active")
 }
 
 //function to edit or create a new task
