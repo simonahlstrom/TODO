@@ -180,7 +180,7 @@ main {
 .slideIn {
   transition: opacity .1s ease;
   opacity: 0;
-  position: relative;
+  /* position: relative; */
 }
 
 .slideIn-active {
