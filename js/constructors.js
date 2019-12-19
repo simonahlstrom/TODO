@@ -31,9 +31,7 @@ function Task(data, objLabel) {
   this.taskId = data.taskId
   this.taskName = data.taskName
   this.shareCode = data.code
-  this.label = objLabel.labelName
-  this.labelId = objLabel.labelId
-  
+  this.label = objLabel
   this.creator = data.creator
   this.done = false
   this.subtasks = []
@@ -45,33 +43,5 @@ function Task(data, objLabel) {
     this.urgent = a[0].deadline
   }
 
-  this.element = function() {
-    let element = ("div" )
-  }
-  
-  // this.createTask = function() {
-  //   // create task w/ icon from labelobject
-  //   let task = $('<div>')
-  //   let icon = this.label.element
-  //   let name = this.taskName
-  //   task.append(icon, name)
-
-  //   //create subtasks to present
-  //   for (let subtask of this.subtasks) {
-  //     let subtaskContainer = $('<div>')
-  //     let subName = $('<div>')
-  //     subName.html(
-  //       // get name from subtaskobject later 
-  //     )
-      
-  //     if (!this.creator) {
-  //       let claimBox = $('div', {
-  //         html: "CLAIM"
-  //       }).click(function() {
-  //         // code the function to claim subtask later
-  //       })
-  //     }
-  //   }
-  // }
 }
 

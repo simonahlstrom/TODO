@@ -3,11 +3,13 @@
     --accentColor: blue;
     --subColor: red;
     --radius: 10px;
+    --fontSize: 14px;
 }
 
 body {
     background-color: var(--maincolor);
     color: var(--accentColor);
+    font-size: var(--fontSize);
 }
 
 .flex {

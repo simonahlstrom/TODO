@@ -1,12 +1,26 @@
-#task1 div{
-    border: 1px solid black;
-    margin: 2px;
+
+
+.taskHead {
+    display: flex;
 }
 
-.taskHead{
-    display: flex;
+.taskName {
+    font-size: calc(var(--fontSize) * 1.3);
+}
+
+.taskLabel {
+    width: 20px;
+    height: 20px;
+    background-image: url("../icons/icon.png");
+    background-size: cover;
+    background-color: blueviolet;
+    border-radius: 50%;
 }
 
 .subtasks div {
     display: flex;
+}
+
+.taskInfo {
+    display: none;
 }

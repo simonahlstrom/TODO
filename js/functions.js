@@ -10,7 +10,6 @@ function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
     console.log(errorThrown)
   }
-
 //Generate share code func
 function makeid(length) {
   var result           = '';
@@ -425,4 +424,147 @@ function saveSubtask() {
     .fail(error)
   })
   
+}
+
+function createTaskElement(obj) {
+  //creates the task element container
+  let element = $("<div>", {
+    "id": "task" + obj.taskId,
+    appendTo: "#content"
+  })
+
+  //task head
+  let head = $("<div>", {
+    class: "taskHead",
+    appendTo: element
+  })
+
+  $("<div>", {
+    class: "taskLabel",
+    appendTo: head
+  }).css({
+    backgroundImage: "url('../icons/" + obj.label.icon + "')",
+    backgroundColor: obj.label.color
+  })
+
+  $("<div>", {
+    class: "taskName",
+    appendTo: head,
+    html: obj.taskName
+  })
+  
+  //task info
+  let info = $("<div>", {
+    class: "taskInfo",
+    appendTo: element
+  }).css({display: "none"})
+
+  let subtaskEl = $("<div>", {
+    class: "subtasks",
+    appendTo: info
+  })
+
+  //creates subtasks
+  for (let i=0; i<obj.subtasks.length; i++) {
+    let subAux = $("<div>", {
+      "id": "subtask" + obj.subtasks[i].subId,
+      appendTo: subtaskEl,
+    })
+
+    $("<div>", {
+      class: "subName",
+      appendTo: subAux,
+      html: obj.subtasks[i].subName
+    })
+
+    $("<div>", {
+      class: "subDL",
+      appendTo: subAux,
+      html: (obj.subtasks[i].deadline) ? obj.subtasks[i].deadline : ""
+    })
+
+    $("<input>", {
+      type: "checkbox",
+      value: "done",
+      checked: (obj.subtasks[i].completed) ? true : false,
+      appendTo: subAux,
+      change: function(){
+        if(!obj.subtasks[i].completed) {
+          //make object and db done
+          console.log("subtask done")
+        } else {
+          //make undone
+          console.log("subtask undone")
+        }
+      }
+    })
+
+    $("<div>", {
+      class: "subClaim",
+      appendTo: subAux,
+      html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
+    }).click(function(){
+      if(!obj.subtasks[i].claimedName) {
+        //want to calim it
+        //claim it with username
+        console.log("claim it?")
+      } else {
+        //check if you want to unclaim it
+        console.log("don't want it anymore?")
+      }
+    })
+
+
+    //post changes and change in object
+
+  }
+
+  //label info
+  $("<div>", {
+    class: "labelInfo",
+    appendTo: info,
+    html: "label: " + obj.label.labelName
+  })
+
+  //task actions
+  let actions = $("<div>", {
+    class: "taskActions",
+    appendTo: info,
+  })
+
+  $("<input>", {
+    type: "button",
+    value: "done",
+    appendTo: actions,
+  }).click(function(){
+    //task is done
+    console.log("task is done")
+  })
+
+  $("<input>", {
+    type: "button",
+    value: "edit",
+    appendTo: actions,
+  }).click(function(){
+    //run task function
+    console.log("edit task")
+  })
+
+
+
+  //click event
+  element.click(function(e){
+    e.stopPropagation()
+    console.log(info.css("display"))
+    if(info.css("display") == "none") {
+      $(".taskInfo").css({display: "none"})
+      info.css({display: "block"})
+    } else {
+      info.css({display: "none"})
+    }
+  })
+
+
+
+  // return element
 }
