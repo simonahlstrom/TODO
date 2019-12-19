@@ -17,6 +17,8 @@ function popup(message, timeout) {
       pop.toggleClass('active')
     }, 1000)
   }
+
+  return pop
 }
 
 function hidePopup() {
