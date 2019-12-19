@@ -43,9 +43,6 @@ function hidePopup() {
   $("#popup").removeClass("active")
 }
 
-
-
-
 //function to edit or create a new task
 function editTask (a) {
   $('#content').html("")
@@ -362,7 +359,7 @@ function editTask (a) {
     allTasks[a].subtasks.forEach(function(item) {
       prepareSubtasks(item.subName, item.subId)
       $('<div>', {
-        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + item.deadline,
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + item.deadline,
         appendTo: "#subtaskContainer"
       })
     })
@@ -392,6 +389,7 @@ function editTask (a) {
   }
 }
 
+//Lös så att alla subtasks inte laddas upp på nytt! dela på funktionen som displayar i subtasklistan och de som laddas upp?
 function prepareSubtasks(name, subId) {
   subtaskArray.push([])
   subtaskArray[subtaskArray.length-1].push(subId)
@@ -427,8 +425,8 @@ function saveTask(code, action) {
   }
 }
 
-function saveSubtask(code, action) {
-
+function saveSubtask(code, obj) {
+  cl(obj)
   subtaskArray.forEach(function(item) {
     
     if ($('#subtaskNameInput')) {
