@@ -446,7 +446,8 @@ function saveSubtask(code) {
   
 }
 
-function createTaskElement(obj) {
+function createTaskElement(i) {
+  let obj = allTasks[i]
   //creates the task element container
   let element = $("<div>", {
     "id": "task" + obj.taskId,
@@ -566,7 +567,7 @@ function createTaskElement(obj) {
     value: "edit",
     appendTo: actions,
   }).click(function(){
-    //run task function
+    editTask(obj)
     console.log("edit task")
   })
 
@@ -588,3 +589,4 @@ function createTaskElement(obj) {
 
   // return element
 }
+

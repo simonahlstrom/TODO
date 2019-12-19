@@ -40,11 +40,15 @@ function Task(data, objLabel) {
   this.done = false
   this.subtasks = []
   this.taskMembers = []
-  this.urgent
+  this.urgent 
   
   this.subDL = function() {
     let a = this.subtasks.sort((a, b) => (a.deadline > b.deadline) ? 1 : -1)
-    this.urgent = a[0].deadline
+    if(a[0]){
+      this.urgent = a[0].deadline
+    } else {
+      this.urgent = null
+    }
   }
 
 }
