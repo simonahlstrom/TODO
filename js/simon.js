@@ -14,7 +14,7 @@ function popup(message, timeout) {
 
   if (timeout) {
     setTimeout(() => {
-      pop.toggleClass('active')
+      pop.removeClass('active')
     }, 1000)
   }
 }

@@ -1,6 +1,6 @@
 
 //Runs editTask with action to create new task
-$('#add').click(function() {editTask(0)})
+$('#add').click(function() {editTask("new")})
 
 function cl(x) {
   console.log(x)
@@ -10,9 +10,6 @@ function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
     console.log(errorThrown)
   }
-
-
-
 //Generate share code func
 function makeid(length) {
   var result           = '';
@@ -56,6 +53,7 @@ function editTask (a) {
           minHeight: "100px",
           border: "2px solid lightgray"
         })
+
       } else {
         $('#shareContainer').remove()
         active = true}
@@ -78,7 +76,7 @@ function editTask (a) {
       appendTo: "#subtaskInputs"
     }).click(function() {
       //adds substask to subtaskContainer
-      prepareSubtasks($('#subtaskNameInput').val(), makeid(4))
+      prepareSubtasks($('#subtaskNameInput').val())
       $('<div>', {
         html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + subtaskArray[subtaskArray.length-1][2],
         appendTo: "#subtaskContainer"
@@ -114,7 +112,7 @@ function editTask (a) {
             "id": "date",
             type: "text",
             appendTo: "#dateContainer"
-          }).datepicker()
+          }).datepicker({dateFormat: "yy-mm-dd"})
         }
       }
     })
@@ -151,7 +149,7 @@ function editTask (a) {
 
     allLabels.forEach(function(item) {
       $('<option>', {
-        value: item.labelName,
+        value: item.labelId,
         html: item.labelName,
         appendTo: "#labelSelect"
       })
@@ -169,8 +167,7 @@ function editTask (a) {
         appendTo: "#buttonContainer"
       }).click(function() {
         if(item == "Save") {
-          console.log("New task saved")
-          //Save to DB
+          saveTask(code)
         } else if (item == "Delete") {
           console.log("Task deleted")
           //Popup, remove from DB
@@ -209,6 +206,44 @@ function editTask (a) {
           minHeight: "100px",
           border: "2px solid lightgray"
         })
+
+        /* if (obj.creator){
+          $("<p>", {
+            html: "Share code: " + obj.shareCode,
+            appendTo: "#shareContainer"
+          })
+        }
+      
+          $("<div>", {
+            appendTo: "#shareContainer"
+          })
+      
+          obj.taskMembers.forEach(function(item) {
+            let owner
+      
+            $("<div>", {
+              class: "taskMember",
+              html: "<div>" + item.username + "</div>",
+              appendTo: "#shareContainer"
+            }).css({
+              height: "20px"
+            })
+      
+            if(user.userId == item.userId) {
+              owner = $("<div>", {
+                html: "(o)",
+                appendTo: ".taskMember:last-child"
+      
+              }).css({
+                height: "20px",
+                width: "20px",
+                border: "1px solid var(--accentColor)",
+                borderRadius: "50%",
+                padding: "3px",
+              })
+            }
+          }) */
+
       } else {
         $('#shareContainer').remove()
         active = true}
@@ -304,7 +339,7 @@ function editTask (a) {
 
       allLabels.forEach(function(item) {
       $('<option>', {
-        value: item.labelName,
+        value: item.labelId,
         html: item.labelName,
         appendTo: "#labelSelect"
       })
@@ -355,4 +390,188 @@ function prepareSubtasks(name, subId) {
   } else {
     subtaskArray[subtaskArray.length-1].push($('#date').val())
   }
+}
+
+function saveTask(code) {
+  code = code
+
+  $.get('php/uploadTask.php', {
+    taskName: $('#taskNameInput').val(),
+    labelId: $('#labelSelect').val(),
+    code: code,
+    userId: user.userId
+    })
+
+    .done(function(data){
+      cl(data)
+      saveSubtask(code)
+    })
+    .fail(error)
+}
+
+function saveSubtask(code) {
+  code = code
+
+  subtaskArray.forEach(function(item) {
+    
+    if (item[2=="All"]){
+      deadline = null
+    } else {deadline = item[2]}
+    $.get('php/uploadSubtask.php', {
+      taskName: $('#taskNameInput').val(),
+      subtaskName: item[1],
+      deadline: deadline,
+      userId: user.userId,
+      code: code
+    })
+  
+    .done(function(data){
+      cl(data)
+    })
+    .fail(error)
+  })
+  
+}
+
+function createTaskElement(obj) {
+  //creates the task element container
+  let element = $("<div>", {
+    "id": "task" + obj.taskId,
+    appendTo: "#content"
+  })
+
+  //task head
+  let head = $("<div>", {
+    class: "taskHead",
+    appendTo: element
+  })
+
+  $("<div>", {
+    class: "taskLabel",
+    appendTo: head
+  }).css({
+    backgroundImage: "url('../icons/" + obj.label.icon + "')",
+    backgroundColor: obj.label.color
+  })
+
+  $("<div>", {
+    class: "taskName",
+    appendTo: head,
+    html: obj.taskName
+  })
+  
+  //task info
+  let info = $("<div>", {
+    class: "taskInfo",
+    appendTo: element
+  }).css({display: "none"})
+
+  let subtaskEl = $("<div>", {
+    class: "subtasks",
+    appendTo: info
+  })
+
+  //creates subtasks
+  for (let i=0; i<obj.subtasks.length; i++) {
+    let subAux = $("<div>", {
+      "id": "subtask" + obj.subtasks[i].subId,
+      appendTo: subtaskEl,
+    })
+
+    $("<div>", {
+      class: "subName",
+      appendTo: subAux,
+      html: obj.subtasks[i].subName
+    })
+
+    $("<div>", {
+      class: "subDL",
+      appendTo: subAux,
+      html: (obj.subtasks[i].deadline) ? obj.subtasks[i].deadline : ""
+    })
+
+    $("<input>", {
+      type: "checkbox",
+      value: "done",
+      checked: (obj.subtasks[i].completed) ? true : false,
+      appendTo: subAux,
+      change: function(){
+        if(!obj.subtasks[i].completed) {
+          //make object and db done
+          console.log("subtask done")
+        } else {
+          //make undone
+          console.log("subtask undone")
+        }
+      }
+    })
+
+    $("<div>", {
+      class: "subClaim",
+      appendTo: subAux,
+      html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
+    }).click(function(){
+      if(!obj.subtasks[i].claimedName) {
+        //want to calim it
+        //claim it with username
+        console.log("claim it?")
+      } else {
+        //check if you want to unclaim it
+        console.log("don't want it anymore?")
+      }
+    })
+
+
+    //post changes and change in object
+
+  }
+
+  //label info
+  $("<div>", {
+    class: "labelInfo",
+    appendTo: info,
+    html: "label: " + obj.label.labelName
+  })
+
+  //task actions
+  let actions = $("<div>", {
+    class: "taskActions",
+    appendTo: info,
+  })
+
+  $("<input>", {
+    type: "button",
+    value: "done",
+    appendTo: actions,
+  }).click(function(){
+    //task is done
+    console.log("task is done")
+  })
+
+  $("<input>", {
+    type: "button",
+    value: "edit",
+    appendTo: actions,
+  }).click(function(){
+    //run task function
+    console.log("edit task")
+  })
+
+
+
+  //click event
+  element.click(function(e){
+    e.stopPropagation()
+    console.log(info.css("display"))
+    if(info.css("display") == "none") {
+      $(".taskInfo").css({display: "none"})
+      info.css({display: "block"})
+    } else {
+      info.css({display: "none"})
+    }
+  })
+
+
+
+  // return element
 }
