@@ -60,7 +60,8 @@ CREATE TABLE `Labels` (
   `userId` int(11) NOT NULL,
   `labelName` varchar(100) NOT NULL,
   `color` varchar(100) NOT NULL,
-  `icon` varchar(100) NOT NULL
+  `icon` varchar(100) NOT NULL,
+  `activated` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

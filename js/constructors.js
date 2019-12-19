@@ -23,7 +23,10 @@ function Label(data) {
       "class": "label",
   }).css({
       backgroundImage: "url(" + this.icon + ")",
-      backgroundColor: this.color
+      backgroundColor: this.color,
+      height: "35px",
+      width: "35px",
+      margin: "5px"
   })
 }
 

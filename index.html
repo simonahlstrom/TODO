@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/simon.css">
     <link rel="stylesheet" href="css/task.css">
@@ -61,13 +63,29 @@
         <div class="flex" id="add"></div>
       </div>
     </div>
+    <div class="labelBox flex">
+      <div id="labelControls">
+        <div id="labelEdit" class="flex">
+          <div class="slideIn flex">
+            <div id="addLabel" class="button flex">EDIT</div>
+            <div id="removeLabel" class="button flex">REMOVE</div>
+          </div>
+          <div id="menuDown"></div>
+        </div>
+        <div id="labels" class="flex"></div>
+      </div>
+    </div>
   </div>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
+  <!-- <script src="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.js"></script> -->
   <script src="js/variables.js"></script>
   <script src="js/constructors.js"></script>
   <script src="js/functions.js"></script>
+  <script src="js/login.js"></script>
   <script src="js/setup.js"></script>
+  <script src="js/cookies.js"></script>
   <script src="js/simon.js"></script>
+  <script src="js/run.js"></script>
 </body>
 </html>
