@@ -48,18 +48,7 @@ function getUserFromCookie() {
             }
         })
     } else {
-        let info = [
-            $("<h2>Welcome!</h2>"),
-            $("<div>Welcome to this app, it will do things to make your life easier. Here we'll explain exactly how it works and why it's amazing.</div>"),
-            $("<div class='buttonContainer'>").append(
-                $('<input type="button" value="Log In" class="button">').click(() => {
-                login()
-            }),
-            $('<input type="button" value="Register" class="button">').click(() => {
-                register()
-            }))
-        ]
-        popup(info)
+        popup(welcomeInfo)
     }
 
 

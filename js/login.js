@@ -19,7 +19,7 @@ function register() {
     $('<label for="occupation">(Optional) Occupation: </label>'),
     $('<input type="text" name="occupation" id="occupation">'),
     $("<div class='buttonContainer'>").append(
-      $('<input type="button" value="&#8617" class="button">').click(() => { init()}),
+      $('<input type="button" value="&#8617" class="button">').click(() => { popup(welcomeInfo)}),
       $('<input type="button" value="Submit" class="button">').click(() => {
         if ($("#password").val() == $("#passwordControl").val()) {
           let username = $("#username").val()
@@ -66,7 +66,7 @@ function login() {
     $('<label for="password">Password: </label>'),
     $('<input type="password" name="password" id="password">'),
     $("<div class='buttonContainer'>").append(
-      $('<input type="button" value="&#8617" class="button">').click(() => { init()}),
+      $('<input type="button" value="&#8617" class="button">').click(() => { popup(welcomeInfo)}),
       $('<input type="button" value="Log In" class="button">').click(() => {
         if ($("#username").val() && $("#password").val()) {
           let username = $("#username").val()
@@ -104,3 +104,7 @@ function login() {
   popup(loginUI)
 }
 
+function logout() {
+  updateCookie("", "", 0)
+  location.reload()
+}
