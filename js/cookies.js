@@ -48,7 +48,7 @@ function getUserFromCookie() {
             }
         })
     } else {
-        let info = [
+        let welcomeInfo = [
             $("<h2>Welcome!</h2>"),
             $("<div>Welcome to this app, it will do things to make your life easier. Here we'll explain exactly how it works and why it's amazing.</div>"),
             $("<div class='buttonContainer'>").append(
@@ -59,7 +59,7 @@ function getUserFromCookie() {
                 register()
             }))
         ]
-        popup(info)
+        popup(welcomeInfo)
     }
 
 
