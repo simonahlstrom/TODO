@@ -1,6 +1,6 @@
 
-//Runs editTask with action to create new task
-$('#add').click(function() {editTask("new")})
+//Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
+$('#add').click(function() {editTask(3)})
 
 function cl(x) {
   console.log(x)
@@ -40,7 +40,7 @@ function editTask (a) {
     $('<select>', {
       "id": "labelSelect",
       value: "label",
-      appendTo: "#content"
+      appendTo: "#content",
     })
 
 
@@ -69,19 +69,6 @@ function editTask (a) {
       appendTo: "#subtaskInputs"
     })
 
-    $('<input>', {
-      "id": "addSubtask",
-      type: "button",
-      value: "+",
-      appendTo: "#subtaskInputs"
-    }).click(function() {
-      //adds substask to subtaskContainer
-      prepareSubtasks($('#subtaskNameInput').val())
-      $('<div>', {
-        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
-        appendTo: "#subtaskContainer"
-      })
-    })
 
     $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
     $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
@@ -123,7 +110,8 @@ function editTask (a) {
     })
 
     //Subtask list
-    $('<div>', {html: "Subtasks", appendTo: "#content"}).css("font-size", "20px")
+    $('<div>', {"id": "subtaskTitleContainer", appendTo: "#content"}).css("display", "flex")
+    $('<div>', {html: "Subtasks", appendTo: "#subtaskTitleContainer"}).css("font-size", "20px")
     $('<div>', {
       "id": "subtaskContainer",
       appendTo: "#content"
@@ -131,15 +119,30 @@ function editTask (a) {
       minHeight: "100px",
       border: "2px solid lightgray"
     })
+    $('<input>', {
+      "id": "addSubtask",
+      type: "button",
+      value: "+",
+      appendTo: "#subtaskTitleContainer"
+    }).click(function() {
+      //adds substask to subtaskContainer
+      prepareSubtasks($('#subtaskNameInput').val(), "")
+      $('<div>', {
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
+        appendTo: "#subtaskContainer"
+      })
+    })
 
 
     allLabels.forEach(function(item) {
+      
       $('<option>', {
         value: item.labelId,
         html: item.labelName,
         appendTo: "#labelSelect"
       })
     })
+
 
 
     //Edit buttons
@@ -153,7 +156,7 @@ function editTask (a) {
         appendTo: "#buttonContainer"
       }).click(function() {
         if(item == "Save") {
-          saveTask(code)
+          saveTask(code, "new")
         } else if (item == "Delete") {
           console.log("Task deleted")
           //Popup, remove from DB
@@ -163,8 +166,10 @@ function editTask (a) {
       })
     })
   } else {
-
+    
     let obj = allTasks[a]
+    cl(obj)
+    let code = obj.shareCode
     //Name of task input
     $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
     $('<input>', {
@@ -245,19 +250,6 @@ function editTask (a) {
       appendTo: "#subtaskInputs"
     })
 
-    $('<input>', {
-      "id": "addSubtask",
-      type: "button",
-      value: "+",
-      appendTo: "#subtaskInputs"
-    }).click(function() {
-      //adds substask to subtaskContainer
-      prepareSubtasks($('#subtaskNameInput').val(), "")
-      $('<div>', {
-        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Filter/Deadline: " + subtaskArray[subtaskArray.length-1][2],
-        appendTo: "#subtaskContainer"
-      })
-    })
 
     $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
     $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
@@ -293,19 +285,6 @@ function editTask (a) {
       }
     })
 
-    $('<div>', {"id": "radioAlwaysContainer", appendTo: "#content"})
-    $('<label>', {for: "radioAlways", html: "Always", appendTo: "#radioAlwaysContainer"})
-    $('<input>', {
-      "id": "radioAlways",
-      name: "radio",
-      type: "radio",
-      checked: false,
-      appendTo: "#radioAlwaysContainer",
-      change: function(checked) {
-        $('#date').remove()
-        $('label[for="date"]').remove()
-      }
-    })
 
     $('<div>', {
       "id": "dateContainer",
@@ -313,7 +292,8 @@ function editTask (a) {
     })
 
     //Subtask list
-    $('<div>', {html: "Subtasks", appendTo: "#content"}).css("font-size", "20px")
+    $('<div>', {"id": "subtaskTitleContainer", appendTo: "#content"}).css("display", "flex")
+    $('<div>', {html: "Subtasks", appendTo: "#subtaskTitleContainer"}).css("font-size", "20px")
     $('<div>', {
       "id": "subtaskContainer",
       appendTo: "#content"
@@ -321,14 +301,37 @@ function editTask (a) {
       minHeight: "100px",
       border: "2px solid lightgray"
     })
-
-
-      allLabels.forEach(function(item) {
-      $('<option>', {
-        value: item.labelId,
-        html: item.labelName,
-        appendTo: "#labelSelect"
+    $('<input>', {
+      "id": "addSubtask",
+      type: "button",
+      value: "+",
+      appendTo: "#subtaskTitleContainer"
+    }).click(function() {
+      //adds substask to subtaskContainer
+      prepareSubtasks($('#subtaskNameInput').val(), "")
+      $('<div>', {
+        html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
+        appendTo: "#subtaskContainer"
       })
+    })
+
+    //creates options for the label select element
+    allLabels.forEach(function(item) {
+      //sets the default label
+      if (obj.label.labelId==item.labelId) {
+        $('<option>', {
+          value: item.labelId,
+          html: item.labelName,
+          selected: "selected",
+          appendTo: "#labelSelect"
+        })
+      } else {
+        $('<option>', {
+          value: item.labelId,
+          html: item.labelName,
+          appendTo: "#labelSelect"
+        })
+      }
     })
 
     allTasks[a].subtasks.forEach(function(item) {
@@ -351,8 +354,8 @@ function editTask (a) {
         appendTo: "#buttonContainer"
       }).click(function() {
         if(item == "Save") {
-          console.log("New task saved")
-          //Save to DB
+          console.log("Task updated")
+          saveTask(code, "alter")
         } else if (item == "Delete") {
           console.log("Task deleted")
           //Popup, remove from DB
@@ -376,15 +379,17 @@ function prepareSubtasks(name, subId) {
   }
 }
 
-function saveTask(code) {
+function saveTask(code, action) {
   code = code
 
+  
   if ($('#taskNameInput').val()) {
     $.get('php/uploadTask.php', {
       taskName: $('#taskNameInput').val(),
       labelId: $('#labelSelect').val(),
       code: code,
-      userId: user.userId
+      userId: user.userId,
+      action: action
       })
   
       .done(function(data){
@@ -397,7 +402,7 @@ function saveTask(code) {
   }
 }
 
-function saveSubtask(code) {
+function saveSubtask(code, action) {
 
   subtaskArray.forEach(function(item) {
     
@@ -411,6 +416,7 @@ function saveSubtask(code) {
       })
       .done(function(data){
         cl(data)
+        getTaskAndLabelData(user.userId)
       })
       .fail(error)
     } else {
