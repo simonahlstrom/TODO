@@ -48,6 +48,7 @@ function getUserFromCookie() {
         })
     } else {
         //redirect to login
+
     }
 
 
