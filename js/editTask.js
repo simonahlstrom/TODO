@@ -36,7 +36,7 @@ function editTask (a) {
           active = true}
       }})
   
-      //Add subtask button, input, click function
+      
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
       $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
   
@@ -96,6 +96,8 @@ function editTask (a) {
         minHeight: "100px",
         border: "2px solid lightgray"
       })
+
+      //Add subtask button, input, click function
       $('<input>', {
         "id": "addSubtask",
         type: "button",
@@ -257,7 +259,7 @@ function editTask (a) {
               "id": "date",
               type: "text",
               appendTo: "#dateContainer"
-            }).datepicker()
+            }).datepicker({dateFormat: "yy-mm-dd"})
           }
         }
       })
@@ -312,7 +314,7 @@ function editTask (a) {
       })
   
       allTasks[a].subtasks.forEach(function(item) {
-        prepareSubtasks(item.subName, item.subId)
+        prepareSubtasks(item.subName, item.subId, item.deadline)
         $('<div>', {
           html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + item.deadline,
           appendTo: "#subtaskContainer"
