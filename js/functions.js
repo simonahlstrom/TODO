@@ -63,6 +63,62 @@ function prepareSubtasks(name, subId, date) {
   } else {
     subtaskArray[subtaskArray.length-1].push($('#date').val())
   }
+
+  let subIndex = subtaskArray.length-1
+
+  //creates subtasks
+  let subAux = $("<div>", {
+    "id": "subtask" + subId,
+    appendTo: "#subtaskContainer",
+  }).css({display: "flex"})
+
+  $("<div>", {
+    class: "subName",
+    appendTo: subAux,
+    html: name
+    })
+
+    $("<div>", {
+    class: "subDL",
+    appendTo: subAux,
+    html: (typeof date == "string") ? date : ""
+    })
+
+    $("<input>", {
+    type: "button",
+    value: "Edit",
+    appendTo: subAux,
+    }).click(function() {
+      $('#subtaskNameInput').attr({name: subId})
+      $('#subtaskNameInput').val(name)
+
+      if (typeof date == "string") {
+        $('#radioDeadline').click()
+      }
+      $('#date').val(date)
+      console.log(subIndex)
+      subtaskArray.splice(subIndex, 1)
+      subAux.remove()
+    })
+
+    /* $("<div>", {
+    class: "subClaim",
+    appendTo: subAux,
+    html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
+    }).click(function(){
+    if(!obj.subtasks[i].claimedName) {
+        //want to calim it
+        //claim it with username
+        console.log("claim it?")
+    } else {
+        //check if you want to unclaim it
+        console.log("don't want it anymore?")
+    }
+    }) */
+
+
+    //post changes and change in object
+
 }
 
 //Saves a task. Arguments: code is for the WHERE in the sql query and action tells the php which queries to run. //

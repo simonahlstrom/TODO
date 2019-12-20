@@ -105,11 +105,11 @@ function editTask (a) {
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
-        prepareSubtasks($('#subtaskNameInput').val(), "")
-        $('<div>', {
+        prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+        /* $('<div>', {
           html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
           appendTo: "#subtaskContainer"
-        })
+        }) */
       })
   
   
@@ -287,11 +287,11 @@ function editTask (a) {
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
-        prepareSubtasks($('#subtaskNameInput').val(), "")
-        $('<div>', {
+        prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+        /* $('<div>', {
           html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
           appendTo: "#subtaskContainer"
-        })
+        }) */
       })
   
       //creates options for the label select element
@@ -315,11 +315,13 @@ function editTask (a) {
   
       allTasks[a].subtasks.forEach(function(item) {
         prepareSubtasks(item.subName, item.subId, item.deadline)
-        $('<div>', {
+      })
+        /* $('<div>', {
           html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + item.deadline,
           appendTo: "#subtaskContainer"
-        })
-      })
+        }) */
+
+    
   
   
       //Edit buttons
