@@ -51,7 +51,7 @@ function hidePopup() {
   $(".ghost").removeClass("active")
 }
 
-//function to edit or create a new task
+//function to edit or create a new task // a = "new" or a = i from allTasks[] 
 function editTask (a) {
   $('#content').html("")
 
@@ -410,6 +410,7 @@ function prepareSubtasks(name, subId) {
   }
 }
 
+//Saves a task. Arguments: code is for the WHERE in the sql query and action tells the php which queries to run. //
 function saveTask(code, action) {
   code = code
 
