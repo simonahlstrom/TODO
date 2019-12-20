@@ -38,7 +38,7 @@ function home(){
 }
 
 
-
+//test function for label
 function lab(o){
     $("#content").append(o.element)
 }
