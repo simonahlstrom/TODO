@@ -167,57 +167,21 @@ function editTask (a) {
       })
   
   
-      let active = true
-      $('<div>', {html: "Share code: " + obj.shareCode, appendTo: "#content", "id": "shareCode"})
-      $('<input>', {type: "checkbox", appendTo: "#shareCode", change: function() {    
-        if (active) {
-          active = false
-          $('<div>', {"id": "shareContainer", appendTo: "#shareCode"}).css({
-            minHeight: "100px",
-            border: "2px solid lightgray"
-          })
-  
-          /* if (obj.creator){
-            $("<p>", {
-              html: "Share code: " + obj.shareCode,
-              appendTo: "#shareContainer"
-            })
+
+/*       $('<div>', {html: "Share code: " + obj.shareCode, appendTo: "#content", "id": "shareCode"})
+      $('<input>', {
+        type: "checkbox", 
+        appendTo: "#shareCode", 
+        change: function() {    
+          if (this.checked) { 
+            
+          } else {
+            $('#shareContainer').remove()
           }
-        
-            $("<div>", {
-              appendTo: "#shareContainer"
-            })
-        
-            obj.taskMembers.forEach(function(item) {
-              let owner
-        
-              $("<div>", {
-                class: "taskMember",
-                html: "<div>" + item.username + "</div>",
-                appendTo: "#shareContainer"
-              }).css({
-                height: "20px"
-              })
-        
-              if(user.userId == item.userId) {
-                owner = $("<div>", {
-                  html: "(o)",
-                  appendTo: ".taskMember:last-child"
-        
-                }).css({
-                  height: "20px",
-                  width: "20px",
-                  border: "1px solid var(--accentColor)",
-                  borderRadius: "50%",
-                  padding: "3px",
-                })
-              }
-            }) */
+        }
+      }) */
   
-        } else {
-          $('#shareContainer').remove()
-          active = true}
-      }})
+  
   
       //Add subtask button, input, click function
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
@@ -309,14 +273,80 @@ function editTask (a) {
         }
       })
 
+      //Shared header
+      $('<div>', {html: "Shared", appendTo: "#content"}).css("font-size", "20px")
+
+      //check if user is owner
+      if(obj.creator) {
+        $('<input>', {type: "button", value: "Share", appendTo: "#content"}).click(function() {
+          
+          if(this.value == "Share") {
+            
+            popup(["Do you want to share this task?",
+            $("<div class='buttonContainer'>").append(
+              $('<input type="button" value="Yes" class="button">').click(() => {shareTask("enable"); this.value = "Disable Sharing"}),
+              $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
+            ])
+            cl(message)
+          } else {
+            popup(["If you disable sharing, all members will lose access. Do you want to disable sharing?",
+            $("<div class='buttonContainer'>").append(
+              $('<input type="button" value="Yes" class="button">').click(() => {shareTask("disable"); this.value = "Share"}),
+              $('<input type="button" value="Cancel" class="button">').click(() => {hidePopup()}))
+            ])
+          }
+        })
+      }
+      
+      //shared container
+      $('<div>', {"id": "shareContainer", appendTo: "#content"}).css({
+        minHeight: "100px",
+        border: "2px solid lightgray"
+      })
+
+      if (obj.creator){
+        $("<p>", {
+          html: "Share code: " + obj.shareCode,
+          appendTo: "#shareContainer"
+        })
+      }
     
-  
+        $("<div>", {
+          appendTo: "#shareContainer"
+        })
+    
+        obj.taskMembers.forEach(function(item) {
+          let owner
+    
+          $("<div>", {
+            class: "taskMember",
+            html: "<div>" + item.username + "</div>",
+            appendTo: "#shareContainer"
+          }).css({
+            height: "20px"
+          })
+    
+          if(parseInt(item.creator)) {
+            owner = $("<div>", {
+              html: "(o)",
+              appendTo: ".taskMember:last-child"
+    
+            }).css({
+              height: "20px",
+              width: "20px",
+              border: "1px solid var(--accentColor)",
+              borderRadius: "50%",
+              padding: "3px",
+            })
+          }
+        })
+
   
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       editTaskButtons.forEach(function(item) {
         $('<input>', {
-          "class": "flex",
+          "class": "flex button",
           "id": "editTaskButton" + item,
           value: item,
           type: "button",

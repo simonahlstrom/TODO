@@ -28,7 +28,7 @@ function popup(message, timeout) {
   for (let item of message) {
     pop.append(item)
   }
-  $(".ghost").addClass('active')
+  let ghost = $(".ghost").addClass('active')
 
   if (timeout) {
     setTimeout(() => {
@@ -44,7 +44,7 @@ function popup(message, timeout) {
     }
   })
 
-  return pop
+  return ghost
 }
 
 function hidePopup() {
@@ -101,23 +101,6 @@ function prepareSubtasks(name, subId, date) {
       subAux.remove()
     })
 
-    /* $("<div>", {
-    class: "subClaim",
-    appendTo: subAux,
-    html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
-    }).click(function(){
-    if(!obj.subtasks[i].claimedName) {
-        //want to calim it
-        //claim it with username
-        console.log("claim it?")
-    } else {
-        //check if you want to unclaim it
-        console.log("don't want it anymore?")
-    }
-    }) */
-
-
-    //post changes and change in object
 
 }
 
