@@ -93,7 +93,7 @@ function prepareSubtasks(name, subId, date) {
       $('#subtaskNameInput').val(name)
 
       if (typeof date == "string") {
-        $('#radioDeadline').click()
+        $('#radioDeadline').attr({checked: true}).change()
       }
       $('#date').val(date)
       console.log(subIndex)
