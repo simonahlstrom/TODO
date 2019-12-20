@@ -10,3 +10,35 @@ function filterUrgent() {
     allTasks = allTasks.sort((a, b) => (a.urgent > b.urgent) ? 1 : -1)
 
 }
+
+function filterAll() {
+    allTasks = allTasks.sort((a, b) => (a.added < b.added) ? 1 : -1)
+}
+
+function filterLabels(action) {
+
+    if(action=="123") {
+        allTasks = allTasks.sort((a, b) => (a.label.labelId > b.label.labelId) ? 1 : -1)
+    } else if(action=="abc"){
+        allTasks = allTasks.sort((a, b) => (a.label.labelName > b.label.labelName) ? 1 : -1)
+    }
+
+}
+
+function home(){
+    $("#content").html("")
+
+    for (let i=0; i<allTasks.length; i++){
+        console.log((parseInt(allTasks[i].completedTask) == archiveTasks || archiveTasksAll) && parseInt(allTasks[i].label.activated))
+
+        if((parseInt(allTasks[i].completedTask) == archiveTasks || archiveTasksAll) && parseInt(allTasks[i].label.activated)){
+            createTaskElement(i)
+        }
+    }
+}
+
+
+
+function lab(o){
+    $("#content").append(o.element)
+}

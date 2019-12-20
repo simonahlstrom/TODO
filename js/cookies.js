@@ -6,7 +6,6 @@ function updateCookie(user, password, q) {
 
 function setCookie(name, value) {
     var d = new Date();
-    cl(d)
 
     document.cookie = name + "=" + value + ";path=/";
 }
@@ -17,13 +16,11 @@ function getUserFromCookie() {
     let pass
     let loggedIn
     let pattern = /[\s]/
-    console.log(c)
 
 
     c.forEach(function(item){
         let name = item.slice(0, item.indexOf("="))
         name = name.replace(pattern, "")
-        console.log(name)
 
 
         if(name == "username"){
@@ -35,15 +32,12 @@ function getUserFromCookie() {
         }
     })
 
-    console.log(user, pass, loggedIn)
 
     if(parseInt(loggedIn)){
         $.get('php/login.php', { username: user, password: pass })
         .done(function(data) {
             data = JSON.parse(data)
-            console.log(data)
             if(data[0].userId) {
-                console.log("go")
                 setup(data[0].userId)
             }
         })

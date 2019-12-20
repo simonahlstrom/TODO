@@ -588,7 +588,6 @@ function createTaskElement(i) {
   //click event
   element.click(function(e){
     e.stopPropagation()
-    console.log(info.css("display"))
     if(info.css("display") == "none") {
       $(".taskInfo").css({display: "none"})
       info.css({display: "block"})

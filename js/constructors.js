@@ -24,9 +24,12 @@ function Label(data) {
   }).css({
       backgroundImage: "url(" + this.icon + ")",
       backgroundColor: this.color,
+      borderRadius: "50%",
       height: "35px",
       width: "35px",
       margin: "5px"
+  }).click(function(){
+    console.log("deactivate this label")
   })
 }
 
@@ -35,9 +38,10 @@ function Task(data, objLabel) {
   this.taskName = data.taskName
   this.shareCode = data.code
   this.label = objLabel
+  this.added = data.added
   
   this.creator = data.creator
-  this.done = false
+  this.completedTask = data.completedTask
   this.subtasks = []
   this.taskMembers = []
   this.urgent 

@@ -13,7 +13,6 @@ function setup (userId) {
         data = JSON.parse(data)
         //puts user in global variable
         user = new User(data[0]) 
-        console.log(data)
         //updatesCookie
         updateCookie(data[0].username, data[0].password, "1")
         //Updates themes from the user settings fetched from the db
@@ -49,7 +48,6 @@ function getTaskAndLabelData(userId) {
         $.get("php/getAllTaskData.php", {userId: userId})
         .done((data)=>{
             data = JSON.parse(data)
-            cl(data)
             //data[0] = array of subTaskobjects
             //data[1] = array of Taskobjects
             allTasks = []
