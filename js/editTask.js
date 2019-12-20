@@ -284,14 +284,14 @@ function editTask (a) {
             
             popup(["Do you want to share this task?",
             $("<div class='buttonContainer'>").append(
-              $('<input type="button" value="Yes" class="button">').click(() => {shareTask("enable"); this.value = "Disable Sharing"}),
+              $('<input type="button" value="Yes" class="button">').click(() => {shareTask("enable", item.taskId, item.userId); this.value = "Disable Sharing"}),
               $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
             ])
             cl(message)
           } else {
             popup(["If you disable sharing, all members will lose access. Do you want to disable sharing?",
             $("<div class='buttonContainer'>").append(
-              $('<input type="button" value="Yes" class="button">').click(() => {shareTask("disable"); this.value = "Share"}),
+              $('<input type="button" value="Yes" class="button">').click(() => {shareTask("disable", item.taskId, item.userId); this.value = "Share"}),
               $('<input type="button" value="Cancel" class="button">').click(() => {hidePopup()}))
             ])
           }
