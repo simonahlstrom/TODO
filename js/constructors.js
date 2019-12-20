@@ -21,15 +21,53 @@ function Label(data) {
   this.taskIds = []
   this.element = $('<div>', {
       "class": "label",
+      "id": this.labelId
   }).css({
-      backgroundImage: "url(" + this.icon + ")",
+      backgroundImage: `url(icons/labels/${this.icon})`,
       backgroundColor: this.color,
       borderRadius: "50%",
-      height: "35px",
-      width: "35px",
-      margin: "5px"
+      height: "40px",
+      width: "40px",
+      margin: "5px",
+      backgroundSize: "65%",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center"
   }).click(function(){
-    console.log("deactivate this label")
+    let currentLabel
+    let index
+
+    // finding the correct label to handle
+    allLabels.forEach((element, i) => {
+      if (element.labelId == this.id) {
+        currentLabel = element
+        index = i
+      }
+    })
+
+    // updates the activated column on the regarding label
+    $.get('php/toggleActiveLabel.php', {id: currentLabel.labelId, activated: currentLabel.activated})
+    .done((data) => {
+      data = JSON.parse(data)
+
+      // does the same update on the local object
+      allLabels.forEach((element, i) => {
+        if (index == i) {
+          element.activated = data[0].activated
+        }
+      })
+      
+      // handling css-stuff, showing the activited status with opacity
+      if (data[0].activated == 1) {
+        this.classList.remove("deactivated")
+      } else {
+        this.classList.add("deactivated")
+      }
+      // add this function later when it's time
+      // home()
+    })
+    .fail((error) => {
+      console.log(error)
+    })
   })
 }
 
