@@ -163,56 +163,59 @@ function createTaskElement(i) {
 
   //creates subtasks
   for (let i=0; i<obj.subtasks.length; i++) {
-    let subAux = $("<div>", {
-      "id": "subtask" + obj.subtasks[i].subId,
-      appendTo: subtaskEl,
-    })
-
-    $("<div>", {
-      class: "subName",
-      appendTo: subAux,
-      html: obj.subtasks[i].subName
-    })
-
-    $("<div>", {
-      class: "subDL",
-      appendTo: subAux,
-      html: (obj.subtasks[i].deadline) ? obj.subtasks[i].deadline : ""
-    })
-
-    $("<input>", {
-      type: "checkbox",
-      value: "done",
-      checked: (obj.subtasks[i].completed) ? true : false,
-      appendTo: subAux,
-      change: function(){
-        if(!obj.subtasks[i].completed) {
-          //make object and db done
-          console.log("subtask done")
-        } else {
-          //make undone
-          console.log("subtask undone")
+    if(parseInt(obj.subtasks[i].completed) == archiveTasks || archiveTasksAll){
+      let subAux = $("<div>", {
+        "id": "subtask" + obj.subtasks[i].subId,
+        appendTo: subtaskEl,
+      })
+  
+      $("<div>", {
+        class: "subName",
+        appendTo: subAux,
+        html: obj.subtasks[i].subName
+      })
+  
+      $("<div>", {
+        class: "subDL",
+        appendTo: subAux,
+        html: (obj.subtasks[i].deadline) ? obj.subtasks[i].deadline : ""
+      })
+  
+      $("<input>", {
+        type: "checkbox",
+        value: "done",
+        checked: (obj.subtasks[i].completed) ? true : false,
+        appendTo: subAux,
+        change: function(){
+          console.log(this.checked)
+          if(!obj.subtasks[i].completed) {
+            //make object and db done
+            console.log("subtask done")
+          } else {
+            //make undone
+            console.log("subtask undone")
+          }
         }
-      }
-    })
-
-    $("<div>", {
-      class: "subClaim",
-      appendTo: subAux,
-      html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
-    }).click(function(){
-      if(!obj.subtasks[i].claimedName) {
-        //want to calim it
-        //claim it with username
-        console.log("claim it?")
-      } else {
-        //check if you want to unclaim it
-        console.log("don't want it anymore?")
-      }
-    })
-
-
-    //post changes and change in object
+      })
+  
+      $("<div>", {
+        class: "subClaim",
+        appendTo: subAux,
+        html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
+      }).click(function(){
+        if(!obj.subtasks[i].claimedName) {
+          //want to calim it
+          //claim it with username
+          console.log("claim it?")
+        } else {
+          //check if you want to unclaim it
+          console.log("don't want it anymore?")
+        }
+      })
+  
+  
+      //post changes and change in object
+    }
 
   }
 
