@@ -105,11 +105,11 @@ function editTask (a) {
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
-        prepareSubtasks($('#subtaskNameInput').val(), "")
-        $('<div>', {
+        prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+        /* $('<div>', {
           html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
           appendTo: "#subtaskContainer"
-        })
+        }) */
       })
   
   
@@ -230,36 +230,25 @@ function editTask (a) {
       })
   
   
-      $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
-      $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
-      $('<input>', {
-        "id": "radioAll",
-        name: "radio",
-        type: "radio",
-        checked: true,
-        appendTo: "#radioAllContainer",
-        change: function(checked) {
-          $('#date').remove()
-          $('label[for="date"]').remove()
-        }
-      })
-  
       $('<div>', {"id": "radioDeadlineContainer", appendTo: "#content"})
       $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#radioDeadlineContainer"})
       $('<input>', {
         "id": "radioDeadline",
         name: "radio",
-        type: "radio",
+        type: "checkbox",
         checked: false,
         appendTo: "#radioDeadlineContainer",
-        change: function(checked) {
-          if (checked) {
+        change: function() {
+          if (this.checked) {
             $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
               type: "text",
               appendTo: "#dateContainer"
             }).datepicker({dateFormat: "yy-mm-dd"})
+          } else {
+            $('#date').remove()
+            $('label[for="date"]').remove()
           }
         }
       })
@@ -287,13 +276,11 @@ function editTask (a) {
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
-        prepareSubtasks($('#subtaskNameInput').val(), "")
-        $('<div>', {
-          html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
-          appendTo: "#subtaskContainer"
-        })
+        prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
       })
   
+
+
       //creates options for the label select element
       allLabels.forEach(function(item) {
         //sets the default label
@@ -312,14 +299,17 @@ function editTask (a) {
           })
         }
       })
-  
+
+
+
+      //creates old subtasks in the editTask page
       allTasks[a].subtasks.forEach(function(item) {
-        prepareSubtasks(item.subName, item.subId, item.deadline)
-        $('<div>', {
-          html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + item.deadline,
-          appendTo: "#subtaskContainer"
-        })
+        if(item.completed == 0) {
+            prepareSubtasks(item.subName, item.subId, item.deadline)
+        }
       })
+
+    
   
   
       //Edit buttons
