@@ -28,19 +28,27 @@ function popup(message, timeout) {
   for (let item of message) {
     pop.append(item)
   }
-  pop.addClass('active')
+  $(".ghost").addClass('active')
 
   if (timeout) {
     setTimeout(() => {
-      pop.removeClass('active')
+      $(".ghost").removeClass('active')
     }, 1000)
   }
+
+  $(".ghost").click((e) => {
+    cl(e.target)
+      if (e.target == pop.parent()) {
+        cl("IN")
+      hidePopup()
+    }
+  })
 
   return pop
 }
 
 function hidePopup() {
-  $("#popup").removeClass("active")
+  $(".ghost").removeClass("active")
 }
 
 //function to edit or create a new task // a = "new" or a = i from allTasks[] 
@@ -451,7 +459,8 @@ function saveSubtask(code, obj) {
   
 }
 
-function createTaskElement(obj) {
+function createTaskElement(i) {
+  let obj = allTasks[i]
   //creates the task element container
   let element = $("<div>", {
     "id": "task" + obj.taskId,
@@ -571,7 +580,7 @@ function createTaskElement(obj) {
     value: "edit",
     appendTo: actions,
   }).click(function(){
-    //run task function
+    editTask(obj)
     console.log("edit task")
   })
 
@@ -580,7 +589,6 @@ function createTaskElement(obj) {
   //click event
   element.click(function(e){
     e.stopPropagation()
-    console.log(info.css("display"))
     if(info.css("display") == "none") {
       $(".taskInfo").css({display: "none"})
       info.css({display: "block"})
@@ -593,3 +601,4 @@ function createTaskElement(obj) {
 
   // return element
 }
+

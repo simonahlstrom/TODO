@@ -21,5 +21,12 @@ let welcomeInfo = [
     }))
 ]
 
+//home/filters
+//toggles archived tasks 
+let archiveTasks = 0
+let archiveTasksAll = false
+
+
+
 //test variables
 let labels = ["Home", "Work", "School"]

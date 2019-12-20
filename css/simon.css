@@ -10,22 +10,24 @@ body {
 .popup {
   flex-direction: column;
   padding: 15px;
-  position: absolute;
-  opacity: 0;
   background-color: var(--mainColor);
   border: 1px solid grey;
   border-radius: 10px;
-  transition: opacity .3s ease;
   justify-content: flex-start;
   width: calc(100vw - 52px);
-  z-index: 2;
+}
+
+.ghost {
+  height: 100%;
+  width: 100%;
   display: none;
+  transition: opacity .3s ease;
+  z-index: 2;
 }
 
 .active {
   opacity: 1;
   display: flex;
-  /* z-index: -1; */
 }
 
 .button {
