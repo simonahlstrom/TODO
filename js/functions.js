@@ -28,7 +28,7 @@ function popup(message, timeout) {
   for (let item of message) {
     pop.append(item)
   }
-  $(".ghost").addClass('active')
+  let ghost = $(".ghost").addClass('active')
 
   if (timeout) {
     setTimeout(() => {
@@ -44,7 +44,7 @@ function popup(message, timeout) {
     }
   })
 
-  return pop
+  return ghost
 }
 
 function hidePopup() {
