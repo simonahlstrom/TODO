@@ -85,6 +85,7 @@ function prepareSubtasks(name, subId, date) {
     })
 
     $("<input>", {
+    "class": "button",
     type: "button",
     value: "Edit",
     appendTo: subAux,

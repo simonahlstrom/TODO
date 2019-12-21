@@ -100,6 +100,7 @@ function editTask (a) {
       //Add subtask button, input, click function
       $('<input>', {
         "id": "addSubtask",
+        "class": "button",
         type: "button",
         value: "+",
         appendTo: "#subtaskTitleContainer"
@@ -128,7 +129,7 @@ function editTask (a) {
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       editTaskButtons.forEach(function(item) {
         $('<input>', {
-          "class": "flex",
+          "class": "flex button",
           "id": "editTaskButton" + item,
           value: item,
           type: "button",
@@ -235,8 +236,9 @@ function editTask (a) {
       })
       $('<input>', {
         "id": "addSubtask",
+        "class": "button",
         type: "button",
-        value: "+",
+        value: " + ",
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
@@ -278,7 +280,7 @@ function editTask (a) {
 
       //check if user is owner
       if(obj.creator) {
-        $('<input>', {type: "button", value: "Share", appendTo: "#content"}).click(function() {
+        $('<input>', {"class": "button", type: "button", value: "Share", appendTo: "#content"}).click(function() {
           
           if(this.value == "Share") {
             
