@@ -1,6 +1,7 @@
 //function to edit or create a new task // a = "new" or a = i from allTasks[] 
 function editTask (a) {
     $('#content').html("")
+    let shared = 1
   
     if (a == "new") {
       let code = makeid(4)
@@ -20,8 +21,11 @@ function editTask (a) {
         appendTo: "#content",
       })
   
+<<<<<<< HEAD
   
   
+=======
+>>>>>>> 17560e2bf55607fd26d79f99d88d18d8deba7bac
       
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
       $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
@@ -82,16 +86,37 @@ function editTask (a) {
       }).click(function() {
         //adds substask to subtaskContainer
         prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
-        /* $('<div>', {
-          html: "Name: " + subtaskArray[subtaskArray.length-1][1] + " Deadline: " + subtaskArray[subtaskArray.length-1][2],
-          appendTo: "#subtaskContainer"
-        }) */
       })
 
 
 
   
   
+      //shared header for "new"
+      $('<div>', {"id": "sharedHeader", appendTo: "#content"})
+      $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
+
+      $('<input>', {type: "button", value: "Enable", appendTo: "#sharedHeader"}).click(function() {
+        if (shared == 1) {
+          shared = 2
+          this.value = "Disable"
+
+          $("<p>", {"id": "newCode", html: "Share code: " + code, appendTo: "#sharedHeader"})
+
+        } else {
+          shared = 1
+          this.value = "Enable"
+
+          $("#newCode").remove()
+        }         
+      })
+          
+        
+    
+
+
+
+
       allLabels.forEach(function(item) {
         
         $('<option>', {
@@ -115,7 +140,7 @@ function editTask (a) {
             appendTo: "#buttonContainer"
           }).click(function() {
             if(item == "Save") {
-              saveTask(code, "new")
+              saveTask(code, "new", shared)
             } else {
               //return to Home
             }
@@ -144,23 +169,6 @@ function editTask (a) {
         value: "label",
         appendTo: "#content"
       })
-  
-  
-
-/*       $('<div>', {html: "Share code: " + obj.shareCode, appendTo: "#content", "id": "shareCode"})
-      $('<input>', {
-        type: "checkbox", 
-        appendTo: "#shareCode", 
-        change: function() {    
-          if (this.checked) { 
-            
-          } else {
-            $('#shareContainer').remove()
-          }
-        }
-      }) */
-  
-  
   
       //Add subtask button, input, click function
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
@@ -253,14 +261,20 @@ function editTask (a) {
         }
       })
 
+<<<<<<< HEAD
       // Shared header
       $('<div>', {html: "Shared", appendTo: "#content"}).css("font-size", "20px")
+=======
+      //Shared header
+      $('<div>', {"id": "sharedHeader", appendTo: "#content"})
+      $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
+>>>>>>> 17560e2bf55607fd26d79f99d88d18d8deba7bac
 
       //check if user is owner
       if(parseInt(obj.creator)) {
 
 
-        $('<input>', {type: "button", value: (obj.creator==1) ? "Enable" : "Disable", appendTo: "#content"}).click(function() {
+        $('<input>', {type: "button", value: (obj.creator==1) ? "Enable" : "Disable", appendTo: "#sharedHeader"}).click(function() {
           
           if(this.value == "Enable") {
             
@@ -269,12 +283,13 @@ function editTask (a) {
               $('<input type="button" value="Yes" class="button">').click(() => {
                 shareTask("enable", obj.taskId, user.userId) 
                 this.value = "Disable"
+                $("<p>", {"id": "oldCode", html: "Share code: " + obj.shareCode, appendTo: "#sharedHeader"})
+                sharedTaskMembers(obj)
                 hidePopup()
                 //add name to shared container
               }),
               $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
             ])
-            cl(message)
           } else {
             popup(["If you disable sharing, all members will lose access. Do you want to disable sharing?",
             $("<div class='buttonContainer'>").append(
@@ -283,6 +298,7 @@ function editTask (a) {
                 this.value = "Enable"
                 hidePopup()
                 $("#shareContainer").empty()
+                $("#oldCode").remove()
               }),
               $('<input type="button" value="Cancel" class="button">').click(() => {hidePopup()}))
             ])
@@ -290,47 +306,19 @@ function editTask (a) {
         })
       }
       
+      
       //shared container
       $('<div>', {"id": "shareContainer", appendTo: "#content"}).css({
         minHeight: "100px",
         border: "2px solid lightgray"
       })
+      
+      if(obj.creator != 1) {
+        $("<p>", {"id": "oldCode", html: "Share code: " + obj.shareCode, appendTo: "#sharedHeader"})
+        sharedTaskMembers(obj)
+      } 
 
-      //visable code when shared
 
-      // if (obj.creator){
-      //   $("<p>", {
-      //     html: "Share code: " + obj.shareCode,
-      //     appendTo: "#shareContainer"
-      //   })
-      // }
-    
-
-      //make function of this.
-      obj.taskMembers.forEach(function(item) {
-    
-        $("<div>", {
-          class: "taskMember",
-          html: "<div>" + item.username + "</div>",
-          appendTo: "#shareContainer"
-        }).css({
-          height: "20px"
-        })
-  
-        if(parseInt(item.creator)) {
-          owner = $("<div>", {
-            html: "(o)",
-            appendTo: ".taskMember:last-child"
-  
-          }).css({
-            height: "20px",
-            width: "20px",
-            border: "1px solid var(--accentColor)",
-            borderRadius: "50%",
-            padding: "3px",
-          })
-        }
-      })
     
         
 
@@ -371,10 +359,8 @@ function editTask (a) {
 
 
  
-  //delete task
+
   //add task with code.
 
 
   //cancel button
-   //visable code
-  //show team
