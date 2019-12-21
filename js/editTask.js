@@ -140,13 +140,17 @@ function editTask (a) {
               popup(["Insert share code", 
               $('<input>', {"id": "shareCodeInput"}), 
               $('<input>', {type: "button", "class": "button", value: "Submit"}).click(function() {
-
+                let taskExists = false
                 for (let i=0; i<allTasks.length; i++) {
-                  if($('#shareCodeInput').val() != allTasks[i].shareCode) {
-                    addTaskFromShareCode($('#shareCodeInput').val())
-                  } else {
-                    popup(["You are already a member of this task.", timeout])
-                  }
+                  if($('#shareCodeInput').val() == allTasks[i].shareCode) {
+                    taskExists = true
+                  } 
+                }
+
+                if (!taskExists) {
+                  addTaskFromShareCode($('#shareCodeInput').val())
+                } else {
+                  popup(["You are already a member of this task.", timeout])
                 }
                 
 

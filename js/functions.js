@@ -378,6 +378,7 @@ function createTaskElement(i) {
 
 function addTaskFromShareCode(code) {
   let auxLabel
+  proceed = code
   for (let i = 0; i<allLabels.length; i++) {
     if (!i) {
       auxLabel = allLabels[i].labelId
@@ -385,8 +386,7 @@ function addTaskFromShareCode(code) {
       auxLabel = allLabels[i].labelId
     }
   }
-  cl(auxLabel)
-
+  console.log(code, user.userId, auxLabel)
   $.get('php/joinSharedTask.php', {
     code: code,
     userId: user.userId,
@@ -394,7 +394,7 @@ function addTaskFromShareCode(code) {
     })
 
     .done(function(data){
-      proceed = code
+      cl(data)
       getTaskAndLabelData(user.userId)
     })
     .fail(error)

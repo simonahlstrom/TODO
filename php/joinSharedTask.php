@@ -10,7 +10,7 @@ $sql->bindParam(1, $_GET['code']);
 $sql->bindParam(1, $_GET['userId']);
 $sql->execute();
 
-$query = "INSERT INTO tasksinlabelrel (taskId, labelId) 
+$query = "INSERT INTO tasksInLabelRel (taskId, labelId) 
 VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?)";
 
 $sql = $pdo->prepare($query);

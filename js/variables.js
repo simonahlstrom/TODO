@@ -5,7 +5,7 @@ let actions = []
 let theme = []
 
 //used after get all task and label data to control what will happen "home" is default
-let proceed = "home"
+let proceed = "homeSetting"
 
 //used for editTask()
 let editTaskButtons = ["Save", "Delete", "Add shared task", "Cancel"]
