@@ -21,11 +21,6 @@ function editTask (a) {
         appendTo: "#content",
       })
   
-<<<<<<< HEAD
-  
-  
-=======
->>>>>>> 17560e2bf55607fd26d79f99d88d18d8deba7bac
       
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
       $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
@@ -141,6 +136,21 @@ function editTask (a) {
           }).click(function() {
             if(item == "Save") {
               saveTask(code, "new", shared)
+            } else if (item == "Add shared task") {
+              popup(["Insert share code", 
+              $('<input>', {"id": "shareCodeInput"}), 
+              $('<input>', {type: "button", "class": "button", value: "Submit"}).click(function() {
+
+                for (let i=0; i<allTasks.length; i++) {
+                  if($('#shareCodeInput').val() != allTasks[i].shareCode) {
+                    addTaskFromShareCode($('#shareCodeInput').val())
+                  } else {
+                    popup(["You are already a member of this task.", timeout])
+                  }
+                }
+                
+
+              })])
             } else {
               //return to Home
             }
@@ -261,14 +271,9 @@ function editTask (a) {
         }
       })
 
-<<<<<<< HEAD
-      // Shared header
-      $('<div>', {html: "Shared", appendTo: "#content"}).css("font-size", "20px")
-=======
       //Shared header
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
       $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
->>>>>>> 17560e2bf55607fd26d79f99d88d18d8deba7bac
 
       //check if user is owner
       if(parseInt(obj.creator)) {

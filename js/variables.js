@@ -5,7 +5,7 @@ let actions = []
 let theme = []
 
 //used for editTask()
-let editTaskButtons = ["Save", "Delete", "Cancel"]
+let editTaskButtons = ["Save", "Delete", "Add shared task", "Cancel"]
 let subtaskArray = []
 
 //user in conjunction with popup

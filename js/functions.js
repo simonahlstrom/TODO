@@ -368,3 +368,26 @@ function createTaskElement(i) {
   // return element
 }
 
+function addTaskFromShareCode(code) {
+  let auxLabel
+  for (let i = 0; i<allLabels.length; i++) {
+    if (!i) {
+      auxLabel = allLabels[i].labelId
+    } else if (auxLabel > allLabels[i].labelId) {
+      auxLabel = allLabels[i].labelId
+    }
+  }
+  cl(auxLabel)
+
+  $.get('php/joinSharedTask.php', {
+    code: code,
+    userId: user.userId,
+    labelId: auxLabel
+    })
+
+    .done(function(data){
+      proceed = code
+      getTaskAndLabelData(user.userId)
+    })
+    .fail(error)
+}
