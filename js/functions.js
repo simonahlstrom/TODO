@@ -145,7 +145,7 @@ function saveTask(code, action, shared) {
       })
   
       .done(function(data){
-        cl(data)
+        console.log(data)
         saveSubtask(code)
       })
       .fail(error)
@@ -154,18 +154,17 @@ function saveTask(code, action, shared) {
   }
 }
 
-function saveSubtask(code, obj) {
-  cl(obj)
+function saveSubtask(code) {
   subtaskArray.forEach(function(item) {
     let action
+    console.log(item[0])
 
-
-    if (item[0] == "") {
+    if (item[0] == "" || item[0] == undefined) {
       action = "new"
-      cl("new " + item[2])
+      console.log("new " + item[2])
     } else {
       action = "alter"
-      cl("alter " + item[2])
+      console.log("alter " + item[2])
     }
     
     $.get('php/uploadSubtask.php', {
@@ -178,7 +177,7 @@ function saveSubtask(code, obj) {
       subId: item[0]
     })
     .done(function(data){
-      cl(data)
+      console.log(data)
       getTaskAndLabelData(user.userId)
       subtaskArray = []
     })
@@ -191,7 +190,8 @@ function removeTask(obj) {
   $.get('php/removeTask.php', {taskId: obj.taskId})
   .done((data)=>{
     console.log(data)
-    popup(["Task has been removed"], true)
+    popup(["Task has been removed"], timeout)
+    getTaskAndLabelData(user.userId)
   })
   .fail(error)
 }
@@ -233,8 +233,8 @@ function sharedTaskMembers(obj) {
 }
 
 //creates an task element on homepage
-function createTaskElement(i) {
-  let obj = allTasks[i]
+function createTaskElement(taskIndex) {
+  let obj = allTasks[taskIndex]
   //creates the task element container
   let element = $("<div>", {
     "id": "task" + obj.taskId,
@@ -357,7 +357,8 @@ function createTaskElement(i) {
     value: "edit",
     appendTo: actions,
   }).click(function(){
-    editTask(i)
+    console.log(taskIndex)
+    editTask(taskIndex)
   })
 
 

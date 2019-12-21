@@ -165,7 +165,7 @@ function editTask (a) {
     } else {
       
       let obj = allTasks[a]
-      cl(obj)
+      console.log("object sent to editTask", obj)
       let code = obj.shareCode
       //Name of task input
       $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
