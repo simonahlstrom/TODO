@@ -81,6 +81,15 @@ function getTaskAndLabelData(userId) {
                 
                 allTasks[i].taskMembers = taskMembers
                 
+                //home 
+
+                if (proceed == "home") {
+                    // got to home
+                } else {
+                    editTask(proceed)
+                    proceed = "home"
+                }
+
                 })
                 .fail(error)
                 

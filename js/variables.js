@@ -4,6 +4,9 @@ let allTasks = []
 let actions = []
 let theme = []
 
+//used after get all task and label data to control what will happen "home" is default
+let proceed = "home"
+
 //used for editTask()
 let editTaskButtons = ["Save", "Delete", "Cancel"]
 let subtaskArray = []
