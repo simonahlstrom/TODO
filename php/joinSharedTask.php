@@ -2,21 +2,36 @@
 include('connectToDB.php');
 
 $pdo = connectDB();
-$query = "INSERT INTO taskMembers (taskId, userId, creator) 
-VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?, 0)";
 
+$query = "SELECT taskId FROM Tasks WHERE code = ?";
 $sql = $pdo->prepare($query);
 $sql->bindParam(1, $_GET['code']);
-$sql->bindParam(2, $_GET['userId']);
 $sql->execute();
+$answer = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-$query = "INSERT INTO tasksInLabelRel (taskId, labelId) 
-VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?)";
+if ($answer) {
+    $query = "INSERT INTO taskMembers (taskId, userId, creator) 
+    VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?, 0)";
 
-$sql = $pdo->prepare($query);
-$sql->bindParam(1, $_GET['code']);
-$sql->bindParam(2, $_GET['labelId']);
-$sql->execute();
+    $sql = $pdo->prepare($query);
+    $sql->bindParam(1, $_GET['code']);
+    $sql->bindParam(2, $_GET['userId']);
+    $sql->execute();
 
-echo "Shared task joined";
+    $query = "INSERT INTO tasksInLabelRel (taskId, labelId) 
+    VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?)";
+
+    $sql = $pdo->prepare($query);
+    $sql->bindParam(1, $_GET['code']);
+    $sql->bindParam(2, $_GET['labelId']);
+    $sql->execute();
+
+    echo "Joined shared task";
+} else {
+    echo "Task doesnt exist";
+}
+
+
+
+
 ?>

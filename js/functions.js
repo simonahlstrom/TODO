@@ -388,7 +388,7 @@ function addTaskFromShareCode(code) {
       auxLabel = allLabels[i].labelId
     }
   }
-  console.log(code, user.userId, auxLabel)
+
   $.get('php/joinSharedTask.php', {
     code: code,
     userId: user.userId,
@@ -396,7 +396,27 @@ function addTaskFromShareCode(code) {
     })
 
     .done(function(data){
+      console.log(data)
+      hidePopup()
+      if (data == "Task doesnt exist") {
+        popup(["Task doesnt exist", timeout])
+      } else {
+        getTaskAndLabelData(user.userId)
+      }
+    })
+    .fail(error)
+}
+
+function leaveTask(obj) {
+  $.get('php/leaveTask.php', {
+    taskId: obj.taskId,
+    userId: user.userId,
+    labelId: obj.label.labelId
+    })
+
+    .done(function(data){
       cl(data)
+      hidePopup()
       getTaskAndLabelData(user.userId)
     })
     .fail(error)

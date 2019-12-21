@@ -12,7 +12,7 @@ let proceed = "homeSetting"
 let filter = "allAsc"
 
 //used for editTask()
-let editTaskButtons = ["Save", "Delete", "Add shared task", "Cancel"]
+let editTaskButtons = ["Save", "Delete", "Add shared task", "Leave task", "Cancel"]
 let subtaskArray = []
 
 //user in conjunction with popup

@@ -126,7 +126,7 @@ function editTask (a) {
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       editTaskButtons.forEach(function(item) {
-        if(item != "Delete") {
+        if(item != "Delete" && item != "Leave task") {
           $('<input>', {
             "class": "flex button",
             "id": "editTaskButton" + item,
@@ -332,32 +332,42 @@ function editTask (a) {
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       
       editTaskButtons.forEach(function(item) {
-        $('<input>', {
-          "class": "flex button",
-          "id": "editTaskButton" + item,
-          value: item,
-          type: "button",
-          appendTo: "#buttonContainer"
-        }).click(function() {
-          if(item == "Save") {
-            console.log("Task updated")
-            saveTask(code, "alter")
-          } else if (item == "Delete") {
-            popup(["Do you want to delete this task?",
-            $("<div class='buttonContainer'>").append(
-              $('<input type="button" value="Yes" class="button">').click(() => {
-                removeTask(obj)
-                hidePopup()
-                //go to home. 
-              }),
-              $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
-            ])
-            console.log("Task deleted")
-            
-          } else {
-            //return to Home
-          }
-        })
+        if((obj.creator != 0 && item != "Leave task") || (item != "Delete" && obj.creator == 0)) {
+          $('<input>', {
+            "class": "flex button",
+            "id": "editTaskButton" + item,
+            value: item,
+            type: "button",
+            appendTo: "#buttonContainer"
+          }).click(function() {
+            if(item == "Save") {
+              console.log("Task updated")
+              saveTask(code, "alter")
+            } else if (item == "Delete") {
+              popup(["Do you want to delete this task?",
+              $("<div class='buttonContainer'>").append(
+                $('<input type="button" value="Yes" class="button">').click(() => {
+                  removeTask(obj)
+                  hidePopup()
+                  //go to home. 
+                }),
+                $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
+              ])
+              console.log("Task deleted")
+              
+            } else if (item = "Leave task") {
+              popup([
+                "Do you want the leave this task?",
+                $('<input>', {type: "button", value: "Yes", "class": "button"}).click(function() {
+                  leaveTask(obj)
+                }),
+                $('<input type="button" value="No" class="button">').click(() => {hidePopup()})
+              ])
+            } else {
+              //return to Home
+            }
+          })
+        }
       })
     }
   }
