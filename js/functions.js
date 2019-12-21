@@ -127,7 +127,7 @@ function prepareSubtasks(name, subId, date) {
 }
 
 //Saves a task. Arguments: code is for the WHERE in the sql query and action tells the php which queries to run. //
-function saveTask(code, action) {
+function saveTask(code, action, shared) {
   code = code
 
   
@@ -137,7 +137,8 @@ function saveTask(code, action) {
       labelId: $('#labelSelect').val(),
       code: code,
       userId: user.userId,
-      action: action
+      action: action,
+      shared: shared
       })
   
       .done(function(data){
@@ -184,7 +185,7 @@ function saveSubtask(code, obj) {
 }
 function removeTask(obj) {
   console.log(obj)
-  $get('php/removeTask.php', {taskId: obj.taskId})
+  $.get('php/removeTask.php', {taskId: obj.taskId})
   .done((data)=>{
     console.log(data)
     popup(["Task has been removed"], true)
@@ -192,6 +193,33 @@ function removeTask(obj) {
   .fail(error)
 }
 
+function sharedTaskMembers(obj) {
+  cl(obj)
+  obj.taskMembers.forEach(function(item) {
+  
+    $("<div>", {
+      class: "taskMember",
+      html: "<div>" + item.username + "</div>",
+      appendTo: "#shareContainer"
+    }).css({
+      height: "20px"
+    })
+  
+    if(parseInt(item.creator)) {
+      owner = $("<div>", {
+        html: "(o)",
+        appendTo: ".taskMember:last-child"
+  
+      }).css({
+        height: "20px",
+        width: "20px",
+        border: "1px solid var(--accentColor)",
+        borderRadius: "50%",
+        padding: "3px",
+      })
+    }
+  })
+}
 
 //creates an task element on homepage
 function createTaskElement(i) {
