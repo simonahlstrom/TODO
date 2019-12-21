@@ -1,6 +1,6 @@
 
 //Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
-$('#add').click(function() {editTask(2)})
+$('#add').click(function() {editTask("new")})
 
 function cl(x) {
   console.log(x)
@@ -184,7 +184,7 @@ function saveSubtask(code, obj) {
 }
 function removeTask(obj) {
   console.log(obj)
-  $get('php/removeTask.php', {taskId: obj.taskId})
+  $.get('php/removeTask.php', {taskId: obj.taskId})
   .done((data)=>{
     console.log(data)
     popup(["Task has been removed"], true)

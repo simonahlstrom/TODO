@@ -21,20 +21,6 @@ function editTask (a) {
       })
   
   
-      let active = true
-      $('<div>', {html: "Share code: " + code, appendTo: "#content", "id": "shareCode"})
-      $('<input>', {type: "checkbox", appendTo: "#shareCode", change: function() {    
-        if (active) {
-          active = false
-          $('<div>', {"id": "shareContainer", appendTo: "#shareCode"}).css({
-            minHeight: "100px",
-            border: "2px solid lightgray"
-          })
-  
-        } else {
-          $('#shareContainer').remove()
-          active = true}
-      }})
   
       
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
@@ -47,36 +33,25 @@ function editTask (a) {
       })
   
   
-      $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
-      $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
-      $('<input>', {
-        "id": "radioAll",
-        name: "radio",
-        type: "radio",
-        checked: true,
-        appendTo: "#radioAllContainer",
-        change: function(checked) {
-          $('#date').remove()
-          $('label[for="date"]').remove()
-        }
-      })
-  
       $('<div>', {"id": "radioDeadlineContainer", appendTo: "#content"})
       $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#radioDeadlineContainer"})
       $('<input>', {
         "id": "radioDeadline",
         name: "radio",
-        type: "radio",
+        type: "checkbox",
         checked: false,
         appendTo: "#radioDeadlineContainer",
-        change: function(checked) {
-          if (checked) {
+        change: function() {
+          if (this.checked) {
             $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
               type: "text",
               appendTo: "#dateContainer"
             }).datepicker({dateFormat: "yy-mm-dd"})
+          } else {
+            $('#date').remove()
+            $('label[for="date"]').remove()
           }
         }
       })
@@ -112,6 +87,9 @@ function editTask (a) {
           appendTo: "#subtaskContainer"
         }) */
       })
+
+
+
   
   
       allLabels.forEach(function(item) {
@@ -144,7 +122,7 @@ function editTask (a) {
           })
         }
       })
-
+// ----------------------------------------------------EDIT OLD TASK------------------------------------------------------------------
     } else {
       
       let obj = allTasks[a]
@@ -275,7 +253,7 @@ function editTask (a) {
         }
       })
 
-      //Shared header
+      // Shared header
       $('<div>', {html: "Shared", appendTo: "#content"}).css("font-size", "20px")
 
       //check if user is owner
