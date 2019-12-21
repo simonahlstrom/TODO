@@ -127,23 +127,23 @@ function editTask (a) {
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       editTaskButtons.forEach(function(item) {
-        $('<input>', {
-          "class": "flex",
-          "id": "editTaskButton" + item,
-          value: item,
-          type: "button",
-          appendTo: "#buttonContainer"
-        }).click(function() {
-          if(item == "Save") {
-            saveTask(code, "new")
-          } else if (item == "Delete") {
-            console.log("Task deleted")
-            //Popup, remove from DB
-          } else {
-            //return to Home
-          }
-        })
+        if(item != "Delete") {
+          $('<input>', {
+            "class": "flex",
+            "id": "editTaskButton" + item,
+            value: item,
+            type: "button",
+            appendTo: "#buttonContainer"
+          }).click(function() {
+            if(item == "Save") {
+              saveTask(code, "new")
+            } else {
+              //return to Home
+            }
+          })
+        }
       })
+
     } else {
       
       let obj = allTasks[a]
@@ -316,7 +316,7 @@ function editTask (a) {
         border: "2px solid lightgray"
       })
 
-      //visable when shared
+      //visable code when shared
 
       // if (obj.creator){
       //   $("<p>", {
@@ -357,6 +357,7 @@ function editTask (a) {
   
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
+      
       editTaskButtons.forEach(function(item) {
         $('<input>', {
           "class": "flex button",
@@ -369,8 +370,17 @@ function editTask (a) {
             console.log("Task updated")
             saveTask(code, "alter")
           } else if (item == "Delete") {
+            popup(["Do you want to delete this task?",
+            $("<div class='buttonContainer'>").append(
+              $('<input type="button" value="Yes" class="button">').click(() => {
+                removeTask(obj)
+                hidePopup()
+                //go to home. 
+              }),
+              $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
+            ])
             console.log("Task deleted")
-            //Popup, remove from DB
+            
           } else {
             //return to Home
           }
@@ -378,3 +388,13 @@ function editTask (a) {
       })
     }
   }
+
+
+ 
+  //delete task
+  //add task with code.
+
+
+  //cancel button
+   //visable code
+  //show team

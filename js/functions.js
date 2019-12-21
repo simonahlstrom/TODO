@@ -181,7 +181,18 @@ function saveSubtask(code, obj) {
 
   })
 }
+function removeTask(obj) {
+  console.log(obj)
+  $get('php/removeTask.php', {taskId: obj.taskId})
+  .done((data)=>{
+    console.log(data)
+    popup(["Task has been removed"], true)
+  })
+  .fail(error)
+}
 
+
+//creates an task element on homepage
 function createTaskElement(i) {
   let obj = allTasks[i]
   //creates the task element container
