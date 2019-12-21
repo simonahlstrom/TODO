@@ -17,7 +17,7 @@ switch ($action) {
         $sql->execute();
 
         echo 'Subtask created';
-    break;
+        break;
     case "alter":
         $query = "UPDATE Subtasks
         SET subName = ?, deadline = ? WHERE subId = ?";
@@ -26,9 +26,19 @@ switch ($action) {
         $sql->bindParam(2, $_GET['deadline']);
         $sql->bindParam(3, $_GET['subId']);
 
+        $sql->execute();
+
+        echo 'Subtask altered';
+        break;
+
+    case "delete":
+        $query = "DELETE FROM `Subtasks` WHERE subId = ?";
+        $sql = $pdo->prepare($query);
+        $sql->bindParam(1, $_GET['subId']);
+
 
         $sql->execute();
 
-        echo 'Subtask created';
+        echo 'Subtask deleted';
 }
 ?>

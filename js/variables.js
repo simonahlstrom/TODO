@@ -12,7 +12,8 @@ let proceed = "homeSetting"
 let filter = "allAsc"
 
 //used for editTask()
-let editTaskButtons = ["Save", "Delete", "Add shared task", "Leave task", "Cancel"]
+let editTaskButtons = ["Save", "Delete task", "Leave task", "Cancel"]
+let editTaskButtonsNew = ["Save", "Add shared task", "Cancel"]
 let subtaskArray = []
 
 //user in conjunction with popup
@@ -33,6 +34,9 @@ let welcomeInfo = [
 let archiveTasks = 0
 let archiveTasksAll = false
 
+
+//pattern check for empty fields 
+let pattern = /^[\s]{1,}$/
 
 
 //test variables

@@ -79,15 +79,23 @@ function hidePopup() {
 
 //Lös så att alla subtasks inte laddas upp på nytt! dela på funktionen som displayar i subtasklistan och de som laddas upp?
 function prepareSubtasks(name, subId, date) {
+  if (name == ""){
+    popup(["Give the subtask a name before adding it."])
+    return 
+  }
+
   subtaskArray.push([])
   subtaskArray[subtaskArray.length-1].push(subId)
   subtaskArray[subtaskArray.length-1].push(name)
+
+  console.log(date)
 
   if ($('#radioAll:checked').val()) {
     subtaskArray[subtaskArray.length-1].push(date)
   } else {
     subtaskArray[subtaskArray.length-1].push($('#date').val())
   }
+
 
   let subIndex = subtaskArray.length-1
 
@@ -115,25 +123,42 @@ function prepareSubtasks(name, subId, date) {
     value: "Edit",
     appendTo: subAux,
     }).click(function() {
+      $("#subtaskContainer input[type='button']").css({display: "none"})
+
       $('#subtaskNameInput').attr({name: subId})
       $('#subtaskNameInput').val(name)
 
-      if (typeof date == "string") {
-        $('#radioDeadline').attr({checked: true}).change()
+      if (typeof date == "string" && !$('#radioDeadline').prop("checked")) {
+        $('#radioDeadline').click()
+      } else if (typeof date != "string" && $('#radioDeadline').prop("checked")) {
+        $('#radioDeadline').click()
       }
+
       $('#date').val(date)
-      console.log(subIndex)
       subtaskArray.splice(subIndex, 1)
       subAux.remove()
     })
 
-}
+    $("<input>", {
+      "class": "button",
+      type: "button",
+      value: "Delete",
+      appendTo: subAux,
+      }).click(function() {
+            subtaskArray[subIndex][3] = "delete"
+            subAux.remove()
+      })
 
+    $('#subtaskNameInput').val("")
+    $('#subtaskNameInput').attr("name", "")
+    $('#date').val("")
+
+
+}
 //Saves a task. Arguments: code is for the WHERE in the sql query and action tells the php which queries to run. //
 function saveTask(code, action, shared) {
   code = code
 
-  
   if ($('#taskNameInput').val()) {
     $.get('php/uploadTask.php', {
       taskName: $('#taskNameInput').val(),
@@ -150,38 +175,55 @@ function saveTask(code, action, shared) {
       })
       .fail(error)
   } else {
-    popup("Please fill out all the fields").click(hidePopup)
+    popup("Give the task a name before saving.").click(hidePopup)
   }
 }
 
 function saveSubtask(code) {
+  console.table(subtaskArray)
   subtaskArray.forEach(function(item) {
     let action
-    console.log(item[0])
 
-    if (item[0] == "" || item[0] == undefined) {
-      action = "new"
-      console.log("new " + item[2])
+  
+
+    if ((item[3] == "delete" && item[0]) || item[3] == undefined) {
+      console.log("first check passed -->", item)
+
+      if (item[0] == "" || item[0] == undefined) {
+        action = "new"
+        console.log("new ", item)
+      } else if (item[3] == "delete") {
+        action = "delete"
+        console.log("delete ", item)
+      } else {
+        action = "alter"
+        console.log("alter ", item)
+      }
+      
+  
+  
+      $.get('php/uploadSubtask.php', {
+        taskName: $('#taskNameInput').val(),
+        subName: item[1],
+        deadline: item[2],
+        userId: user.userId,
+        code: code,
+        action: action,
+        subId: item[0]
+      })
+      .done(function(data){
+        console.log(data)
+        getTaskAndLabelData(user.userId)
+        subtaskArray = []
+      })
+      .fail(error)
+
     } else {
-      action = "alter"
-      console.log("alter " + item[2])
+      console.log("didn't pass first-->", item)
     }
+
+
     
-    $.get('php/uploadSubtask.php', {
-      taskName: $('#taskNameInput').val(),
-      subName: item[1],
-      deadline: item[2],
-      userId: user.userId,
-      code: code,
-      action: action,
-      subId: item[0]
-    })
-    .done(function(data){
-      console.log(data)
-      getTaskAndLabelData(user.userId)
-      subtaskArray = []
-    })
-    .fail(error)
 
   })
 }
@@ -205,7 +247,6 @@ function shareTask(action, taskId, userId) {
 }
 
 function sharedTaskMembers(obj) {
-  cl(obj)
   obj.taskMembers.forEach(function(item) {
   
     $("<div>", {
@@ -345,6 +386,7 @@ function createTaskElement(taskIndex) {
 
   $("<input>", {
     type: "button",
+    class: "button",
     value: "done",
     appendTo: actions,
   }).click(function(){
@@ -354,6 +396,7 @@ function createTaskElement(taskIndex) {
 
   $("<input>", {
     type: "button",
+    class: "button",
     value: "edit",
     appendTo: actions,
   }).click(function(){

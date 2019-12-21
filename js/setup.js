@@ -65,12 +65,12 @@ function getTaskAndLabelData(userId) {
 
                 //adds the task into allTask-array
                 allTasks.push(new Task(data[1][i], label))
+                let taskId = allTasks[allTasks.length-1].taskId
 
                 //get index for a specifictask to be used in proceed
                 if(allTasks[allTasks.length-1].shareCode == proceed) {
-                    cl(proceed)
                     proceed = allTasks.length-1
-                    cl(proceed)
+                    console.log("proceed changed to: " + proceed)
                 }
 
                 //puts the tasks subtasksin in the subtaskproperty
@@ -80,18 +80,20 @@ function getTaskAndLabelData(userId) {
                     }
 
                 }
-                
+
                 //puts Taskmembers into the task
-                $.get('php/getSharedData.php', {taskId: data[1][i].taskId})
+                $.get('php/getSharedData.php', {taskId: taskId})
                 .done(function(data){
-                taskMembers = JSON.parse(data)
-                
-                allTasks[i].taskMembers = taskMembers
-                
-                //home 
+                    taskMembers = JSON.parse(data)
+                    //need to check this because of DB delay and filter ordering allTasks
+                    for(k=0; k<allTasks.length; k++){
+                        if(allTasks[k].taskId == taskId) {
+                            allTasks[k].taskMembers = taskMembers
+                        }
+                    }
 
+                    
                 
-
                 })
                 .fail(error)
                 

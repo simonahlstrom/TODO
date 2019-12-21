@@ -40,14 +40,16 @@ function editTask (a) {
         type: "checkbox",
         checked: false,
         appendTo: "#radioDeadlineContainer",
-        change: function() {
+        click: function(e) {
+          e.stopPropagation()
           if (this.checked) {
             $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
-              type: "text",
+              type: "date",
               appendTo: "#dateContainer"
-            }).datepicker({dateFormat: "yy-mm-dd"})
+            }).datepicker({dateFormat: "yy-mm-dd", minDate: "-0d", showAnim: "slideDown", showWeek: true})
+            
           } else {
             $('#date').remove()
             $('label[for="date"]').remove()
@@ -80,13 +82,14 @@ function editTask (a) {
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
+        $("#subtaskContainer input[type='button']").css({display: "block"})
         prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+
+        if ($('#radioDeadline').prop("checked")) {
+          $('#radioDeadline').click()
+        }
       })
 
-
-
-  
-  
       //shared header for "new"
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
       $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
@@ -106,11 +109,6 @@ function editTask (a) {
         }         
       })
           
-        
-    
-
-
-
 
       allLabels.forEach(function(item) {
         
@@ -122,11 +120,9 @@ function editTask (a) {
       })
   
   
-  
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
-      editTaskButtons.forEach(function(item) {
-        if(item != "Delete" && item != "Leave task") {
+      editTaskButtonsNew.forEach(function(item) {
           $('<input>', {
             "class": "flex button",
             "id": "editTaskButton" + item,
@@ -135,7 +131,26 @@ function editTask (a) {
             appendTo: "#buttonContainer"
           }).click(function() {
             if(item == "Save") {
-              saveTask(code, "new", shared)
+              if($('#subtaskNameInput').val() && !$('#subtaskNameInput').val().match(/^[\s]{1,}$/)) {
+                popup(["There's an unfinished subtask.<br> Do you want to save it as well?",
+                $("<div class='buttonContainer'>").append(
+                  $('<input type="button" value="Yes" class="button">').click(() => {
+                    prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+                    saveTask(code, "new", shared)
+                    hidePopup()
+                  }),
+                  $('<input type="button" value="Cancel" class="button">').click(() => {
+                    saveTask(code, "new", shared)
+                    hidePopup()
+                  }))])
+                  
+              } else {
+                saveTask(code, "new", shared)
+              }
+
+
+
+              
             } else if (item == "Add shared task") {
               popup(["Insert share code", 
               $('<input>', {"id": "shareCodeInput"}), 
@@ -155,17 +170,17 @@ function editTask (a) {
                 
 
               })])
-            } else {
-              //return to Home
+            } else if (item == "Cancel"){
+              home()
             }
           })
-        }
       })
 // ----------------------------------------------------EDIT OLD TASK------------------------------------------------------------------
     } else {
       
       let obj = allTasks[a]
       console.log("object sent to editTask", obj)
+
       let code = obj.shareCode
       //Name of task input
       $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
@@ -194,7 +209,6 @@ function editTask (a) {
         appendTo: "#subtaskInputs"
       })
   
-  
       $('<div>', {"id": "radioDeadlineContainer", appendTo: "#content"})
       $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#radioDeadlineContainer"})
       $('<input>', {
@@ -203,21 +217,21 @@ function editTask (a) {
         type: "checkbox",
         checked: false,
         appendTo: "#radioDeadlineContainer",
-        change: function() {
+        click: function(e) {
+          e.stopPropagation()
           if (this.checked) {
             $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
-              type: "text",
+              type: "date",
               appendTo: "#dateContainer"
-            }).datepicker({dateFormat: "yy-mm-dd"})
+            }).datepicker({dateFormat: "yy-mm-dd", minDate: "-0d", showAnim: "slideDown", showWeek: true})
           } else {
             $('#date').remove()
             $('label[for="date"]').remove()
           }
         }
       })
-  
   
       $('<div>', {
         "id": "dateContainer",
@@ -242,11 +256,13 @@ function editTask (a) {
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
+        $("#subtaskContainer input[type='button']").css({display: "block"})
         prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+
+        if ($('#radioDeadline').prop("checked")) {
+          $('#radioDeadline').click()
+        }
       })
-  
-
-
       //creates options for the label select element
       allLabels.forEach(function(item) {
         //sets the default label
@@ -265,9 +281,6 @@ function editTask (a) {
           })
         }
       })
-
-
-
       //creates old subtasks in the editTask page
       allTasks[a].subtasks.forEach(function(item) {
         if(item.completed == 0) {
@@ -275,14 +288,15 @@ function editTask (a) {
         }
       })
 
+
+
+
       //Shared header
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
       $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
 
       //check if user is owner
       if(parseInt(obj.creator)) {
-
-
         $('<input>', {type: "button", value: (obj.creator==1) ? "Enable" : "Disable", appendTo: "#sharedHeader"}).click(function() {
           
           if(this.value == "Enable") {
@@ -322,6 +336,7 @@ function editTask (a) {
         border: "2px solid lightgray"
       })
       
+      //displays sharecode if task is being shared
       if(obj.creator != 1) {
         $("<p>", {"id": "oldCode", html: "Share code: " + obj.shareCode, appendTo: "#sharedHeader"})
         sharedTaskMembers(obj)
@@ -332,7 +347,7 @@ function editTask (a) {
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       
       editTaskButtons.forEach(function(item) {
-        if((obj.creator != 0 && item != "Leave task") || (item != "Delete" && obj.creator == 0)) {
+        if((obj.creator != 1 && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
           $('<input>', {
             "class": "flex button",
             "id": "editTaskButton" + item,
@@ -341,30 +356,38 @@ function editTask (a) {
             appendTo: "#buttonContainer"
           }).click(function() {
             if(item == "Save") {
-              console.log("Task updated")
-              saveTask(code, "alter")
-            } else if (item == "Delete") {
-              popup(["Do you want to delete this task?",
-              $("<div class='buttonContainer'>").append(
-                $('<input type="button" value="Yes" class="button">').click(() => {
-                  removeTask(obj)
-                  hidePopup()
-                  //go to home. 
-                }),
-                $('<input type="button" value="No" class="button">').click(() => {hidePopup()}))
-              ])
-              console.log("Task deleted")
-              
-            } else if (item = "Leave task") {
+              if($('#subtaskNameInput').val() && !$('#subtaskNameInput').val().match(/^[\s]{1,}$/)) {
+                popup(["There's an unfinished subtask.<br> Do you want to save it as well?",
+                $("<div class='buttonContainer'>").append(
+                  $('<input type="button" value="Yes" class="button">').click(() => {
+                    prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
+                    saveTask(code, "alter")
+                    hidePopup()
+                  }),
+                  $('<input type="button" value="Cancel" class="button">').click(() => {
+                    saveTask(code, "alter")
+                    hidePopup()
+                  }))])
+              } else {
+                saveTask(code, "alter")
+              }
+            } else if (item == "Cancel"){
+              home()
+            } else {
               popup([
-                "Do you want the leave this task?",
+                "Do you want to" + item.toLowerCase + "?",
                 $('<input>', {type: "button", value: "Yes", "class": "button"}).click(function() {
-                  leaveTask(obj)
+                  if(item == "Leave task") {
+                    leaveTask(obj)
+                  } else {
+                    removeTask(obj)
+                    hidePopup()
+                    getTaskAndLabelData(user.userId)
+                    console.log("Task deleted")
+                  } 
                 }),
                 $('<input type="button" value="No" class="button">').click(() => {hidePopup()})
               ])
-            } else {
-              //return to Home
             }
           })
         }

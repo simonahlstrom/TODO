@@ -23,7 +23,6 @@ function home(){
         console.log(filter)
     
         for (let i=0; i<allTasks.length; i++){
-            console.log((parseInt(allTasks[i].completedTask) == archiveTasks || archiveTasksAll) && parseInt(allTasks[i].label.activated))
     
             if((parseInt(allTasks[i].completedTask) == archiveTasks || archiveTasksAll) && parseInt(allTasks[i].label.activated)){
                 createTaskElement(i)
