@@ -1,6 +1,6 @@
 
 //Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
-$('#add').click(function() {editTask(2)})
+$('#add').click(function() {editTask("new")})
 
 function cl(x) {
   console.log(x)
@@ -376,3 +376,26 @@ function createTaskElement(i) {
   // return element
 }
 
+function addTaskFromShareCode(code) {
+  let auxLabel
+  proceed = code
+  for (let i = 0; i<allLabels.length; i++) {
+    if (!i) {
+      auxLabel = allLabels[i].labelId
+    } else if (auxLabel > allLabels[i].labelId) {
+      auxLabel = allLabels[i].labelId
+    }
+  }
+  console.log(code, user.userId, auxLabel)
+  $.get('php/joinSharedTask.php', {
+    code: code,
+    userId: user.userId,
+    labelId: auxLabel
+    })
+
+    .done(function(data){
+      cl(data)
+      getTaskAndLabelData(user.userId)
+    })
+    .fail(error)
+}

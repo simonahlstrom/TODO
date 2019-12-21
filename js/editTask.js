@@ -32,36 +32,25 @@ function editTask (a) {
       })
   
   
-      $('<div>', {"id": "radioAllContainer", appendTo: "#content"})
-      $('<label>', {for: "radioAll", html: "All", appendTo: "#radioAllContainer"})
-      $('<input>', {
-        "id": "radioAll",
-        name: "radio",
-        type: "radio",
-        checked: true,
-        appendTo: "#radioAllContainer",
-        change: function(checked) {
-          $('#date').remove()
-          $('label[for="date"]').remove()
-        }
-      })
-  
       $('<div>', {"id": "radioDeadlineContainer", appendTo: "#content"})
       $('<label>', {for: "radioDeadline", html: "Deadline", appendTo: "#radioDeadlineContainer"})
       $('<input>', {
         "id": "radioDeadline",
         name: "radio",
-        type: "radio",
+        type: "checkbox",
         checked: false,
         appendTo: "#radioDeadlineContainer",
-        change: function(checked) {
-          if (checked) {
+        change: function() {
+          if (this.checked) {
             $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
               type: "text",
               appendTo: "#dateContainer"
             }).datepicker({dateFormat: "yy-mm-dd"})
+          } else {
+            $('#date').remove()
+            $('label[for="date"]').remove()
           }
         }
       })
@@ -93,6 +82,9 @@ function editTask (a) {
         //adds substask to subtaskContainer
         prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
       })
+
+
+
   
   
       //shared header for "new"
@@ -144,13 +136,32 @@ function editTask (a) {
           }).click(function() {
             if(item == "Save") {
               saveTask(code, "new", shared)
+            } else if (item == "Add shared task") {
+              popup(["Insert share code", 
+              $('<input>', {"id": "shareCodeInput"}), 
+              $('<input>', {type: "button", "class": "button", value: "Submit"}).click(function() {
+                let taskExists = false
+                for (let i=0; i<allTasks.length; i++) {
+                  if($('#shareCodeInput').val() == allTasks[i].shareCode) {
+                    taskExists = true
+                  } 
+                }
+
+                if (!taskExists) {
+                  addTaskFromShareCode($('#shareCodeInput').val())
+                } else {
+                  popup(["You are already a member of this task.", timeout])
+                }
+                
+
+              })])
             } else {
               //return to Home
             }
           })
         }
       })
-
+// ----------------------------------------------------EDIT OLD TASK------------------------------------------------------------------
     } else {
       
       let obj = allTasks[a]
