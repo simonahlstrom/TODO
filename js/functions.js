@@ -1,6 +1,6 @@
 
 //Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
-$('#add').click(function() {editTask(2)})
+$('#add').click(function() {editTask(0)})
 
 function cl(x) {
   console.log(x)
@@ -37,15 +37,37 @@ function popup(message, timeout) {
   }
 
   $(".ghost").click((e) => {
-    cl(e.target)
-      if (e.target == pop.parent()) {
-        cl("IN")
+    e.preventDefault()
+    if (!$(e.target).is('#ghost *')) {
       hidePopup()
     }
   })
 
+  $("#popup").click((e) => {
+    e.stopPropagation()
+  })
+
   return ghost
 }
+
+// NOT WORKING
+// function onOutsideClick(elementToClick, elementContent) {
+//   cl(elementToClick[0])
+//   cl(elementContent[0])
+
+//   // ghost-div or other element to click, triggering hidePopup()
+//   $(elementToClick[0]).click((e) => {
+//     e.preventDefault()
+//     if (!$(e.target).is(elementToClick[0] + ' *')) {
+//       hidePopup()
+//     }
+//   })
+
+//   // stopping event bubbling, preventing mishandling of events
+//   $(elementContent[0]).click((e) => {
+//     e.stopPropagation()
+//   })
+// }
 
 function hidePopup() {
   $(".ghost").removeClass("active")
