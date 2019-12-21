@@ -1,6 +1,6 @@
 
 //Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
-$('#add').click(function() {editTask(0)})
+$('#add').click(function() {editTask(2)})
 
 function cl(x) {
   console.log(x)
