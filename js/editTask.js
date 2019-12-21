@@ -324,10 +324,6 @@ function editTask (a) {
       } 
 
 
-    
-        
-
-  
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       
