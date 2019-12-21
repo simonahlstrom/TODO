@@ -154,8 +154,7 @@ function saveTask(code, action, shared) {
   }
 }
 
-function saveSubtask(code, obj) {
-  cl(obj)
+function saveSubtask(code) {
   subtaskArray.forEach(function(item) {
     let action
 
