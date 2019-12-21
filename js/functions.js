@@ -28,7 +28,10 @@ function popup(message, timeout) {
   for (let item of message) {
     pop.append(item)
   }
-  let ghost = $(".ghost").addClass('active')
+  let ghost = $(".ghost").addClass('active').css({
+    position: "absolute",
+    backgroundColor: "var(--ghostColor)"
+  })
 
   if (timeout) {
     setTimeout(() => {
@@ -354,8 +357,7 @@ function createTaskElement(i) {
     value: "edit",
     appendTo: actions,
   }).click(function(){
-    editTask(obj)
-    console.log("edit task")
+    editTask(i)
   })
 
 

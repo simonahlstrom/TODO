@@ -4,12 +4,12 @@ let allTasks = []
 let actions = []
 let theme = []
 
-<<<<<<< HEAD
-//used after get all task and label data to control what will happen "homeSetting" is default
-=======
 //used after get all task and label data to control what will happen "home" is default
->>>>>>> 839295a9b96ba8ef5680f7aa205c0b0bc8e708bc
 let proceed = "homeSetting"
+
+//used for type of filtering tasks
+// values include "urgent", "allAsc", "allDec", "labelsABC" and "labels123"
+let filter = "allAsc"
 
 //used for editTask()
 let editTaskButtons = ["Save", "Delete", "Add shared task", "Cancel"]

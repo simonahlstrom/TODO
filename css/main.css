@@ -4,6 +4,7 @@
     --subColor: red;
     --radius: 10px;
     --fontSize: 14px;
+    --ghostColor: rgba(20, 20, 20, .7);
 }
 
 body {
