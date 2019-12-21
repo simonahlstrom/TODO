@@ -66,6 +66,11 @@ function getTaskAndLabelData(userId) {
                 //adds the task into allTask-array
                 allTasks.push(new Task(data[1][i], label))
 
+                //get index for a specifictask to be used in proceed
+                if(allTasks[allTasks.length-1].shareCode == proceed) {
+                    proceed = allTasks.length-1
+                }
+
                 //puts the tasks subtasksin in the subtaskproperty
                 for (let j=0; j<data[0].length; j++) {
                     if (data[0][j].taskId == data[1][i].taskId) {
@@ -83,17 +88,19 @@ function getTaskAndLabelData(userId) {
                 
                 //home 
 
-                if (proceed == "home") {
-                    // got to home
-                } else {
-                    editTask(proceed)
-                    proceed = "home"
-                }
+                
 
                 })
                 .fail(error)
                 
                 
+            }
+
+            if (proceed == "homeSetting") {
+                home()
+            } else {
+                editTask(proceed)
+                proceed = "homeSetting"
             }
         })
         .fail(error)
