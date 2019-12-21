@@ -100,6 +100,7 @@ function editTask (a) {
       //Add subtask button, input, click function
       $('<input>', {
         "id": "addSubtask",
+        "class": "button",
         type: "button",
         value: "+",
         appendTo: "#subtaskTitleContainer"
@@ -129,7 +130,7 @@ function editTask (a) {
       editTaskButtons.forEach(function(item) {
         if(item != "Delete") {
           $('<input>', {
-            "class": "flex",
+            "class": "flex button",
             "id": "editTaskButton" + item,
             value: item,
             type: "button",
@@ -235,8 +236,9 @@ function editTask (a) {
       })
       $('<input>', {
         "id": "addSubtask",
+        "class": "button",
         type: "button",
-        value: "+",
+        value: " + ",
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
