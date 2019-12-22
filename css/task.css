@@ -24,3 +24,11 @@
 .taskInfo {
     display: none;
 }
+
+.archived {
+    color: gray;
+}
+
+.archived .button {
+    background-color: teal;
+}

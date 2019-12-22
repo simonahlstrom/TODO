@@ -279,6 +279,7 @@ function createTaskElement(taskIndex) {
   //creates the task element container
   let element = $("<div>", {
     "id": "task" + obj.taskId,
+    class: (obj.completedTask == 1) ? "archived" : "",
     appendTo: "#content"
   })
 
@@ -318,6 +319,7 @@ function createTaskElement(taskIndex) {
     if(parseInt(obj.subtasks[i].completed) == archiveTasks || archiveTasksAll){
       let subAux = $("<div>", {
         "id": "subtask" + obj.subtasks[i].subId,
+        class: (parseInt(obj.subtasks[i].completed) == 1) ? "archived" : "",
         appendTo: subtaskEl,
       })
   
@@ -336,34 +338,30 @@ function createTaskElement(taskIndex) {
       $("<input>", {
         type: "checkbox",
         value: "done",
-        checked: (obj.subtasks[i].completed) ? true : false,
+        checked: (obj.subtasks[i].completed == 1) ? true : false,
         appendTo: subAux,
         change: function(){
           console.log(this.checked)
-          if(!obj.subtasks[i].completed) {
-            //make object and db done
-            console.log("subtask done")
-          } else {
-            //make undone
-            console.log("subtask undone")
-          }
+          taskDone("subtask", obj.subtasks[i])
+
         }
       })
   
-      $("<div>", {
-        class: "subClaim",
-        appendTo: subAux,
-        html: (obj.subtasks[i].claimedName) ? obj.subtasks[i].claimedName : "Claim"
-      }).click(function(){
-        if(!obj.subtasks[i].claimedName) {
-          //want to calim it
-          //claim it with username
-          console.log("claim it?")
-        } else {
-          //check if you want to unclaim it
-          console.log("don't want it anymore?")
-        }
-      })
+      
+        $("<div>", {
+          class: "subClaim",
+          appendTo: subAux,
+          html: (obj.subtasks[i].claimedName != 0) ? obj.subtasks[i].claimedName : "Claim"
+        }).click(function(){
+          if (obj.subtasks[i].completed == 0) {
+            if(obj.subtasks[i].claimedName == 0) {
+              claimSubtask(user.username, obj.subtasks[i], this)
+            } else {
+              claimSubtask(0, obj.subtasks[i], this)
+            }
+          }
+        })
+      
   
   
       //post changes and change in object
@@ -387,35 +385,38 @@ function createTaskElement(taskIndex) {
   $("<input>", {
     type: "button",
     class: "button",
-    value: "done",
+    value: (obj.completedTask == 1) ? "Undo" : "Done",
     appendTo: actions,
   }).click(function(){
-    //task is done
-    console.log("task is done")
+    taskDone("task", obj)
   })
 
-  $("<input>", {
-    type: "button",
-    class: "button",
-    value: "edit",
-    appendTo: actions,
-  }).click(function(){
-    console.log(taskIndex)
-    editTask(taskIndex)
-  })
+  if (obj.completedTask == 0) {
+    $("<input>", {
+      type: "button",
+      class: "button",
+      value: "edit",
+      appendTo: actions,
+    }).click(function(){
+      console.log(taskIndex)
+      editTask(taskIndex)
+    })
+  }
 
 
 
   //click event
   element.click(function(e){
     e.stopPropagation()
-    if(info.css("display") == "none") {
+
+    if(info.css("display") == "none" || e.currentTarget.id == element.attr("id")) {
       $(".taskInfo").css({display: "none"})
       info.css({display: "block"})
     } else {
-      info.css({display: "none"})
+      $(".taskInfo").css({display: "none"})
     }
   })
+
 
 
 
@@ -464,4 +465,54 @@ function leaveTask(obj) {
       getTaskAndLabelData(user.userId)
     })
     .fail(error)
+}
+
+function claimSubtask(name, obj, elem) {
+  console.log(elem)
+  $.get("php/claimSubtask.php", {name: name, subId: obj.subId})
+  .done(function(data) {
+    console.log(data)
+    if (data==0) {
+      $('#subtask' + obj.subId + ' :last-child').html("Claim")
+    } else {
+      $('#subtask' + obj.subId + ' :last-child').html(data)
+    }
+    obj.claimedName = data
+  })
+  .fail(error)
+}
+
+function taskDone(action, obj) {
+  let id
+  let value
+  
+  if(action == "task") {
+    id = obj.taskId
+    value = (obj.completedTask == 0) ? 1 : 0
+  } else {
+    id = obj.subId
+    value = (obj.completed == 0) ? 1 : 0
+  }
+
+  console.log(id, value, "donetask")
+
+  $.get("php/done.php", {action: action, value: value, id: id})
+  .done(function(data) {
+    console.log(data)
+    
+    if (action == "task") {
+      getTaskAndLabelData(user.userId)
+    } else if (action == "subtask" && value == 1){
+      $("#subtask" + obj.subId + " input[type='checkbox']").prop({checked: true})
+      $("#subtask" + obj.subId).addClass("archived")
+      obj.completed = 1
+    } else {
+      $("#subtask" + obj.subId + " input[type='checkbox']").prop({checked: false})
+      $("#subtask" + obj.subId).removeClass("archived")
+      obj.completed = 0
+    }
+
+
+  })
+  .fail(error)
 }

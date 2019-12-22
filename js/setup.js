@@ -73,7 +73,7 @@ function getTaskAndLabelData(userId) {
                     console.log("proceed changed to: " + proceed)
                 }
 
-                //puts the tasks subtasksin in the subtaskproperty
+                //puts the tasks subtasks in in the subtaskproperty
                 for (let j=0; j<data[0].length; j++) {
                     if (data[0][j].taskId == data[1][i].taskId) {
                         allTasks[allTasks.length-1].subtasks.push(data[0][j])

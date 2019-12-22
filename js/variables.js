@@ -32,7 +32,7 @@ let welcomeInfo = [
 //home/filters
 //toggles archived tasks 
 let archiveTasks = 0
-let archiveTasksAll = false
+let archiveTasksAll = true
 
 
 //pattern check for empty fields 

@@ -12,6 +12,8 @@ function home(){
             allTasks.forEach(function(item){
                 item.subDL()
             })
+
+            //remove null in urgent
         
             allTasks = allTasks.sort((a, b) => (a.urgent > b.urgent) ? 1 : -1)
         } else if (filter == "labels123") {
@@ -20,7 +22,8 @@ function home(){
             allTasks = allTasks.sort((a, b) => (a.label.labelName > b.label.labelName) ? 1 : -1)
             
         }
-        console.log(filter)
+
+        console.log(filter + "-filter is on")
     
         for (let i=0; i<allTasks.length; i++){
     

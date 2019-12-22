@@ -1,4 +1,2 @@
-1. Rensa subtask fält efter de lagts till
-2. Fixa cancel
-3. Ta bort så man inte kan leava sin egen task
-4. Kolla så knapparna gör rätt sak
+1. remove null in urgent
+2. subDL need to check and ignore comleted tasks
