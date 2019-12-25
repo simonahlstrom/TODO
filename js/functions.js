@@ -356,8 +356,10 @@ function createTaskElement(taskIndex) {
           if (obj.subtasks[i].completed == 0) {
             if(obj.subtasks[i].claimedName == 0) {
               claimSubtask(user.username, obj.subtasks[i], this)
-            } else {
+            } else if (obj.subtasks[i].claimedName == user.username){
               claimSubtask(0, obj.subtasks[i], this)
+            } else {
+              popup(["This subtask is already claimed."], timeout)
             }
           }
         })
@@ -469,6 +471,7 @@ function leaveTask(obj) {
 
 function claimSubtask(name, obj, elem) {
   console.log(elem)
+
   $.get("php/claimSubtask.php", {name: name, subId: obj.subId})
   .done(function(data) {
     console.log(data)
