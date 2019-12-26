@@ -90,6 +90,8 @@ function prepareSubtasks(name, subId, date) {
 
   console.log(date)
 
+
+  //vad kollar egentligen detta?
   if ($('#radioAll:checked').val()) {
     subtaskArray[subtaskArray.length-1].push(date)
   } else {
@@ -98,6 +100,7 @@ function prepareSubtasks(name, subId, date) {
 
 
   let subIndex = subtaskArray.length-1
+  console.log(subIndex)
 
   //creates subtasks
   let subAux = $("<div>", {
@@ -135,6 +138,11 @@ function prepareSubtasks(name, subId, date) {
       }
 
       $('#date').val(date)
+
+      console.log(subtaskArray[subIndex])
+      console.log(subIndex)
+      console.table(subtaskArray)
+
       subtaskArray.splice(subIndex, 1)
       subAux.remove()
     })
@@ -155,6 +163,7 @@ function prepareSubtasks(name, subId, date) {
 
 
 }
+
 //Saves a task. Arguments: code is for the WHERE in the sql query and action tells the php which queries to run. //
 function saveTask(code, action, shared) {
   code = code
@@ -289,6 +298,7 @@ function createTaskElement(taskIndex) {
     appendTo: element
   })
 
+  //label Icon
   $("<div>", {
     class: "taskLabel",
     appendTo: head
@@ -297,10 +307,13 @@ function createTaskElement(taskIndex) {
     backgroundColor: obj.label.color
   })
 
+  //taskname
   $("<div>", {
     class: "taskName",
     appendTo: head,
     html: obj.taskName
+  }).css({
+    fontSize: (obj.taskName.length < 30) ? "calc(var(--fontSize) * 1.3)" : "calc(var(--fontSize) * 1.1)"
   })
   
   //task info
@@ -308,6 +321,13 @@ function createTaskElement(taskIndex) {
     class: "taskInfo",
     appendTo: element
   }).css({display: "none"})
+
+ //label info
+ $("<div>", {
+  class: "labelInfo",
+  appendTo: info,
+  html: "Labelname: " + obj.label.labelName
+})
 
   let subtaskEl = $("<div>", {
     class: "subtasks",
@@ -322,16 +342,24 @@ function createTaskElement(taskIndex) {
         class: (parseInt(obj.subtasks[i].completed) == 1) ? "archived" : "",
         appendTo: subtaskEl,
       })
+
+
+      let subAuxChild1 = $("<div>", {
+        appendTo: subAux
+      })
+      let subAuxChild2 = $("<div>", {
+        appendTo: subAux
+      })
   
       $("<div>", {
         class: "subName",
-        appendTo: subAux,
+        appendTo: subAuxChild1,
         html: obj.subtasks[i].subName
       })
   
       $("<div>", {
         class: "subDL",
-        appendTo: subAux,
+        appendTo: subAuxChild1,
         html: (obj.subtasks[i].deadline) ? obj.subtasks[i].deadline : ""
       })
   
@@ -339,7 +367,7 @@ function createTaskElement(taskIndex) {
         type: "checkbox",
         value: "done",
         checked: (obj.subtasks[i].completed == 1) ? true : false,
-        appendTo: subAux,
+        appendTo: subAuxChild2,
         change: function(){
           console.log(this.checked)
           taskDone("subtask", obj.subtasks[i])
@@ -350,7 +378,7 @@ function createTaskElement(taskIndex) {
       
         $("<div>", {
           class: "subClaim",
-          appendTo: subAux,
+          appendTo: subAuxChild2,
           html: (obj.subtasks[i].claimedName != 0) ? obj.subtasks[i].claimedName : "Claim"
         }).click(function(){
           if (obj.subtasks[i].completed == 0) {
@@ -371,12 +399,7 @@ function createTaskElement(taskIndex) {
 
   }
 
-  //label info
-  $("<div>", {
-    class: "labelInfo",
-    appendTo: info,
-    html: "label: " + obj.label.labelName
-  })
+ 
 
   //task actions
   let actions = $("<div>", {
@@ -410,8 +433,9 @@ function createTaskElement(taskIndex) {
   //click event
   element.click(function(e){
     e.stopPropagation()
+    console.log(e.currentTarget.id)
 
-    if(info.css("display") == "none" || e.currentTarget.id == element.attr("id")) {
+    if(info.css("display") == "none" || e.currentTarget.id == element.attr("id") ) {
       $(".taskInfo").css({display: "none"})
       info.css({display: "block"})
     } else {
@@ -476,9 +500,9 @@ function claimSubtask(name, obj, elem) {
   .done(function(data) {
     console.log(data)
     if (data==0) {
-      $('#subtask' + obj.subId + ' :last-child').html("Claim")
+      $('#subtask' + obj.subId + ' > div:last-child > div:last-child').html("Claim")
     } else {
-      $('#subtask' + obj.subId + ' :last-child').html(data)
+      $('#subtask' + obj.subId + ' > div:last-child > div:last-child').html(data)
     }
     obj.claimedName = data
   })

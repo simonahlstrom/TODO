@@ -1,28 +1,68 @@
-
-
 .taskHead {
     display: flex;
+    align-items: center;
+    margin-top: calc(var(--labelIconSize)*.33);
 }
 
-.taskName {
+/* .taskName {
     font-size: calc(var(--fontSize) * 1.3);
-}
+    set in js to accout for long phrases tto fitt 
+} */
 
 .taskLabel {
-    width: 20px;
-    height: 20px;
+    width: var(--labelIconSize);
+    height: var(--labelIconSize);
     background-image: url("../icons/icon.png");
     background-size: cover;
     background-color: blueviolet;
     border-radius: 50%;
+    margin-right: calc(var(--labelIconSize)*.25);
+    flex-shrink: 0;
 }
 
-.subtasks div {
+.labelInfo {
+    margin-top: 5px;
+    border-bottom: 1px solid var(--subColor);
+}
+
+.subtasks {
+    margin-left: var(--labelIconSize);
+    
+}
+
+.subtasks > div {
     display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    
+}
+
+.subtasks > div > div:first-child {
+    flex-grow: 3;
+    flex-basis: 10px;
+    justify-content: space-between;
+}
+.subtasks > div > div:last-child {
+    flex-grow: 1;
+    flex-basis: 10px;
+    justify-content: space-between;
+}
+
+.subtasks > div > div {
+    display: flex;
+}
+
+.subName {
+    justify-items: flex-start;
 }
 
 .taskInfo {
     display: none;
+    
+}
+
+.taskActions {
+    text-align: right;
 }
 
 .archived {

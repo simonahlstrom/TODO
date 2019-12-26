@@ -135,6 +135,7 @@ function editTask (a) {
                 popup(["There's an unfinished subtask.<br> Do you want to save it as well?",
                 $("<div class='buttonContainer'>").append(
                   $('<input type="button" value="Yes" class="button">').click(() => {
+                    //körs för att få med en påbörjad task.
                     prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
                     saveTask(code, "new", shared)
                     hidePopup()
@@ -171,6 +172,7 @@ function editTask (a) {
 
               })])
             } else if (item == "Cancel"){
+              subtaskArray = []
               home()
             }
           })
@@ -248,6 +250,7 @@ function editTask (a) {
         minHeight: "100px",
         border: "2px solid lightgray"
       })
+
       $('<input>', {
         "id": "addSubtask",
         "class": "button",
@@ -281,15 +284,13 @@ function editTask (a) {
           })
         }
       })
+      
       //creates old subtasks in the editTask page
       allTasks[a].subtasks.forEach(function(item) {
         if(item.completed == 0) {
             prepareSubtasks(item.subName, item.subId, item.deadline)
         }
       })
-
-
-
 
       //Shared header
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
@@ -372,6 +373,7 @@ function editTask (a) {
                 saveTask(code, "alter")
               }
             } else if (item == "Cancel"){
+              subtaskArray = []
               home()
             } else {
               popup([

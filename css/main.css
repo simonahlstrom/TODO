@@ -3,13 +3,16 @@
     --accentColor: blue;
     --subColor: red;
     --radius: 10px;
-    --fontSize: 14px;
+    --fontSize: 16px;
     --ghostColor: rgba(20, 20, 20, .7);
+    --labelIconSize: 40px;
+    --fontColor1: black;
+    --fontColor2: rgb(255, 255, 255);
 }
 
 body {
     background-color: var(--maincolor);
-    color: var(--accentColor);
+    color: var(--fontColor);
     font-size: var(--fontSize);
 }
 

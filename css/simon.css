@@ -36,9 +36,9 @@ body {
   border-radius: 10px;
   background-color: var(--accentColor);
   font-family: 'Fira Sans Condensed', sans-serif;
-  font-size: 15px;
+  font-size: var(--fontsize);
   transition: all .2s;
-  color: var(--mainColor);
+  color: var(--fontColor2);
   border: none;
   cursor: pointer;
   padding: 5px;
@@ -47,7 +47,7 @@ body {
 
 /* .button:hover {
   background-color: var(--accentColor);
-  color: var(--mainColor);
+  color: var(--fontColor2);
 } */
 
 label {
@@ -78,7 +78,7 @@ header {
 }
 
 #todoLogo {
-  color: var(--mainColor);
+  color: var(--fontColor2);
   font-size: 30px;
   margin-left: 10px;
   justify-content: left;
@@ -220,6 +220,6 @@ main {
   height: 70px;
   width: 70px;
   border-radius: 50%;
-  background-color:antiquewhite;
+  background-color: var(--accentColor);
   margin: 10px;
 }
