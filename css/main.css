@@ -8,12 +8,16 @@
     --labelIconSize: 40px;
     --fontColor1: black;
     --fontColor2: rgb(255, 255, 255);
+    --archivedColor: rgb(105, 95, 95);
 }
 
 body {
     background-color: var(--maincolor);
-    color: var(--fontColor);
-    font-size: var(--fontSize);
+}
+
+* {
+    color: var(--fontColor1);
+    font-size: var(--fontSize)
 }
 
 .flex {

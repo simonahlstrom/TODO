@@ -2,26 +2,51 @@
 function editTask (a) {
     $('#content').html("")
     let shared = 1
+    let labelIcon
+    let labelSelect
   
     if (a == "new") {
       let code = makeid(4)
       //Name of task input
-      $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
+      $('<div>', {class: "editName", appendTo: "#content"})
+
+      $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content .editName"})
       $('<input>', {
         "id": "taskNameInput",
         type: "text",
-        appendTo: "#content"
+        appendTo: "#content  .editName"
       })
   
       //Label dropdown
-      $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
-      $('<select>', {
+      $('<div>', {class: "editLabel", appendTo: "#content"})
+      
+      $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content .editLabel"})
+      
+      $('<div>', {appendTo: "#content .editLabel"})
+      
+      labelIcon = $("<div>", {
+        class: "taskLabel",
+        appendTo: "#content .editLabel > div"
+      })
+
+      labelSelect = $('<select>', {
         "id": "labelSelect",
         value: "label",
-        appendTo: "#content",
+        appendTo: "#content .editLabel > div",
+      }).change(function(){
+        allLabels.forEach(function(item){
+          if(item.labelId == labelSelect.val()){
+            labelIcon.css({
+              backgroundImage: "url('../icons/" + item.icon + "')",
+              backgroundColor: item.color
+            })
+          }
+        })
       })
   
-      
+      //subtask
+      $('<div>', {class: "subtaskTitle", html: "Subtasks", appendTo: "#content"})
+
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
       $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
   
@@ -43,7 +68,7 @@ function editTask (a) {
         click: function(e) {
           e.stopPropagation()
           if (this.checked) {
-            $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
+            // $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
               type: "date",
@@ -52,7 +77,7 @@ function editTask (a) {
             
           } else {
             $('#date').remove()
-            $('label[for="date"]').remove()
+            // $('label[for="date"]').remove()
           }
         }
       })
@@ -64,13 +89,9 @@ function editTask (a) {
   
       //Subtask list
       $('<div>', {"id": "subtaskTitleContainer", appendTo: "#content"}).css("display", "flex")
-      $('<div>', {html: "Subtasks", appendTo: "#subtaskTitleContainer"}).css("font-size", "20px")
       $('<div>', {
         "id": "subtaskContainer",
         appendTo: "#content"
-      }).css({
-        minHeight: "100px",
-        border: "2px solid lightgray"
       })
 
       //Add subtask button, input, click function
@@ -78,7 +99,7 @@ function editTask (a) {
         "id": "addSubtask",
         "class": "button",
         type: "button",
-        value: "+",
+        value: "Add",
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
@@ -92,7 +113,7 @@ function editTask (a) {
 
       //shared header for "new"
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
-      $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
+      $('<div>', {html: "Shared", appendTo: "#sharedHeader"})
 
       $('<input>', {type: "button", value: "Enable", appendTo: "#sharedHeader"}).click(function() {
         if (shared == 1) {
@@ -117,8 +138,10 @@ function editTask (a) {
           html: item.labelName,
           appendTo: "#labelSelect"
         })
+
       })
-  
+      
+      labelSelect.change()
   
       //Edit buttons
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
@@ -185,23 +208,46 @@ function editTask (a) {
 
       let code = obj.shareCode
       //Name of task input
-      $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content"})
+      $('<div>', {class: "editName", appendTo: "#content"})
+
+      $('<label>', {for: "taskNameInput", html: "Name of task ", appendTo: "#content .editName"})
       $('<input>', {
         "id": "taskNameInput",
-        type: "text",
         value: obj.taskName,
-        appendTo: "#content"
+        type: "text",
+        appendTo: "#content  .editName"
       })
   
       //Label dropdown
-      $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content"})
-      $('<select>', {
+      $('<div>', {class: "editLabel", appendTo: "#content"})
+      
+      $('<label>', {for: "labelSelect", html: "Select label ", appendTo: "#content .editLabel"})
+      
+      $('<div>', {appendTo: "#content .editLabel"})
+      
+      labelIcon = $("<div>", {
+        class: "taskLabel",
+        appendTo: "#content .editLabel > div"
+      })
+
+      labelSelect = $('<select>', {
         "id": "labelSelect",
         value: "label",
-        appendTo: "#content"
+        appendTo: "#content .editLabel > div",
+      }).change(function(){
+        allLabels.forEach(function(item){
+          if(item.labelId == labelSelect.val()){
+            labelIcon.css({
+              backgroundImage: "url('../icons/" + item.icon + "')",
+              backgroundColor: item.color
+            })
+          }
+        })
       })
   
       //Add subtask button, input, click function
+      $('<div>', {class: "subtaskTitle", html: "Subtasks", appendTo: "#content"})
+
       $('<div>', {"id": "subtaskInputs", appendTo: "#content"})
       $('<label>', {for: "addSubtask", html: "Add subtask ", appendTo: "#subtaskInputs"})
   
@@ -222,7 +268,7 @@ function editTask (a) {
         click: function(e) {
           e.stopPropagation()
           if (this.checked) {
-            $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
+            // $('<label>', {for: "date", html: "Date of deadline ", appendTo: "#dateContainer"})
             $('<input>', {
               "id": "date",
               type: "date",
@@ -230,7 +276,7 @@ function editTask (a) {
             }).datepicker({dateFormat: "yy-mm-dd", minDate: "-0d", showAnim: "slideDown", showWeek: true})
           } else {
             $('#date').remove()
-            $('label[for="date"]').remove()
+            // $('label[for="date"]').remove()
           }
         }
       })
@@ -242,20 +288,17 @@ function editTask (a) {
   
       //Subtask list
       $('<div>', {"id": "subtaskTitleContainer", appendTo: "#content"}).css("display", "flex")
-      $('<div>', {html: "Subtasks", appendTo: "#subtaskTitleContainer"}).css("font-size", "20px")
       $('<div>', {
         "id": "subtaskContainer",
         appendTo: "#content"
-      }).css({
-        minHeight: "100px",
-        border: "2px solid lightgray"
       })
+
 
       $('<input>', {
         "id": "addSubtask",
         "class": "button",
         type: "button",
-        value: " + ",
+        value: "Add",
         appendTo: "#subtaskTitleContainer"
       }).click(function() {
         //adds substask to subtaskContainer
@@ -284,7 +327,8 @@ function editTask (a) {
           })
         }
       })
-      
+      labelSelect.change()
+
       //creates old subtasks in the editTask page
       allTasks[a].subtasks.forEach(function(item) {
         if(item.completed == 0) {
@@ -294,7 +338,7 @@ function editTask (a) {
 
       //Shared header
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
-      $('<div>', {html: "Shared", appendTo: "#sharedHeader"}).css("font-size", "20px")
+      $('<div>', {html: "Shared", appendTo: "#sharedHeader"})
 
       //check if user is owner
       if(parseInt(obj.creator)) {
@@ -332,14 +376,11 @@ function editTask (a) {
       
       
       //shared container
-      $('<div>', {"id": "shareContainer", appendTo: "#content"}).css({
-        minHeight: "100px",
-        border: "2px solid lightgray"
-      })
+      $('<div>', {"id": "shareContainer", appendTo: "#content"})
       
       //displays sharecode if task is being shared
       if(obj.creator != 1) {
-        $("<p>", {"id": "oldCode", html: "Share code: " + obj.shareCode, appendTo: "#sharedHeader"})
+        $("<p>", {"id": "oldCode", html: "Code: <span>" + obj.shareCode + "</span>", appendTo: "#sharedHeader"})
         sharedTaskMembers(obj)
       } 
 

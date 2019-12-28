@@ -105,6 +105,7 @@ function prepareSubtasks(name, subId, date) {
   //creates subtasks
   let subAux = $("<div>", {
     "id": "subtask" + subId,
+    class: "editSubtask",
     appendTo: "#subtaskContainer",
   }).css({display: "flex"})
 
@@ -112,54 +113,61 @@ function prepareSubtasks(name, subId, date) {
     class: "subName",
     appendTo: subAux,
     html: name
-    })
+  })
 
-    $("<div>", {
-    class: "subDL",
-    appendTo: subAux,
-    html: (typeof date == "string") ? date : ""
-    })
+  $("<div>", {
+  class: "subDL",
+  appendTo: subAux,
+  html: (typeof date == "string") ? date : ""
+  })
 
-    $("<input>", {
+  let subAux2 = $("<div>", {
+    appendTo: subAux
+  })
+
+  $("<input>", {
+  "class": "button",
+  type: "button",
+  value: "Edit",
+  appendTo: subAux2,
+  }).click(function() {
+    $("#subtaskContainer input[type='button']").css({display: "none"})
+
+    $('#subtaskNameInput').attr({name: subId})
+    $('#subtaskNameInput').val(name)
+
+    if (typeof date == "string" && !$('#radioDeadline').prop("checked")) {
+      $('#radioDeadline').click()
+    } else if (typeof date != "string" && $('#radioDeadline').prop("checked")) {
+      $('#radioDeadline').click()
+    }
+
+    $('#date').val(date)
+
+    console.log(subtaskArray[subIndex])
+    console.log(subIndex)
+    console.table(subtaskArray)
+
+
+    subtaskArray[subIndex][0] = ""
+    subtaskArray[subIndex][3] = "delete"
+    // subtaskArray.splice(subIndex, 1)
+    subAux.remove()
+  })
+
+  $("<input>", {
     "class": "button",
     type: "button",
-    value: "Edit",
-    appendTo: subAux,
+    value: "Delete",
+    appendTo: subAux2,
     }).click(function() {
-      $("#subtaskContainer input[type='button']").css({display: "none"})
-
-      $('#subtaskNameInput').attr({name: subId})
-      $('#subtaskNameInput').val(name)
-
-      if (typeof date == "string" && !$('#radioDeadline').prop("checked")) {
-        $('#radioDeadline').click()
-      } else if (typeof date != "string" && $('#radioDeadline').prop("checked")) {
-        $('#radioDeadline').click()
-      }
-
-      $('#date').val(date)
-
-      console.log(subtaskArray[subIndex])
-      console.log(subIndex)
-      console.table(subtaskArray)
-
-      subtaskArray.splice(subIndex, 1)
-      subAux.remove()
+          subtaskArray[subIndex][3] = "delete"
+          subAux.remove()
     })
 
-    $("<input>", {
-      "class": "button",
-      type: "button",
-      value: "Delete",
-      appendTo: subAux,
-      }).click(function() {
-            subtaskArray[subIndex][3] = "delete"
-            subAux.remove()
-      })
-
-    $('#subtaskNameInput').val("")
-    $('#subtaskNameInput').attr("name", "")
-    $('#date').val("")
+  $('#subtaskNameInput').val("")
+  $('#subtaskNameInput').attr("name", "")
+  $('#date').val("")
 
 
 }

@@ -1,3 +1,5 @@
+/* CSS for task in home() */
+
 .taskHead {
     display: flex;
     align-items: center;
@@ -52,10 +54,6 @@
     display: flex;
 }
 
-.subName {
-    justify-items: flex-start;
-}
-
 .taskInfo {
     display: none;
     
@@ -66,9 +64,98 @@
 }
 
 .archived {
-    color: gray;
+    color: var(--archivedColor);
+    text-decoration-line: line-through
 }
 
 .archived .button {
     background-color: teal;
+}
+
+
+/* CSS for EditTask*/
+
+.editName > *{
+    display: block;
+    margin: 0 0 5px 5px;
+}
+
+#taskNameInput {
+    width: 90vw;
+}
+
+.editLabel {
+    margin-top: 5px;
+}
+
+.editLabel > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    
+}
+
+.editLabel select {
+    font-size: calc(var(--fontSize) * 0.8);
+}
+
+.subtaskTitle, #sharedHeader  {
+    border-top: 1px solid var(--subColor);
+    padding-top: 5px;
+}
+
+#dateContainer {
+    height: calc(var(--fontSize) * 1.25);
+}
+
+#subtaskTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#subtaskContainer {
+    margin: 5px 0 5px 5px;
+    min-height: calc(var(--fontSize) * 3);
+    position: relative;
+}
+
+#addSubtask {
+    margin-top: calc(var(--fontSize) * -1.25);
+}
+
+.editSubtask {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(var(--fontSize) * 2.5);
+}
+
+.editSubtask > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editSubtask > * {
+    flex-basis: 10px;
+    flex-grow: 1;
+}
+
+#sharedHeader{
+    display: flex;
+    flex-wrap: wrap;
+    width: ;
+}
+
+#oldCode {
+    margin: 0px;
+}
+
+#oldCode > span {
+    font-weight: bold;
+}
+
+#shareContainer {
+    margin: 5px 0 5px 5px;
+    min-height: calc(var(--fontSize) * 2.5);
 }
