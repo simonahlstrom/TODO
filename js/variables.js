@@ -41,6 +41,8 @@ let settingFlag = false
 //pattern check for empty fields 
 let pattern = /^[\s]{1,}$/
 
+//fontsizes
+let fontSizeArray = [{size: "12px", name: "Small"}, {size: "15px", name: "Medium"}, {size: "19px", name: "Large"}]
 
 
 //test

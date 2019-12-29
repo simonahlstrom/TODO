@@ -177,7 +177,7 @@ function editTask (a) {
               
             } else if (item == "Add shared task") {
               popup(["Insert share code", 
-              $('<input>', {"id": "shareCodeInput"}), 
+              $('<input>', {"id": "shareCodeInput", type: "text"}), 
               $('<input>', {type: "button", "class": "button", value: "Submit"}).click(function() {
                 let taskExists = false
                 for (let i=0; i<allTasks.length; i++) {
@@ -389,7 +389,12 @@ function editTask (a) {
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       
       editTaskButtons.forEach(function(item) {
-        if((obj.creator != 1 && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
+        console.log(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") + " OR " + (item != "Delete task" && obj.creator == 0))
+        console.log("creator-->"+obj.creator)
+        console.log("action-->"+item)
+
+        // if((obj.creator != 1 && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
+        if(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
           $('<input>', {
             "class": "flex button",
             "id": "editTaskButton" + item,

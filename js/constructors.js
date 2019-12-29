@@ -3,6 +3,8 @@ function User(data) {
   this.username = data.username
   this.email = data.email
   this.occupation = data.occupation
+  this.fontSize = data.fontSize
+  // this.font
   this.theme = { 
     Id: data.themeId, 
     name: data.themeName,

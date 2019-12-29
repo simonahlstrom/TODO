@@ -52,25 +52,6 @@ function popup(message, timeout) {
   return ghost
 }
 
-// NOT WORKING
-// function onOutsideClick(elementToClick, elementContent) {
-//   cl(elementToClick[0])
-//   cl(elementContent[0])
-
-//   // ghost-div or other element to click, triggering hidePopup()
-//   $(elementToClick[0]).click((e) => {
-//     e.preventDefault()
-//     if (!$(e.target).is(elementToClick[0] + ' *')) {
-//       hidePopup()
-//     }
-//   })
-
-//   // stopping event bubbling, preventing mishandling of events
-//   $(elementContent[0]).click((e) => {
-//     e.stopPropagation()
-//   })
-// }
-
 function hidePopup() {
   $(".ghost").removeClass("active")
 }
@@ -381,7 +362,6 @@ function createTaskElement(taskIndex) {
         }
       })
   
-      console.log(obj.creator)
       if(obj.creator != 1){
         $("<div>", {
           class: "subClaim",
@@ -564,10 +544,10 @@ function userSettings(user) {
   let userInfoPassword = $('<div>', {class: "userInfoPass", appendTo: "#content"})
   
   //username
-  $('<div>', {html: user.username, appendTo: userInfoName})
+  $('<div>', {html: "Username: " + user.username, appendTo: userInfoName})
 
   //email
-  $('<div>', {html: user.email, appendTo: userInfoEmail})
+  $('<div>', {html: "Email adress: " +user.email, appendTo: userInfoEmail})
   
 
   //actions
@@ -758,17 +738,21 @@ function userSettings(user) {
   $('<input>', {
     class: "button",
     type: "button",
-    value: "Change theme",
+    value: "Change apperance",
     appendTo: themeContainer
   }).click(function() {
     themeContainer.html("")
 
+    let auxTheme = $('<div>', {appendTo: themeContainer})
+    let auxFontSize = $('<div>', {appendTo: themeContainer})
+    let auxOption = $('<div>', {appendTo: themeContainer})
     //select theme
-    $('<label>', {html: "Choose theme: ", appendTo: themeContainer})
+    
+    $('<label>', {html: "Choose theme: ", appendTo: auxTheme})
     themeSelect = $('<select>', {
       "id": "themeSelect",
       value: "Theme",
-      appendTo: themeContainer,
+      appendTo: auxTheme,
     }).change(function(){
       theme.forEach(function(item){
         if(item.themeId == themeSelect.val()) {
@@ -796,23 +780,42 @@ function userSettings(user) {
       })
     })
    
+    //fontSize
+    $('<label>', {html: "Fontsize: ", appendTo: auxFontSize})
+    fontSizeSelect = $('<select>', {
+      "id": "fontSizeSelect",
+      value: "fontSize",
+      appendTo: auxFontSize,
+    }).change(function(){
+      $(":root").css({"--fontSize": fontSizeSelect.val()})
+    })
+
+    fontSizeArray.forEach(function(item){
+      $('<option>', {
+        value: item.size,
+        html: item.name,
+        selected: (user.fontSize == item.size) ? "selected" : false,
+        appendTo: fontSizeSelect
+      })
+    })
+    
+
     //actions
-    let auxDiv = $('<div>', {appendTo: themeContainer})
     
     $('<input>', {
       class: "button",
       type: "button",
-      value: "Use theme",
-      appendTo: auxDiv
+      value: "Set apperance",
+      appendTo: auxOption
     }).click(function() {
-      updateUserInfo({action: "changeTheme", userId: user.userId, themeId: themeSelect.val()})
+      updateUserInfo({action: "changeTheme", userId: user.userId, themeId: themeSelect.val(), fontSize: fontSizeSelect.val()})
     })
 
     $('<input>', {
       class: "button",
       type: "button",
       value: "Cancel",
-      appendTo: auxDiv
+      appendTo: auxOption
     }).click(function() {
       userSettings(user)
     })

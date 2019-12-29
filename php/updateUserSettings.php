@@ -5,9 +5,17 @@ $pdo = connectDB();
 
 //changes theme action
 if($_GET['action'] == "changeTheme") {
+    //updates Theme
     $query = "UPDATE `User` SET `themeId`=? WHERE userId=?";
     $sql = $pdo->prepare($query);
     $sql->bindParam(1, $_GET['themeId']);
+    $sql->bindParam(2, $_GET['userId']);
+    $sql->execute();
+
+    //updates fontsetting
+    $query = "UPDATE `User` SET `fontSize`=? WHERE userId=?";
+    $sql = $pdo->prepare($query);
+    $sql->bindParam(1, $_GET['fontSize']);
     $sql->bindParam(2, $_GET['userId']);
     $sql->execute();
     echo "Your Theme has been updated.";

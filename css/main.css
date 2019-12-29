@@ -1,9 +1,9 @@
 :root {
-    --mainColor: rgb(255, 255, 255);
-    --accentColor: blue;
-    --subColor: red;
+    --mainColor: rgb(21, 68, 48);
+    --accentColor: rgb(180, 151, 54);
+    --subColor: rgb(218, 149, 104);
     --radius: 10px;
-    --fontSize: 16px;
+    --fontSize: 14px;
     --ghostColor: rgba(20, 20, 20, .7);
     --labelIconSize: 40px;
     --fontColor1: #dfeee2;

@@ -142,9 +142,14 @@
     justify-content: flex-end;
 }
 
-.editSubtask > * {
+.editSubtask > :last-child, .editSubtask > :nth-child(2)  {
     flex-basis: 10px;
     flex-grow: 1;
+}
+
+.editSubtask > :first-child {
+    flex-basis: 10px;
+    flex-grow: 2;
 }
 
 #sharedHeader{

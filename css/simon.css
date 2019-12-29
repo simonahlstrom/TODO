@@ -41,7 +41,7 @@ body {
   color: var(--fontColor2);
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 7px;
   opacity: 1;
 
   /* boxShadow */
@@ -49,8 +49,8 @@ body {
   box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
 }
 
-input[type='text'], input[type='password'] {
-  background-color: var(--mainColor);
+input[type='text'], input[type='password'], input[type='date'] {
+  background-color: var(--subColor);
   border: none;
   padding: 2.5px;
 }
