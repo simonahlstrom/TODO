@@ -1,4 +1,3 @@
-
 //Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
 $('#add').click(function() {editTask("new")})
 
@@ -75,7 +74,6 @@ function popup(message, timeout) {
 function hidePopup() {
   $(".ghost").removeClass("active")
 }
-
 
 //Lös så att alla subtasks inte laddas upp på nytt! dela på funktionen som displayar i subtasklistan och de som laddas upp?
 function prepareSubtasks(name, subId, date) {
@@ -271,7 +269,7 @@ function sharedTaskMembers(obj) {
       html: "<div>" + item.username + "</div>",
       appendTo: "#shareContainer"
     }).css({
-      height: "20px"
+      height: "calc(var(--fontSize) * 1.25)"
     })
   
     if(parseInt(item.creator)) {
@@ -383,7 +381,8 @@ function createTaskElement(taskIndex) {
         }
       })
   
-      
+      console.log(obj.creator)
+      if(obj.creator != 1){
         $("<div>", {
           class: "subClaim",
           appendTo: subAuxChild2,
@@ -399,7 +398,9 @@ function createTaskElement(taskIndex) {
             }
           }
         })
-      
+
+        subAuxChild2.css({justifyContent: "space-between"})
+      }
   
   
       //post changes and change in object
@@ -548,6 +549,331 @@ function taskDone(action, obj) {
     }
 
 
+  })
+  .fail(error)
+}
+
+function userSettings(user) {
+  settingFlag = true
+  $('#content').html("")
+  let userCheck
+  
+
+  let userInfoName = $('<div>', {class: "userInfo", appendTo: "#content"})
+  let userInfoEmail = $('<div>', {class: "userInfo", appendTo: "#content"})
+  let userInfoPassword = $('<div>', {class: "userInfoPass", appendTo: "#content"})
+  
+  //username
+  $('<div>', {html: user.username, appendTo: userInfoName})
+
+  //email
+  $('<div>', {html: user.email, appendTo: userInfoEmail})
+  
+
+  //actions
+  let userActions = $('<div>', {appendTo: "#content"})
+  
+  //change username and email
+  $('<input>', {
+    class: "button",
+    type: "button",
+    value: "Change name and email",
+    appendTo: userActions
+  }).click(function() {
+    userInfoName.html("")
+    userInfoEmail.html("")
+    userActions.html("")
+
+    //creates field to edit
+      //Username field
+      $('<label>', {html: "Username: ", appendTo: userInfoName})
+      $('<input>', {
+        "id": "userInfoName",
+        type: "text",
+        appendTo: userInfoName,
+        value: user.username
+      })
+
+      //Email field
+      $('<label>', {html: "Email: ", appendTo: userInfoEmail})
+      $('<input>', {
+        "id": "userInfoEmail",
+        type: "text",
+        appendTo: userInfoEmail,
+        value: user.email
+      })
+
+      //password fields
+      userInfoPassword.addClass("userInfo")
+      
+      $('<label>', {html: "Current password: ", appendTo: userInfoPassword})
+      $('<input>', {
+        "id": "currentPassword",
+        type: "password",
+        appendTo: userInfoPassword
+      })
+
+      //save and cancel
+      $('<input>', {
+        class: "button",
+        type: "button",
+        value: "Save settings",
+        appendTo: userActions
+      }).click(function() {
+        let checkPassword = document.cookie.split(";")
+        checkPassword.forEach((item)=>{
+          if(item.includes("password=")) {
+            checkPassword = item.slice(item.indexOf("=")+1, item.length)
+          }
+        })
+       
+        console.log(checkPassword)
+
+        if (checkPassword != $("#currentPassword").val()){
+          popup(["The password is incorrect."], timeout)
+          $("#currentPassword").val("")
+        } else {
+          updateUserInfo({action: "changeUserInfo", userId: user.userId, username: $("#userInfoName").val(), email: $("#userInfoEmail").val()})
+        }
+      })
+
+      $('<input>', {
+        class: "button",
+        type: "button",
+        value: "Cancel",
+        appendTo: userActions
+      }).click(function() {
+        userSettings(user)
+      })
+      
+
+  })
+  
+  //change password button
+  $('<input>', {
+    class: "button",
+    type: "button",
+    value: "Change Password",
+    appendTo: userActions
+  }).click(function() {
+    userInfoName.html("")
+    userInfoEmail.html("")
+    userActions.html("")
+
+    //creates field to edit
+      //Username field
+      $('<label>', {html: "Username: ", appendTo: userInfoName})
+      $('<input>', {
+        "id": "userInfoName",
+        type: "text",
+        appendTo: userInfoName,
+        value: user.username
+      })
+
+      //Email field
+      $('<label>', {html: "Email: ", appendTo: userInfoEmail})
+      $('<input>', {
+        "id": "userInfoEmail",
+        type: "text",
+        appendTo: userInfoEmail,
+        value: user.email
+      })
+
+      //password fields
+      let auxDiv1 = $('<div>', {appendTo: userInfoPassword})
+      let auxDiv2 = $('<div>', {appendTo: userInfoPassword})
+      let auxDiv3 = $('<div>', {appendTo: userInfoPassword})
+
+      $('<label>', {html: "Current password: ", appendTo: auxDiv1})
+      $('<input>', {
+        "id": "currentPassword",
+        type: "password",
+        appendTo: auxDiv1
+      })
+
+      $('<label>', {html: "New password: ", appendTo: auxDiv2})
+      $('<input>', {
+        "id": "newPassword",
+        type: "password",
+        appendTo: auxDiv2
+      })
+
+      $('<label>', {html: "Repeat new password: ", appendTo: auxDiv3})
+      $('<input>', {
+        "id": "repeatPassword",
+        type: "password",
+        appendTo: auxDiv3
+      })
+      
+      //save and cancel
+      $('<input>', {
+        class: "button",
+        type: "button",
+        value: "Save settings",
+        appendTo: userActions
+      }).click(function() {
+        let checkPassword = document.cookie.split(";")
+        checkPassword.forEach((item)=>{
+          if(item.includes("password=")) {
+            checkPassword = item.slice(item.indexOf("=")+1, item.length)
+          }
+        })
+       
+        console.log(checkPassword)
+
+        if(checkPassword != $("#currentPassword").val()){
+          popup(["The password is incorrect."], timeout)
+          $("#currentPassword").val("")
+
+        } else if($("#newPassword").val() != $("#repeatPassword").val()) {
+          popup(["The new password doesn't match."], timeout)
+          $("#newPassword").val("")
+          $("#repeatPassword").val("")
+
+        } else if($("#newPassword").val() == checkPassword) {
+          popup(["Use a new password."], timeout)
+          $("#newPassword").val("")
+          $("#repeatPassword").val("")
+        }else {
+          updateUserInfo({action: "changePassword", userId: user.userId, username: $("#userInfoName").val(), email: $("#userInfoEmail").val(), password: checkPassword, newPassword: $("#newPassword").val()})
+        }
+      })
+
+      $('<input>', {
+        class: "button",
+        type: "button",
+        value: "Cancel",
+        appendTo: userActions
+      }).click(function() {
+        userSettings(user)
+      })
+      
+
+  })
+
+//Theme
+  let themeContainer = $('<div>', {class: "themeContainer", appendTo: "#content"})
+
+  $('<div>', {html: "Theme: " + user.theme.name, appendTo: themeContainer})
+  $('<input>', {
+    class: "button",
+    type: "button",
+    value: "Change theme",
+    appendTo: themeContainer
+  }).click(function() {
+    themeContainer.html("")
+
+    //select theme
+    $('<label>', {html: "Choose theme: ", appendTo: themeContainer})
+    themeSelect = $('<select>', {
+      "id": "themeSelect",
+      value: "Theme",
+      appendTo: themeContainer,
+    }).change(function(){
+      theme.forEach(function(item){
+        if(item.themeId == themeSelect.val()) {
+          $(":root").css({
+            "--mainColor": item.mainColor,
+            "--accentColor": item.accentColor,
+            "--subColor": item.subColor
+    
+            // "--fontColor1": "??",
+            // "--fontColor2": "??",
+            // "--archivedColor": "??",
+            // "--subGradient": "??",
+            // "--mainGradient": "??"
+          })
+        }
+      })
+    })
+
+    theme.forEach(function(item){
+      $('<option>', {
+        value: item.themeId,
+        html: item.themeName,
+        selected: (user.theme.Id == item.themeId) ? "selected" : false,
+        appendTo: themeSelect
+      })
+    })
+   
+    //actions
+    let auxDiv = $('<div>', {appendTo: themeContainer})
+    
+    $('<input>', {
+      class: "button",
+      type: "button",
+      value: "Use theme",
+      appendTo: auxDiv
+    }).click(function() {
+      updateUserInfo({action: "changeTheme", userId: user.userId, themeId: themeSelect.val()})
+    })
+
+    $('<input>', {
+      class: "button",
+      type: "button",
+      value: "Cancel",
+      appendTo: auxDiv
+    }).click(function() {
+      userSettings(user)
+    })
+
+  })
+
+//log out and go back
+  let settingActions = $('<div>', {class: "userSettingActions", appendTo: "#content"})
+
+  //log out
+  $('<input>', {
+    class: "button",
+    type: "button",
+    value: "Log out",
+    appendTo: settingActions
+  }).click(function() {
+    popup(["Are you sure you want to log out?",
+      $("<div class='buttonContainer'>").append (
+        $('<input type="button" value="Log out" class="button">').click(() => {
+          logout()
+      }),
+      $('<input type="button" value="Cancel" class="button">').click(() => {
+          hidePopup()
+      }))
+    ])
+  })
+
+  $('<input>', {
+    class: "button",
+    type: "button",
+    value: "Go to Home",
+    appendTo: settingActions
+  }).click(function() {
+    home()
+    settingFlag = false
+  })
+
+
+}
+
+function updateUserInfo(actionObj) {
+  //changePassword changeUserInfo changeTheme
+  actionObj.currentUsername = user.username
+  actionObj.currentEmail = user.email
+  console.log(actionObj)
+
+  $.get('php/updateUserSettings.php', actionObj)
+  .done(function(data){
+    console.log(data)
+
+    if(data=="nameExist") {
+      popup(["This name is taked, please use another name."], timeout)
+      $("#userInfoName").val(user.username)
+    } else if(data=="emailExist") {
+      popup(["This email address is already registered, please change to another one."], timeout)
+      $("#userInfoEmail").val(user.email)
+    } else {
+      popup([data], timeout)
+      proceed = "userSetting"
+      setup(user.userId)
+    }
   })
   .fail(error)
 }

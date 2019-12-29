@@ -34,10 +34,48 @@ let welcomeInfo = [
 let archiveTasks = 0
 let archiveTasksAll = true
 
+//toggle settings icon
+let settingFlag = false
+
 
 //pattern check for empty fields 
 let pattern = /^[\s]{1,}$/
 
 
-//test variables
-let labels = ["Home", "Work", "School"]
+
+//test
+let fonts = [
+    'Kulim Park, sans-serif',
+    'PT Sans, sans-serif',
+    'Nunito, sans-serif',
+    'PT Sans Narrow, sans-serif',
+    'Dosis, sans-serif',
+    'Lato, sans-serif',
+    'Amaranth, sans-serif',
+    'Boogaloo, cursive',
+    'Mountains of Christmas, cursive',
+    'Scada, sans-serif',
+    'Average, serif',
+    'Share, cursive',
+    'Cabin Sketch, cursive',
+    'Magra, sans-serif',
+    'Oranienbaum, serif',
+    'Do Hyeon, sans-serif',
+
+]
+
+function setFont(time) {
+    let n = 0
+    return setInterval(() => {
+        $(":root").css({
+            "--font1": fonts[n]
+        })
+        console.log("index: " + n + " fontName: " + fonts[n])
+        if(n==fonts.length-1){
+            n = 0
+        } else {
+            n++
+        }
+    }, time);
+
+}

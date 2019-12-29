@@ -1,7 +1,7 @@
 //fetches user, places theme and all other data from DB (setupfunction after login)
 function updateTheme(theme) {
     $(":root").css({
-        "--maincolor": theme.mainColor,
+        "--mainColor": theme.mainColor,
         "--accentColor": theme.accentColor,
         "--subColor": theme.subColor,
     })
@@ -19,6 +19,13 @@ function setup (userId) {
         updateTheme(user.theme)
 
         getTaskAndLabelData(userId)
+    })
+    .fail(error)
+
+    $.get("php/getThemes.php")
+    .done((data)=>{
+        data = JSON.parse(data)
+        theme = data
     })
     .fail(error)
 }
@@ -102,6 +109,9 @@ function getTaskAndLabelData(userId) {
 
             if (proceed == "homeSetting") {
                 home()
+            } else if (proceed == "userSetting") {
+                userSettings(user)
+                proceed = "homeSetting"
             } else {
                 editTask(proceed)
                 proceed = "homeSetting"

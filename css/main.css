@@ -6,16 +6,21 @@
     --fontSize: 16px;
     --ghostColor: rgba(20, 20, 20, .7);
     --labelIconSize: 40px;
-    --fontColor1: black;
-    --fontColor2: rgb(255, 255, 255);
-    --archivedColor: rgb(105, 95, 95);
+    --fontColor1: #dfeee2;
+    --fontColor2: #dfeee2;
+    --archivedColor: #dfeee294;
+    --subGradient: rgba(44,42,113,0.47);
+    --mainGradient: rgba(24,26,40,0.78);
+    --font1: 'Fira Sans Condensed', sans-serif'
 }
 
 body {
-    background-color: var(--maincolor);
+    background-color: var(--mainColor);
+    color: var(--fontColor1);
+    font-size: var(--fontSize)
 }
 
-* {
+input {
     color: var(--fontColor1);
     font-size: var(--fontSize)
 }
@@ -30,21 +35,28 @@ body {
   cursor: pointer;
 }
 
+.userInfo, .userInfoPass > div {
+    display: flex;
+    align-items: center;
+    margin: 5px 0; 
+}
+
+
+.userInfo :first-child, .userInfoPass > div :first-child {
+    flex-basis: 20px;
+    flex-grow: 3;
+}
+
+.userInfo :last-child, .userInfoPass > div :last-child {
+    flex-basis: 20px;
+    flex-grow: 5;
+}
+
+
 
 /* SIMONS CSS */
 
 /* create task css */
-
-#shareContainer {
-width: 95vw;
-border: 1px solid black;
-}
-
-#shareContainer div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 
 /* #content *{

@@ -20,6 +20,8 @@
     border-radius: 50%;
     margin-right: calc(var(--labelIconSize)*.25);
     flex-shrink: 0;
+
+    box-shadow: inset 0px 0px 11px 4px rgba(200,200,200,.05);
 }
 
 .labelInfo {
@@ -47,7 +49,7 @@
 .subtasks > div > div:last-child {
     flex-grow: 1;
     flex-basis: 10px;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .subtasks > div > div {
@@ -99,9 +101,13 @@
     font-size: calc(var(--fontSize) * 0.8);
 }
 
-.subtaskTitle, #sharedHeader  {
+.subtaskTitle, #sharedHeader, .themeContainer  {
     border-top: 1px solid var(--subColor);
     padding-top: 5px;
+}
+
+.subtaskTitle, #sharedHeader, label[for="taskNameInput"], label[for="labelSelect"] {
+    font-size: calc(var(--fontSize) * 1.1);
 }
 
 #dateContainer {
@@ -144,7 +150,7 @@
 #sharedHeader{
     display: flex;
     flex-wrap: wrap;
-    width: ;
+    align-items: center;
 }
 
 #oldCode {
@@ -158,4 +164,14 @@
 #shareContainer {
     margin: 5px 0 5px 5px;
     min-height: calc(var(--fontSize) * 2.5);
+}
+
+#shareContainer div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#shareContainer > div > :nth-child(2){ 
+    margin-left: calc(var(--fontSize) * 1.25);
 }

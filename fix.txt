@@ -3,3 +3,5 @@
 3. fix click on tasks home
 4. lösa arrayproblem i subtask edit i editTask()
 5. kolla rad 95 i functions (if-statment med radioAll) - vad kollar detta efter?
+
+6. finns det krav för hur många char det ska vara i ett lösenord? (fixa i func 640 i så fall)

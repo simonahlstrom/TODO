@@ -115,7 +115,7 @@ function editTask (a) {
       $('<div>', {"id": "sharedHeader", appendTo: "#content"})
       $('<div>', {html: "Shared", appendTo: "#sharedHeader"})
 
-      $('<input>', {type: "button", value: "Enable", appendTo: "#sharedHeader"}).click(function() {
+      $('<input>', {type: "button", class: "button", value: "Enable", appendTo: "#sharedHeader"}).click(function() {
         if (shared == 1) {
           shared = 2
           this.value = "Disable"
@@ -342,7 +342,7 @@ function editTask (a) {
 
       //check if user is owner
       if(parseInt(obj.creator)) {
-        $('<input>', {type: "button", value: (obj.creator==1) ? "Enable" : "Disable", appendTo: "#sharedHeader"}).click(function() {
+        $('<input>', {type: "button", value: (obj.creator==1) ? "Enable" : "Disable", class: "button", appendTo: "#sharedHeader"}).click(function() {
           
           if(this.value == "Enable") {
             
