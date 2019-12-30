@@ -84,14 +84,19 @@ function Task(data, objLabel) {
   this.completedTask = data.completedTask
   this.subtasks = []
   this.taskMembers = []
-  this.urgent 
+  this.urgent = null
   
   this.subDL = function() {
-    let a = this.subtasks.sort((a, b) => (a.deadline > b.deadline) ? 1 : -1)
-    if(a[0]){
-      this.urgent = a[0].deadline
-    } else {
-      this.urgent = null
+    this.subtasks = this.subtasks.sort((a, b) => (a.deadline > b.deadline) ? 1 : -1)
+    console.log(this.subtasks)
+    
+    for (let i = 0; i < this.subtasks.length; i++){
+      if(this.subtasks[i].deadline && this.subtasks[i].completed == 0) {
+        this.urgent = this.subtasks[i].deadline
+        console.log(this.urgent)
+        return
+        
+      }
     }
   }
 

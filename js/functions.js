@@ -66,16 +66,13 @@ function prepareSubtasks(name, subId, date) {
   subtaskArray.push([])
   subtaskArray[subtaskArray.length-1].push(subId)
   subtaskArray[subtaskArray.length-1].push(name)
+  subtaskArray[subtaskArray.length-1].push(date)
 
   console.log(date)
 
 
-  //vad kollar egentligen detta?
-  if ($('#radioAll:checked').val()) {
-    subtaskArray[subtaskArray.length-1].push(date)
-  } else {
-    subtaskArray[subtaskArray.length-1].push($('#date').val())
-  }
+
+  
 
 
   let subIndex = subtaskArray.length-1

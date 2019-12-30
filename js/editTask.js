@@ -390,9 +390,6 @@ function editTask (a) {
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       
       editTaskButtons.forEach(function(item) {
-        console.log(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") + " OR " + (item != "Delete task" && obj.creator == 0))
-        console.log("creator-->"+obj.creator)
-        console.log("action-->"+item)
 
         // if((obj.creator != 1 && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
         if(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
