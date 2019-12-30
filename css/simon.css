@@ -51,7 +51,7 @@ body {
 
 input[type='text'], input[type='password'], input[type='date'], select {
   background-color: var(--inputColor);
-  color: var(--fontColor);
+  color: var(--fontColor2);
   border: none;
   padding: 2.5px;
 }
