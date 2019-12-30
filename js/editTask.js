@@ -170,7 +170,6 @@ function editTask (a) {
                   
               } else {
                 saveTask(code, "new", shared)
-                console.log(shared)
               }
 
 
@@ -205,7 +204,6 @@ function editTask (a) {
     } else {
       
       let obj = allTasks[a]
-      console.log("object sent to editTask", obj)
 
       let code = obj.shareCode
       //Name of task input
@@ -420,20 +418,19 @@ function editTask (a) {
               subtaskArray = []
               home()
             } else {
-              popup([
-                "Do you want to" + item.toLowerCase + "?",
-                $('<input>', {type: "button", value: "Yes", "class": "button"}).click(function() {
+              popup(["Do you want to " + item.toLowerCase() + "?",
+              $("<div class='buttonContainer'>").append(
+                $('<input type="button" value="Yes" class="button">').click(function() {
                   if(item == "Leave task") {
                     leaveTask(obj)
                   } else {
                     removeTask(obj)
                     hidePopup()
                     getTaskAndLabelData(user.userId)
-                    console.log("Task deleted")
                   } 
                 }),
-                $('<input type="button" value="No" class="button">').click(() => {hidePopup()})
-              ])
+                $('<input type="button" value="Cancel" class="button">').click(() => {hidePopup()})
+              )])
             }
           })
         }

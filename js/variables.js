@@ -32,7 +32,7 @@ let welcomeInfo = [
 //home/filters
 //toggles archived tasks 
 let archiveTasks = 0
-let archiveTasksAll = true
+let archiveTasksAll = false //false is default true= both done and undone.
 
 //toggle settings icon
 let settingFlag = false
@@ -81,8 +81,3 @@ function setFont(time) {
     }, time);
 
 }
-
-let holdIndex = 0
-let timeOut = 0
-let labelCopy
-let labelToEdit

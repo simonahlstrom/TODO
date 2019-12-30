@@ -5,10 +5,10 @@ function updateTheme(theme) {
         "--accentColor": theme.accentColor,
         "--subColor": theme.subColor,
         "--fontSize": user.fontSize,
-        "--archivedColor": user.archivedColor,
+        "--archivedColor": theme.archivedColor,
         "--inputColor": theme.inputColor,
         "--fontColor": theme.fontColor,
-        "--fontColor2": theme.fontColor,
+        "--fontColor2": theme.fontColor2,
     })
 }
 
@@ -82,13 +82,20 @@ function getTaskAndLabelData(userId) {
                 //get index for a specifictask to be used in proceed
                 if(allTasks[allTasks.length-1].shareCode == proceed) {
                     proceed = allTasks.length-1
-                    console.log("proceed changed to: " + proceed)
                 }
 
                 //puts the tasks subtasks in in the subtaskproperty
                 for (let j=0; j<data[0].length; j++) {
                     if (data[0][j].taskId == data[1][i].taskId) {
                         allTasks[allTasks.length-1].subtasks.push(data[0][j])
+                        if(data[0][j].subName.length > 16) {
+                            let subString = allTasks[allTasks.length-1].subtasks[allTasks[allTasks.length-1].subtasks.length-1].subName
+                            let rule = /.{16}/
+
+                            console.log(subString)
+                            window.sub = subString
+                            window.rule = rule
+                        }
                     }
 
                 }

@@ -4,28 +4,31 @@
     --subColor: rgb(218, 149, 104);
     --radius: 10px;
     --fontSize: 14px;
-    --ghostColor: rgba(20, 20, 20, .7);
+    --ghostColor: rgba(20, 20, 20, .5);
     --labelIconSize: 40px;
-    --fontColor1: #dfeee2;
-    --fontColor2: #dfeee2;
+    --fontColor: #dfeee2;
+    --fontColor2: #0d631e;
     --archivedColor: #dfeee294;
     --subGradient: rgba(44,42,113,0.47);
     --mainGradient: rgba(24,26,40,0.78);
-    --font1: Fira Sans Condensed, sans-serif;
+    --font: Fira Sans Condensed, sans-serif;
     --inputColor: #737373;
-    --fontColor: #737373;
 }
 
 body {
     background-color: var(--mainColor);
     color: var(--fontColor);
     font-size: var(--fontSize);
+    font-family: var(--font);
+    margin: 0px;
+    transition: background-color .3s ease, color .3s ease;
+    overflow-y: hidden;
 }
 
-input {
-    color: var(--fontColor2);
-    font-size: var(--fontSize)
+#todoLogo {
+    color: rgb(255,255,255) !important;
 }
+
 
 .flex {
     display: flex;
@@ -37,6 +40,7 @@ input {
   cursor: pointer;
 }
 
+/* userinfo */
 .userInfo, .userInfoPass > div {
     display: flex;
     align-items: center;
@@ -53,19 +57,3 @@ input {
     flex-basis: 20px;
     flex-grow: 5;
 }
-
-
-
-/* SIMONS CSS */
-
-/* create task css */
-
-
-/* #content *{
-    margin: auto;
-}
-
-label { float: left; width: 10em; margin-right: 1em;}
-
-select {width: 144px;}
- */
