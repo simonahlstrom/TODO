@@ -90,7 +90,7 @@ function login() {
             }
           })
           .fail((error) => {
-            cl(error)
+            console.log(error)
           })
         } else {
           $("#popup").append($("<p>Please fill in both fields</p>"))

@@ -49,6 +49,11 @@ input[type='text'], input[type='password'], input[type='date'], select {
   color: var(--fontColor);
   border: none;
   padding: 2.5px;
+  font-size: var(--fontSize);
+}
+
+.buttonContainer {
+  display: flex;
 }
 
 label {

@@ -10,6 +10,9 @@
 9. loggo back i labels
 (vill fixa en default.png och back)
 
+-radera icon vi inte använder
+-ta bort fix
+
 
 
 
