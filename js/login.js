@@ -27,6 +27,8 @@ function register() {
           let password = $("#password").val()
           let occupation = $("#occupation").val()
   
+          console.log(username, email, password, occupation)
+
           $.get('php/register.php', {
             username: username,
             email: email,

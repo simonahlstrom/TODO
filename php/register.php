@@ -3,7 +3,7 @@ include('connectToDB.php');
 
 // Uploads new user to DB
 $pdo = connectDB();
-$query = "INSERT INTO User (username, email, password, occupation, themeId) VALUES (?, ?, ?, ?, 1)";
+$query = "INSERT INTO User (username, email, password, occupation, themeId) VALUES (?, ?, ?, ?, (SELECT themeId FROM Theme LIMIT 1))";
 
 $sql = $pdo->prepare($query);
 $sql->bindParam(1, $_GET['username']);
