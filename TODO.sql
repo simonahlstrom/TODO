@@ -51,7 +51,7 @@ INSERT INTO `Icon` (`url`, `type`) VALUES
 ('cleaning.png', 'label'),
 ('cooking.png', 'label'),
 ('laundry.png', 'label'),
-('list.png', 'label'),
+('default.png', 'label'),
 ('study.png', 'label'),
 ('tags.png', 'label'),
 ('training.png', 'label'),
