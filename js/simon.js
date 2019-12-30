@@ -100,20 +100,10 @@ function showLabelEdit(copy, label) {
 }
 
 // event handlers for edit-button
-$(".flip-card-back").click(() => {
+$("#addLabel").click(() => {
   toggleMenu()
   showLabelEdit(labelCopy, labelToEdit)
 })
-
-// NOT WORKING - why??? problem with the popup blocking click-events?
-// $("#preview").click((e) => {
-//   console.log
-//   if ($("#colorsContainer").contains(e.target)) {
-//     cl("COL")
-//   } else {
-//     cl("ICO")
-//   }
-// })
 
 function updatePreview(change, type) {
   if (type == "color") {
