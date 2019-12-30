@@ -84,17 +84,23 @@ $("#preview").click((e) => {
 })
 
 // // hold event
-// $(document).ready(function() {
-//   let i = 0, timeOut = 0;
+$(document).ready(function() {
+  let i = 0, timeOut = 0
   
-//   $('ELEMENT').on('mousedown touchstart', function(e) {
-//     console.log("START")
-//     timeOut = setInterval(function(){
-//       console.log(i++)
-//     }, 100)
-//   }).bind('mouseup mouseleave touchend', function() {
-//     console.log("END")
-//     i = 0
-//     clearInterval(timeOut)
-//   })
-// })
+  $('ELEMENT').on('mousedown touchstart', function(e) {
+    console.log("START")
+    
+    timeOut = setInterval(function(){
+      console.log(i++)
+    }, 100)
+  }).bind('mouseup mouseleave touchend', function() {
+    console.log("END")
+
+    if (i == X) {
+      //do stuff
+    }
+
+    i = 0
+    clearInterval(timeOut)
+  })
+})
