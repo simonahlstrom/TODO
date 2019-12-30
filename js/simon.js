@@ -113,9 +113,9 @@ function updatePreview(change, type) {
   }
 }
 
-function addLabel() {
-  showLabelEdit(labelCopy, labelToEdit, create)
-}
+// function addLabel() {
+//   showLabelEdit(labelCopy, labelToEdit, create)
+// }
 
 
 
