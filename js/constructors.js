@@ -33,44 +33,113 @@ function Label(data) {
       margin: "5px",
       backgroundSize: "65%",
       backgroundRepeat: "no-repeat",
-      backgroundPosition: "center"
-  }).click(function(){
-    let currentLabel
-    let index
+      backgroundPosition: "center",
+      border: "3px solid transparent"
+  // }).click(function(){
+  //   let currentLabel
+  //   let index
 
-    // finding the correct label to handle
-    allLabels.forEach((element, i) => {
-      if (element.labelId == this.id) {
-        currentLabel = element
-        index = i
+  //   // finding the correct label to handle
+  //   allLabels.forEach((element, i) => {
+  //     if (element.labelId == this.id) {
+  //       currentLabel = element
+  //       index = i
+  //     }
+  //   })
+
+  //   // updates the activated column on the regarding label
+  //   $.get('php/toggleActiveLabel.php', {id: currentLabel.labelId, activated: currentLabel.activated})
+  //   .done((data) => {
+  //     data = JSON.parse(data)
+
+  //     // does the same update on the local object
+  //     allLabels.forEach((element, i) => {
+  //       if (index == i) {
+  //         element.activated = data[0].activated
+  //       }
+  //     })
+      
+  //     // handling css-stuff, showing the activited status with opacity
+  //     if (data[0].activated == 1) {
+  //       this.classList.remove("deactivated")
+  //     } else {
+  //       this.classList.add("deactivated")
+  //     }
+  //     // add this function later when it's time
+  //     // home()
+  //   })
+  //   .fail((error) => {
+  //     console.log(error)
+  //   })
+  // })
+  }).on('mousedown touchstart', function(e) {
+    console.log("START")
+    for (let label of allLabels) {
+      label.element.css({border: "3px solid transparent"})
+    }
+
+    timeOut = setInterval(function(){
+      // console.log(holdIndex++)
+      holdIndex++
+      if (holdIndex > 4) {
+        $(e.target).css({border: "3px solid var(--accentColor)"})
+        $(".slideIn").addClass("slideIn-active")
+
+        let clone = e.target.cloneNode()
+        labelToEdit = e.target
+        labelCopy = clone
       }
-    })
+    }, 100)
 
-    // updates the activated column on the regarding label
-    $.get('php/toggleActiveLabel.php', {id: currentLabel.labelId, activated: currentLabel.activated})
-    .done((data) => {
-      data = JSON.parse(data)
+  }).bind('mouseup touchend', function(e) {
+    console.log("END")
+    console.log(holdIndex)
 
-      // does the same update on the local object
+    if (holdIndex < 4) {
+      let currentLabel
+      let index
+    
+      // finding the correct label to handle
       allLabels.forEach((element, i) => {
-        if (index == i) {
-          element.activated = data[0].activated
+        if (element.labelId == this.id) {
+          currentLabel = element
+          index = i
         }
       })
-      
-      // handling css-stuff, showing the activited status with opacity
-      if (data[0].activated == 1) {
-        this.classList.remove("deactivated")
-      } else {
-        this.classList.add("deactivated")
-      }
-      // add this function later when it's time
-      // home()
-    })
-    .fail((error) => {
-      console.log(error)
-    })
+    
+      // updates the activated column on the regarding label
+      $.get('php/toggleActiveLabel.php', {id: currentLabel.labelId, activated: currentLabel.activated})
+      .done((data) => {
+        data = JSON.parse(data)
+    
+        // does the same update on the local object
+        allLabels.forEach((element, i) => {
+          if (index == i) {
+            element.activated = data[0].activated
+          }
+        })
+        
+        // handling css-stuff, showing the activited status with opacity
+        if (data[0].activated == 1) {
+          this.classList.remove("deactivated")
+        } else {
+          this.classList.add("deactivated")
+        }
+        // add this function later when it's time
+        // home()
+      })
+      .fail((error) => {
+        console.log(error)
+      })
+    }
+
+    holdIndex = 0
+    clearInterval(timeOut)
   })
+
+
+
+  // })
 }
 
 function Task(data, objLabel) {

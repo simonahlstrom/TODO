@@ -197,18 +197,22 @@ main {
 }
 
 .slideIn {
-  transition: all .1s ease;
-  /* opacity: 0; */
+  transition: all .2s ease;
+  opacity: 0;
   /* transform: translateX(-100%); */
 }
 
 .slideIn-active {
   opacity: 1;
-  transform: translateX(0%);
+  /* transform: translateX(0%); */
 }
 
 .deactivated {
   opacity: .5;
+}
+
+.labelHighlight {
+  border: 3px solid var(--accentColor);
 }
 
 /* CUSTOMIZE LABEL */
