@@ -100,12 +100,10 @@ function showLabelEdit(copy, label) {
 }
 
 // event handlers for edit-button
-$("#editLabel").click(() => {
+$("#addLabel").click(() => {
   toggleMenu()
   showLabelEdit(labelCopy, labelToEdit)
 })
-
-
 
 function updatePreview(change, type) {
   if (type == "color") {

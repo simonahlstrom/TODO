@@ -84,5 +84,5 @@ function setFont(time) {
 
 let holdIndex = 0
 let timeOut = 0
-// let labelToEdit
-// let 
+let labelCopy
+let labelToEdit

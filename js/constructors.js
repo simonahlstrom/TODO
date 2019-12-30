@@ -77,17 +77,16 @@ function Label(data) {
   //   })
   // })
   }).on('mousedown touchstart', function(e) {
-    console.log("START")
     for (let label of allLabels) {
       label.element.css({border: "3px solid transparent"})
     }
 
     timeOut = setInterval(function(){
-      // console.log(holdIndex++)
       holdIndex++
-      if (holdIndex > 4) {
+      if (holdIndex >= 4) {
         $(e.target).css({border: "3px solid var(--accentColor)"})
         $(".slideIn").addClass("slideIn-active")
+        $(".flip-card .flip-card-inner").css({transform: "rotateY(180deg)"})
 
         let clone = e.target.cloneNode()
         labelToEdit = e.target
@@ -96,8 +95,6 @@ function Label(data) {
     }, 100)
 
   }).bind('mouseup touchend', function(e) {
-    console.log("END")
-    console.log(holdIndex)
 
     if (holdIndex < 4) {
       let currentLabel
