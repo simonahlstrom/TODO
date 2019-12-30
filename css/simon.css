@@ -80,7 +80,7 @@ label {
 
 header {
   height: 10vh;
-  background-color: var(--accentColor);
+  background-color: var(--subColor);
 }
 
 #header {

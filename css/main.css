@@ -11,13 +11,9 @@
     --archivedColor: #dfeee294;
     --subGradient: rgba(44,42,113,0.47);
     --mainGradient: rgba(24,26,40,0.78);
-<<<<<<< HEAD
-    --font1: 'Fira Sans Condensed, sans-serif'
-=======
-    --font1: Fira Sans Condensed, sans-serif;
+    --font: Fira Sans Condensed, sans-serif;
     --inputColor: #737373;
     --fontColor: #737373;
->>>>>>> c358b125f8ecd03a39ba4713b91d16719b0fffc9
 }
 
 body {
