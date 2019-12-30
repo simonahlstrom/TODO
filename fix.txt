@@ -3,6 +3,8 @@
 
 
 7. :root i function 756 (rött) vilka variabler använder vi? / :root i setup.js updateTheme()
+8. fixa theme preview.
+
 
 8. owner icon
 9. loggo back i labels
