@@ -1,12 +1,4 @@
 /* GENERAL */
-
-body {
-  font-family: var(--font1);
-  margin: 0px;
-  transition: background-color .3s ease, color .3s ease;
-  overflow-y: hidden;
-}
-
 .popup {
   flex-direction: column;
   padding: 15px;
@@ -55,16 +47,6 @@ input[type='text'], input[type='password'], input[type='date'], select {
   border: none;
   padding: 2.5px;
 }
-
-/* input[type="checkbox"]{
-  outline:2px solid var(--accentColor);
-  outline-offset: -2px;
-} */
-
-/* .button:hover {
-  background-color: var(--accentColor);
-  color: var(--fontColor2);
-} */
 
 label {
   margin: 5px;
@@ -133,10 +115,11 @@ main {
   padding: 10px;
   height: calc(80vh - 20px);
   width: calc(100vw - 20px);
+  overflow: hidden;
 
-  background: -moz-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.3) 100%);
-  background: -webkit-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.3) 100%);
-  background: linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.3) 100%);
+  background: -moz-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
+  background: -webkit-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
+  background: linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
 
 }
 
