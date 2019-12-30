@@ -53,6 +53,11 @@ $('#menuDown').click(() => {
 // toggle labels-menu
 function toggleMenu() {
   $('.labelBox').toggleClass('activeLabel')
+  for (let label of allLabels) {
+    label.element.css({border: "3px solid transparent"})
+  }
+  $(".slideIn").removeClass("slideIn-active")
+  $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
 }
 
 // create popup with editing options for the labels
@@ -95,10 +100,9 @@ function showLabelEdit(copy, label) {
 }
 
 // event handlers for edit-button
-$("#editLabel").click(() => {
+$(".flip-card-back").click(() => {
   toggleMenu()
   showLabelEdit(labelCopy, labelToEdit)
-  
 })
 
 // NOT WORKING - why??? problem with the popup blocking click-events?
