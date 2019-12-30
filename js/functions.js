@@ -886,6 +886,22 @@ function aboutPage() {
     height: "30%"
   })
 
+  $('<div>', {"id": "buttonContainer", appendTo: "#content"})
+
+  $('<input>', {
+    type: "button",
+    "class": "button",
+    value: "Back",
+    appendTo: "#buttonContainer"
+  }).click(function() {home()})
+
+  $('<input>', {
+    type: "button",
+    "class": "button",
+    value: "Contact us",
+    appendTo: "#buttonContainer"
+  }).click(function() {popup(["Email: todo@gmail.com"])})
+
   $('<p>', {
     html: "version: 0.1 beta",
     appendTo: "#content"

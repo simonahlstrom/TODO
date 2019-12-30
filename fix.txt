@@ -18,6 +18,8 @@ nice to have
 
 - finns det krav för hur många char det ska vara i ett lösenord? (fixa i func 640 i så fall)
 - kolla case sensitive lösenord/användare
+
+
 INSERT INTO `Icon` (`url`, `type`) VALUES
 ('agenda.png', 'label'),
 ('cleaning.png', 'label'),
