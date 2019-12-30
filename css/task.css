@@ -33,14 +33,15 @@
 }
 
 .subtasks {
-    margin-left: var(--labelIconSize);
+    margin-left: calc(var(--labelIconSize) * .5);
     
 }
 
 .subtasks > div {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    align-items: center;
+    padding: 5px 0;
     
 }
 
@@ -52,11 +53,17 @@
 .subtasks > div > div:last-child {
     flex-grow: 1;
     flex-basis: 10px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .subtasks > div > div {
     display: flex;
+}
+
+.subtasks > div > div > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .taskInfo {
@@ -65,7 +72,9 @@
 }
 
 .taskActions {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .archived {

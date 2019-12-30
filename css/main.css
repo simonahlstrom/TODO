@@ -41,11 +41,32 @@ body {
 }
 
 /* userinfo */
+
 .userInfo, .userInfoPass > div {
     display: flex;
     align-items: center;
     margin: 5px 0; 
 }
+
+.userInfo > div {
+    font-size: calc(var(--fontSize)*1.25)
+}
+
+.themeContainer, .logout  {
+    border-top: 1px solid var(--accentColor);
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+.themeContainer > div {
+    display: flex;
+    align-items: center;
+}
+.themeContainer > div:first-child > *, .themeContainer > div:nth-child(2) > * {
+    flex-basis: 20px;
+    flex-grow: 1;
+}
+
 
 
 .userInfo :first-child, .userInfoPass > div :first-child {

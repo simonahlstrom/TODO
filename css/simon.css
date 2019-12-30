@@ -23,11 +23,14 @@
 }
 
 .button {
-  /* height: 30px; */
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 5px;
   border-radius: 10px;
   background-color: var(--accentColor);
-  font-family: var(--font1);
+  font-family: var(--font);
   font-size: var(--fontsize);
   transition: all .2s;
   color: var(--fontColor2);
@@ -43,7 +46,7 @@
 
 input[type='text'], input[type='password'], input[type='date'], select {
   background-color: var(--inputColor);
-  color: var(--fontColor2);
+  color: var(--fontColor);
   border: none;
   padding: 2.5px;
 }
