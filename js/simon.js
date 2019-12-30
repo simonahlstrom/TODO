@@ -75,8 +75,18 @@ function showLabelEdit(copy, label) {
 
       $.get('php/updateLabel.php', {color: color, icon: fileName, labelId: label.id})
       .done((data) => {
-        // data = JSON.parse(data)
-        // console.log(data)
+        data = JSON.parse(data)
+        console.log(data)
+
+        allLabels.forEach((element, i) => {
+          if (element.labelId == label.id) {
+            element.icon = fileName
+            element.color = color
+          }
+        })
+
+        home()
+        hidePopup()
       })
     })
   ]
@@ -88,6 +98,7 @@ function showLabelEdit(copy, label) {
 $("#editLabel").click(() => {
   toggleMenu()
   showLabelEdit(labelCopy, labelToEdit)
+  
 })
 
 // NOT WORKING - why??? problem with the popup blocking click-events?
