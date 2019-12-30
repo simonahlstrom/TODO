@@ -351,7 +351,7 @@ function createTaskElement(taskIndex) {
   
       if(obj.creator != 1){
         $("<div>", {
-          class: "subClaim",
+          class: "button",
           appendTo: subAuxChild2,
           html: (obj.subtasks[i].claimedName != 0) ? obj.subtasks[i].claimedName : "Claim"
         }).click(function(){
@@ -712,12 +712,12 @@ function userSettings(user) {
 //Theme
   let themeContainer = $('<div>', {class: "themeContainer", appendTo: "#content"})
 
-  $('<div>', {html: "Theme: " + user.theme.name, appendTo: themeContainer})
+  $('<div>', {html: "Theme: " + user.theme.name, appendTo: themeContainer}).css({"font-size": "calc(var(--fontSize)*1.25)"})
   $('<input>', {
     class: "button",
     type: "button",
     value: "Change apperance",
-    appendTo: themeContainer
+    appendTo: themeContainer,
   }).click(function() {
     themeContainer.html("")
 
@@ -799,7 +799,7 @@ function userSettings(user) {
   })
 
 //log out and go back
-  let settingActions = $('<div>', {class: "userSettingActions", appendTo: "#content"})
+  let settingActions = $('<div>', {class: "logout", appendTo: "#content"})
 
   //log out
   $('<input>', {
@@ -819,11 +819,12 @@ function userSettings(user) {
     ])
   })
 
+  $('<div>', {"id": "buttonContainer", class: "logout", appendTo: "#content"})
   $('<input>', {
     class: "button",
     type: "button",
     value: "Go to Home",
-    appendTo: settingActions
+    appendTo: "#buttonContainer"
   }).click(function() {
     home()
     settingFlag = false
