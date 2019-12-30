@@ -170,6 +170,7 @@ function editTask (a) {
                   
               } else {
                 saveTask(code, "new", shared)
+                console.log(shared)
               }
 
 
@@ -408,7 +409,7 @@ function editTask (a) {
                 $("<div class='buttonContainer'>").append(
                   $('<input type="button" value="Yes" class="button">').click(() => {
                     prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
-                    saveTask(code, "alter")
+                    saveTask(code, "alter", obj.label.labelId)
                     hidePopup()
                   }),
                   $('<input type="button" value="Cancel" class="button">').click(() => {
