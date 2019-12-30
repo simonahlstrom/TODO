@@ -28,9 +28,6 @@ function getColorsAndIcons() {
   })
 }
 
-// move to run.js later
-getColorsAndIcons()
-
 // show menu with labels
 $('#home').click(() => {
   toggleMenu()

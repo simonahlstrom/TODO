@@ -1,3 +1,6 @@
+// move to run.js later
+getColorsAndIcons()
+
 getUserFromCookie()
 
 $("#profileIcon").click(()=>{

@@ -44,11 +44,11 @@ function register() {
               setup(data)
             })
             .fail((error) => {
-              cl(error)
+              console.log(error)
             })
           })
           .fail((error) => {
-            cl(error)
+            console.log(error)
           })
         } else {
           $("#popup").append($("<p>Passwords don't match</p>"))

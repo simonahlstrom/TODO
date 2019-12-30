@@ -1,6 +1,8 @@
 <?php
 include('connectToDB.php');
 
+sleep(2);
+
 // Fetches all themes
 $pdo = connectDB();
 $query = "SELECT * FROM theme";

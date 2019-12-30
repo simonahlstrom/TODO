@@ -21,6 +21,7 @@ function setup (userId) {
         //updatesCookie
         updateCookie(data[0].username, data[0].password, "1")
         //Updates themes from the user settings fetched from the db
+    
         updateTheme(user.theme)
 
         getTaskAndLabelData(userId)
@@ -29,6 +30,7 @@ function setup (userId) {
 
     $.get("php/getThemes.php")
     .done((data)=>{
+        console.log(data)
         data = JSON.parse(data)
         theme = data
     })
@@ -37,8 +39,8 @@ function setup (userId) {
 
 //Fetches all data about Tasks Sub tasks and Labels
 function getTaskAndLabelData(userId) {
-    //varför börjar den ett steg upp i foldern?
     //hämtar data från DB
+    console.log("kör getTaskandLabel")
     
     //Fetches all labelData
     $.get("php/getAllLabelData.php", {userId: userId})

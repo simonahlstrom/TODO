@@ -9,7 +9,7 @@ $sql->execute();
 $answer1 = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
 $pdo = connectDB();
-$query = "SELECT * FROM Icon WHERE type = 'theme'";
+$query = "SELECT * FROM Icon WHERE type = 'label'";
 
 $sql = $pdo->prepare($query);
 $sql->execute();

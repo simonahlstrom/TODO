@@ -14,7 +14,7 @@
 .taskLabel {
     width: var(--labelIconSize);
     height: var(--labelIconSize);
-    background-image: url("../icons/icon.png");
+    background-image: url("../icons/default.png");
     background-size: cover;
     background-color: rgb(255, 255, 255);
     border-radius: 50%;
