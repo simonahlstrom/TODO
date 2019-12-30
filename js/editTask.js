@@ -37,7 +37,7 @@ function editTask (a) {
         allLabels.forEach(function(item){
           if(item.labelId == labelSelect.val()){
             labelIcon.css({
-              backgroundImage: "url('../icons/" + item.icon + "')",
+              backgroundImage: "url('icons/labels/" + item.icon + "')",
               backgroundColor: item.color
             })
           }
@@ -170,6 +170,7 @@ function editTask (a) {
                   
               } else {
                 saveTask(code, "new", shared)
+                console.log(shared)
               }
 
 
@@ -238,7 +239,7 @@ function editTask (a) {
         allLabels.forEach(function(item){
           if(item.labelId == labelSelect.val()){
             labelIcon.css({
-              backgroundImage: "url('../icons/" + item.icon + "')",
+              backgroundImage: "url('icons/labels/" + item.icon + "')",
               backgroundColor: item.color
             })
           }
@@ -389,9 +390,6 @@ function editTask (a) {
       $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
       
       editTaskButtons.forEach(function(item) {
-        console.log(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") + " OR " + (item != "Delete task" && obj.creator == 0))
-        console.log("creator-->"+obj.creator)
-        console.log("action-->"+item)
 
         // if((obj.creator != 1 && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
         if(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
@@ -408,7 +406,7 @@ function editTask (a) {
                 $("<div class='buttonContainer'>").append(
                   $('<input type="button" value="Yes" class="button">').click(() => {
                     prepareSubtasks($('#subtaskNameInput').val(), $('#subtaskNameInput').attr("name"), $('#date').val())
-                    saveTask(code, "alter")
+                    saveTask(code, "alter", obj.label.labelId)
                     hidePopup()
                   }),
                   $('<input type="button" value="Cancel" class="button">').click(() => {

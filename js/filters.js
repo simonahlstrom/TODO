@@ -1,6 +1,6 @@
 function home(){
+    $("#content").html("")
     if (allTasks.length >= 1) {
-        $("#content").html("")
 
         //checks and arrange allTasks in order of the chosen filter
 
@@ -14,7 +14,6 @@ function home(){
             })
 
             //remove null in urgent
-        
             allTasks = allTasks.sort((a, b) => (a.urgent > b.urgent) ? 1 : -1)
         } else if (filter == "labels123") {
             allTasks = allTasks.sort((a, b) => (a.label.labelId > b.label.labelId) ? 1 : -1)
@@ -28,7 +27,9 @@ function home(){
         for (let i=0; i<allTasks.length; i++){
     
             if((parseInt(allTasks[i].completedTask) == archiveTasks || archiveTasksAll) && parseInt(allTasks[i].label.activated)){
-                createTaskElement(i)
+                if(filter != "urgent" || allTasks[i].urgent) {
+                    createTaskElement(i)
+                }
             }
         }
     } else {

@@ -8,7 +8,7 @@ let theme = []
 let proceed = "homeSetting"
 
 //used for type of filtering tasks
-// values include "urgent", "allAsc", "allDec", "labelsABC" and "labels123"
+// values include "urgent", "allAsc" (def), "allDec", "labelsABC" and "labels123"
 let filter = "allAsc"
 
 //used for editTask()

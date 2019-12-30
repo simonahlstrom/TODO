@@ -66,16 +66,13 @@ function prepareSubtasks(name, subId, date) {
   subtaskArray.push([])
   subtaskArray[subtaskArray.length-1].push(subId)
   subtaskArray[subtaskArray.length-1].push(name)
+  subtaskArray[subtaskArray.length-1].push(date)
 
   console.log(date)
 
 
-  //vad kollar egentligen detta?
-  if ($('#radioAll:checked').val()) {
-    subtaskArray[subtaskArray.length-1].push(date)
-  } else {
-    subtaskArray[subtaskArray.length-1].push($('#date').val())
-  }
+
+  
 
 
   let subIndex = subtaskArray.length-1
@@ -290,7 +287,7 @@ function createTaskElement(taskIndex) {
     class: "taskLabel",
     appendTo: head
   }).css({
-    backgroundImage: "url('../icons/" + obj.label.icon + "')",
+    backgroundImage: "url('icons/labels/" + obj.label.icon + "')",
     backgroundColor: obj.label.color
   })
 
@@ -441,6 +438,8 @@ function createTaskElement(taskIndex) {
 function addTaskFromShareCode(code) {
   let auxLabel
   proceed = code
+  console.log(proceed)
+
   for (let i = 0; i<allLabels.length; i++) {
     if (!i) {
       auxLabel = allLabels[i].labelId
@@ -448,6 +447,8 @@ function addTaskFromShareCode(code) {
       auxLabel = allLabels[i].labelId
     }
   }
+
+  console.log(auxLabel)
 
   $.get('php/joinSharedTask.php', {
     code: code,

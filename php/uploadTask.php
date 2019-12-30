@@ -34,6 +34,7 @@ switch ($action) {
         echo 'Task created';
         break;
     case "alter":
+        // shared is the old label ID of the task
         $query = "UPDATE Tasks
         SET taskName = ? WHERE code = ?";
         $sql = $pdo->prepare($query);
@@ -42,10 +43,11 @@ switch ($action) {
         $sql->execute();
 
         $query = "UPDATE TasksinLabelRel
-        SET labelId = ? WHERE taskId = (SELECT taskId FROM tasks WHERE code = ?)";
+        SET labelId = ? WHERE taskId = (SELECT taskId FROM tasks WHERE code = ?) AND labelId = ?";
         $sql = $pdo->prepare($query);
         $sql->bindParam(1, $_GET['labelId']);
         $sql->bindParam(2, $_GET['code']);
+        $sql->bindParam(3, $_GET['shared']);
         $sql->execute();
 
         echo 'Task updated';

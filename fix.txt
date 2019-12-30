@@ -1,8 +1,25 @@
-1. remove null in urgent
-2. subDL need to check and ignore comleted tasks
-3. fix click on tasks home
-5. kolla rad 95 i functions (if-statment med radioAll) - vad kollar detta efter?
 
-6. finns det krav för hur många char det ska vara i ett lösenord? (fixa i func 640 i så fall)
+3. fix click on tasks in home
+
 
 7. :root i function 756 (rött) vilka variabler använder vi? / :root i setup.js updateTheme()
+8. fixa theme preview.
+
+
+8. owner icon
+9. loggo back i labels
+(vill fixa en default.png och back)
+
+
+
+
+
+nice to have
+
+- finns det krav för hur många char det ska vara i ett lösenord? (fixa i func 640 i så fall)
+- kolla case sensitive lösenord/användare
+
+INSERT INTO `theme` (`themeName`, `mainColor`, `subColor`, `accentColor`, `fontColor`, `inputColor`, `archivedColor`, `fontColor2`) VALUES
+('MAU', 'whitesmoke', 'grey', '#e4022d', '#352a2a', '#ffffff', '#352a2a54', '#ffffff'),
+('Dark 2', '#040303', '#3b1d39', '#401f3e', '#fbf5f3', '#5b575e', '#fbf5f354', '#fbf5f3'),
+('Mint', 'whitesmoke', '#8cd7bf', '#8cd7bf', '#3a4340', '#b2edda', '#3a434054', '#3a4340');

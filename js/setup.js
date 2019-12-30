@@ -4,14 +4,11 @@ function updateTheme(theme) {
         "--mainColor": theme.mainColor,
         "--accentColor": theme.accentColor,
         "--subColor": theme.subColor,
-        "--fontSize": user.fontSize
-        // "--fontColor1": "??",
-        // "--fontColor2": "??",
-        // "--archivedColor": "??",
-        // "--subGradient": "??",
-        // "--mainGradient": "??"
-
-        //font
+        "--fontSize": user.fontSize,
+        "--archivedColor": user.archivedColor,
+        "--inputColor": theme.inputColor,
+        "--fontColor": theme.fontColor,
+        "--fontColor2": theme.fontColor,
     })
 }
 
