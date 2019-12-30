@@ -1,5 +1,6 @@
 //Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
 $('#add').click(function() {editTask("new")})
+$('#mauLogo').click(function() {aboutPage()})
 
 function cl(x) {
   console.log(x)
@@ -880,4 +881,46 @@ function updateUserInfo(actionObj) {
     }
   })
   .fail(error)
+}
+
+function aboutPage() {
+  $('#content').html("")
+
+  $('<div>', {
+    "id": "aboutTitle",
+    html: "About TODO",
+    appendTo: "#content"
+  }).css({
+    fontSize: "calc(var(--fontSize) * 1.3)"
+  })
+
+  $('<p>', {
+    html: "TODO is developed by students at Malmö universitet and aims to assist students with daily planning and collaboration.",
+    appendTo: "#content"
+  })
+
+  $('<p>', {
+    html: "The developers saw flaws in existing toolsets lacking possibility to share and claim tasks with a group of users and saw the need to develop an app of their own.",
+    appendTo: "#content"
+  })
+
+  $('<p>', {
+    html: "Developers: Linus, Simon and Isak",
+    appendTo: "#content"
+  })
+
+  $('<div>', {appendTo: "#content"}).css({
+    backgroundColor: "green",
+    height: "30%"
+  })
+
+  $('<p>', {
+    html: "version: 0.1 beta",
+    appendTo: "#content"
+  })
+
+  $('<div>', {
+    html: "published: 2020-01-09",
+    appendTo: "#content"
+  })
 }
