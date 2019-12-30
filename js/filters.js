@@ -22,7 +22,7 @@ function home(){
             
         }
 
-        console.log(filter + "-filter is on")
+        // console.log(filter + "-filter is on")
     
         for (let i=0; i<allTasks.length; i++){
     

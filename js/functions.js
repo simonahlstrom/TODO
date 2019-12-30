@@ -2,9 +2,6 @@
 $('#add').click(function() {editTask("new")})
 $('#mauLogo').click(function() {aboutPage()})
 
-function cl(x) {
-  console.log(x)
-}
 //error message for get
 function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
@@ -36,7 +33,7 @@ function popup(message, timeout) {
   if (timeout) {
     setTimeout(() => {
       $(".ghost").removeClass('active')
-    }, 1000)
+    }, 2000)
   }
 
   $(".ghost").click((e) => {
@@ -69,15 +66,7 @@ function prepareSubtasks(name, subId, date) {
   subtaskArray[subtaskArray.length-1].push(name)
   subtaskArray[subtaskArray.length-1].push(date)
 
-  console.log(date)
-
-
-
-  
-
-
   let subIndex = subtaskArray.length-1
-  console.log(subIndex)
 
   //creates subtasks
   let subAux = $("<div>", {
@@ -121,9 +110,9 @@ function prepareSubtasks(name, subId, date) {
 
     $('#date').val(date)
 
-    console.log(subtaskArray[subIndex])
-    console.log(subIndex)
-    console.table(subtaskArray)
+    // console.log(subtaskArray[subIndex])
+    // console.log(subIndex)
+    // console.table(subtaskArray)
 
 
     subtaskArray[subIndex][0] = ""
@@ -164,8 +153,13 @@ function saveTask(code, action, shared) {
       })
   
       .done(function(data){
-        console.log(data)
-        saveSubtask(code)
+        if(subtaskArray[0]) {
+          saveSubtask(code)
+        } else {
+          getTaskAndLabelData(user.userId)
+        }
+
+
       })
       .fail(error)
   } else {
@@ -174,24 +168,23 @@ function saveTask(code, action, shared) {
 }
 
 function saveSubtask(code) {
-  console.table(subtaskArray)
   subtaskArray.forEach(function(item) {
     let action
 
   
 
     if ((item[3] == "delete" && item[0]) || item[3] == undefined) {
-      console.log("first check passed -->", item)
+      // console.log("first check passed -->", item)
 
       if (item[0] == "" || item[0] == undefined) {
         action = "new"
-        console.log("new ", item)
+        // console.log("new ", item)
       } else if (item[3] == "delete") {
         action = "delete"
-        console.log("delete ", item)
+        // console.log("delete ", item)
       } else {
         action = "alter"
-        console.log("alter ", item)
+        // console.log("alter ", item)
       }
       
   
@@ -206,14 +199,14 @@ function saveSubtask(code) {
         subId: item[0]
       })
       .done(function(data){
-        console.log(data)
+
         getTaskAndLabelData(user.userId)
         subtaskArray = []
       })
       .fail(error)
 
     } else {
-      console.log("didn't pass first-->", item)
+      // console.log("didn't pass first-->", item)
     }
 
 
@@ -222,10 +215,8 @@ function saveSubtask(code) {
   })
 }
 function removeTask(obj) {
-  console.log(obj)
   $.get('php/removeTask.php', {taskId: obj.taskId})
   .done((data)=>{
-    console.log(data)
     popup(["Task has been removed"], timeout)
     getTaskAndLabelData(user.userId)
   })
@@ -235,7 +226,6 @@ function shareTask(action, taskId, userId) {
     
   $.get("php/shareTask.php", {action: action, userId: userId, taskId: taskId})
   .done((data)=>{
-      console.log(data)
   })
   .fail(error)
 }
@@ -354,7 +344,6 @@ function createTaskElement(taskIndex) {
         checked: (obj.subtasks[i].completed == 1) ? true : false,
         appendTo: subAuxChild2,
         change: function(){
-          console.log(this.checked)
           taskDone("subtask", obj.subtasks[i])
 
         }
@@ -410,7 +399,6 @@ function createTaskElement(taskIndex) {
       value: "edit",
       appendTo: actions,
     }).click(function(){
-      console.log(taskIndex)
       editTask(taskIndex)
     })
   }
@@ -439,7 +427,6 @@ function createTaskElement(taskIndex) {
 function addTaskFromShareCode(code) {
   let auxLabel
   proceed = code
-  console.log(proceed)
 
   for (let i = 0; i<allLabels.length; i++) {
     if (!i) {
@@ -449,8 +436,6 @@ function addTaskFromShareCode(code) {
     }
   }
 
-  console.log(auxLabel)
-
   $.get('php/joinSharedTask.php', {
     code: code,
     userId: user.userId,
@@ -458,7 +443,6 @@ function addTaskFromShareCode(code) {
     })
 
     .done(function(data){
-      console.log(data)
       hidePopup()
       if (data == "Task doesnt exist") {
         popup(["Task doesnt exist", timeout])
@@ -485,11 +469,9 @@ function leaveTask(obj) {
 }
 
 function claimSubtask(name, obj, elem) {
-  console.log(elem)
 
   $.get("php/claimSubtask.php", {name: name, subId: obj.subId})
   .done(function(data) {
-    console.log(data)
     if (data==0) {
       $('#subtask' + obj.subId + ' > div:last-child > div:last-child').html("Claim")
     } else {
@@ -512,11 +494,8 @@ function taskDone(action, obj) {
     value = (obj.completed == 0) ? 1 : 0
   }
 
-  console.log(id, value, "donetask")
-
   $.get("php/done.php", {action: action, value: value, id: id})
   .done(function(data) {
-    console.log(data)
     
     if (action == "task") {
       getTaskAndLabelData(user.userId)
@@ -609,7 +588,6 @@ function userSettings(user) {
           }
         })
        
-        console.log(checkPassword)
 
         if (checkPassword != $("#currentPassword").val()){
           popup(["The password is incorrect."], timeout)
@@ -700,8 +678,6 @@ function userSettings(user) {
             checkPassword = item.slice(item.indexOf("=")+1, item.length)
           }
         })
-       
-        console.log(checkPassword)
 
         if(checkPassword != $("#currentPassword").val()){
           popup(["The password is incorrect."], timeout)
@@ -761,13 +737,11 @@ function userSettings(user) {
           $(":root").css({
             "--mainColor": item.mainColor,
             "--accentColor": item.accentColor,
-            "--subColor": item.subColor
-    
-            // "--fontColor1": "??",
-            // "--fontColor2": "??",
-            // "--archivedColor": "??",
-            // "--subGradient": "??",
-            // "--mainGradient": "??"
+            "--subColor": item.subColor,
+            "--fontColor": item.fontColor,
+            "--fontColor2": item.fontColor2,
+            "--archivedColor": item.archivedColor,
+            "--inputColor": item.inputColor
           })
         }
       })
@@ -862,11 +836,9 @@ function updateUserInfo(actionObj) {
   //changePassword changeUserInfo changeTheme
   actionObj.currentUsername = user.username
   actionObj.currentEmail = user.email
-  console.log(actionObj)
 
   $.get('php/updateUserSettings.php', actionObj)
   .done(function(data){
-    console.log(data)
 
     if(data=="nameExist") {
       popup(["This name is taked, please use another name."], timeout)
