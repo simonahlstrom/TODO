@@ -53,6 +53,11 @@ $('#menuDown').click(() => {
 // toggle labels-menu
 function toggleMenu() {
   $('.labelBox').toggleClass('activeLabel')
+  for (let label of allLabels) {
+    label.element.css({border: "3px solid transparent"})
+  }
+  $(".slideIn").removeClass("slideIn-active")
+  $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
 }
 
 // create popup with editing options for the labels
@@ -98,18 +103,9 @@ function showLabelEdit(copy, label) {
 $("#editLabel").click(() => {
   toggleMenu()
   showLabelEdit(labelCopy, labelToEdit)
-  
 })
 
-// NOT WORKING - why??? problem with the popup blocking click-events?
-// $("#preview").click((e) => {
-//   console.log
-//   if ($("#colorsContainer").contains(e.target)) {
-//     cl("COL")
-//   } else {
-//     cl("ICO")
-//   }
-// })
+
 
 function updatePreview(change, type) {
   if (type == "color") {
@@ -117,6 +113,10 @@ function updatePreview(change, type) {
   } else if (type == "icon") {
     $("#preview").css({backgroundImage: change.style.backgroundImage})
   }
+}
+
+function addLabel() {
+  
 }
 
 

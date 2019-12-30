@@ -81,3 +81,8 @@ function setFont(time) {
     }, time);
 
 }
+
+let holdIndex = 0
+let timeOut = 0
+// let labelToEdit
+// let 
