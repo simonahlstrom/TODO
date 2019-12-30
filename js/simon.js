@@ -15,11 +15,15 @@ function getColorsAndIcons() {
     // loops to create divs with the right color or icon, for editing labels
     for (let color of data[0]) {
       colors.push(color.rgb)
-      colorDivs.append($("<div></div>").css({'background-color': color.rgb}).addClass('labelOption'))
+      colorDivs.append($("<div></div>").css({'background-color': color.rgb}).addClass('labelOption').click((e) => {
+        updatePreview(e.target, "color")
+      }))
     }
     for (let icon of data[1]) {
       icons.push(icon.url)
-      iconDivs.append($("<div></div>").css({'background-image': `url(icons/labels/${icon.url})`}).addClass('labelOption'))
+      iconDivs.append($("<div></div>").css({'background-image': `url(icons/labels/${icon.url})`}).addClass('labelOption').click((e) => {
+        updatePreview(e.target, "icon")
+      }))
     }
   })
 }
@@ -52,16 +56,29 @@ function toggleMenu() {
 }
 
 // create popup with editing options for the labels
-function showLabelEdit() {
+function showLabelEdit(copy, label) {
   let editBox = [
     $("<div class='Container flex'></div>").append(
-      $("<div class='flex' id='preview'></div>"),
-      $("<div class='flex button' id='colors'>Colors</div>"),
-      $("<div class='flex button' id='icons'>Icons</div>")
+      $("<div class='flex' id='preview'></div>").css({
+        backgroundColor: copy.style.backgroundColor,
+        backgroundImage: copy.style.backgroundImage,
+        backgroundSize: "65%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
+      })
     ),
     colorDivs,
     iconDivs,
-    $("<div class='button' id='save'>Save</div>")
+    $("<div class='button' id='save'>Save</div>").click(() => {
+      let color = $("#preview").css("backgroundColor")
+      let icon = $("#preview").css("backgroundImage"), fileName_Index = icon.lastIndexOf("/") + 1, fileName = icon.substr(fileName_Index).replace(/[\#\?\)\"].*$/,'')
+
+      $.get('php/updateLabel.php', {color: color, icon: fileName, labelId: label.id})
+      .done((data) => {
+        // data = JSON.parse(data)
+        // console.log(data)
+      })
+    })
   ]
 
   popup(editBox)
@@ -70,37 +87,49 @@ function showLabelEdit() {
 // event handlers for edit-button
 $("#editLabel").click(() => {
   toggleMenu()
-  showLabelEdit()
+  showLabelEdit(labelCopy, labelToEdit)
 })
 
 // NOT WORKING - why??? problem with the popup blocking click-events?
-$("#preview").click((e) => {
-  cl("IN")
-  if ($("#colorsContainer").contains(e.target)) {
-    cl("COL")
-  } else {
-    cl("ICO")
+// $("#preview").click((e) => {
+//   console.log
+//   if ($("#colorsContainer").contains(e.target)) {
+//     cl("COL")
+//   } else {
+//     cl("ICO")
+//   }
+// })
+
+function updatePreview(change, type) {
+  if (type == "color") {
+    $("#preview").css({backgroundColor: change.style.backgroundColor})
+  } else if (type == "icon") {
+    $("#preview").css({backgroundImage: change.style.backgroundImage})
   }
-})
+}
+
+
 
 // // hold event
-$(document).ready(function() {
-  let i = 0, timeOut = 0
+// $(document).ready(function() {
+//   let i = 0, timeOut = 0
   
-  $('ELEMENT').on('mousedown touchstart', function(e) {
-    console.log("START")
-    
-    timeOut = setInterval(function(){
-      console.log(i++)
-    }, 100)
-  }).bind('mouseup mouseleave touchend', function() {
-    console.log("END")
+//   $('#1').on('mousedown touchstart', function(e) {
+//     console.log("START")
 
-    if (i == X) {
-      //do stuff
-    }
+//     timeOut = setInterval(function(){
+//       console.log(i++)
+//     }, 100)
+//   }).bind('mouseup touchend', function() {
+//     console.log("END")
 
-    i = 0
-    clearInterval(timeOut)
-  })
-})
+//     if (i >= 4) {
+//       console.log("WORKS")
+//     } else {
+//       e.target.click()
+//     }
+
+//     i = 0
+//     clearInterval(timeOut)
+//   })
+// })
