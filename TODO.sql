@@ -69,9 +69,7 @@ CREATE TABLE `Labels` (
 -- Dumping data for table `Labels`
 --
 
-INSERT INTO `Labels` (`labelId`, `userId`, `labelName`, `color`, `icon`, `activated`) VALUES
-(7, 6, 'Linus', 'rgba(40, 40, 40, 1)', 'work.png', 1),
-(8, 7, 'Isak', 'rgba(40, 40, 40, 1)', 'default.png', 1);
+
 
 -- --------------------------------------------------------
 
@@ -93,17 +91,6 @@ CREATE TABLE `Subtasks` (
 -- Dumping data for table `Subtasks`
 --
 
-INSERT INTO `Subtasks` (`subId`, `subName`, `deadline`, `completed`, `claimedName`, `userId`, `taskId`) VALUES
-(33, 'ost', NULL, 0, '0', 6, 14),
-(34, 'Mjölk', '2020-01-22', 1, '0', 6, 14),
-(35, 'Smör', '2019-12-31', 0, '0', 6, 14),
-(36, 'Majs', NULL, 0, '0', 6, 14),
-(37, 'koda', '2020-01-14', 0, 'Isak', 6, 15),
-(38, 'Fixa ikoner', NULL, 1, '0', 6, 15),
-(39, 'Gogo', '2020-01-24', 0, '0', 6, 15),
-(40, 'adad', '2019-12-30', 1, '0', 6, 16),
-(41, 'adad', '2020-03-11', 0, '0', 6, 17),
-(42, 'dadad', NULL, 0, '0', 6, 18);
 
 -- --------------------------------------------------------
 
@@ -121,13 +108,6 @@ CREATE TABLE `TaskMembers` (
 -- Dumping data for table `TaskMembers`
 --
 
-INSERT INTO `TaskMembers` (`taskId`, `userId`, `creator`) VALUES
-(14, 6, 1),
-(15, 6, 2),
-(15, 7, 0),
-(16, 6, 1),
-(17, 6, 1),
-(18, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -147,12 +127,7 @@ CREATE TABLE `Tasks` (
 -- Dumping data for table `Tasks`
 --
 
-INSERT INTO `Tasks` (`taskId`, `taskName`, `code`, `completedTask`, `added`) VALUES
-(14, 'Handla', 'NkME', 0, '2019-12-30 12:52:07'),
-(15, 'TODO', 'qMvb', 0, '2019-12-30 12:52:49'),
-(16, 'first', '3iuJ', 1, '2019-12-30 14:55:31'),
-(17, 'last', 'kQvv', 0, '2019-12-30 14:40:53'),
-(18, 'hejhej', 'nt8y', 0, '2019-12-30 14:41:20');
+
 
 -- --------------------------------------------------------
 
@@ -169,13 +144,6 @@ CREATE TABLE `TasksInLabelRel` (
 -- Dumping data for table `TasksInLabelRel`
 --
 
-INSERT INTO `TasksInLabelRel` (`taskId`, `labelId`) VALUES
-(14, 7),
-(15, 7),
-(15, 8),
-(16, 7),
-(17, 7),
-(18, 7);
 
 -- --------------------------------------------------------
 
@@ -224,10 +192,6 @@ CREATE TABLE `User` (
 --
 -- Dumping data for table `User`
 --
-
-INSERT INTO `User` (`userId`, `username`, `email`, `password`, `occupation`, `themeId`, `fontSize`) VALUES
-(6, 'Linus', 'linus@gmail.com', 'testl', 'Student', 5, '15px'),
-(7, 'Isak', 'isak@com', 'test', 'Snickare', 2, '15px');
 
 --
 -- Indexes for dumped tables
