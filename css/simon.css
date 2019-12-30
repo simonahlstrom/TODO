@@ -49,11 +49,17 @@ body {
   box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
 }
 
-input[type='text'], input[type='password'], input[type='date'] {
-  background-color: var(--subColor);
+input[type='text'], input[type='password'], input[type='date'], select {
+  background-color: var(--inputColor);
+  color: var(--fontColor);
   border: none;
   padding: 2.5px;
 }
+
+/* input[type="checkbox"]{
+  outline:2px solid var(--accentColor);
+  outline-offset: -2px;
+} */
 
 /* .button:hover {
   background-color: var(--accentColor);

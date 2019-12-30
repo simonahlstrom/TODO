@@ -10,7 +10,11 @@ function User(data) {
     name: data.themeName,
     mainColor: data.mainColor,
     accentColor: data.accentColor,
-    subColor: data.subColor
+    subColor: data.subColor,
+    fontColor: data.fontColor,
+    fontColor2: data.fontColor2,
+    inputColor: data.inputColor,
+    archivedColor: data.archivedColor
   }
 }
 
