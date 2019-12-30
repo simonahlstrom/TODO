@@ -37,7 +37,7 @@ function editTask (a) {
         allLabels.forEach(function(item){
           if(item.labelId == labelSelect.val()){
             labelIcon.css({
-              backgroundImage: "url('../icons/" + item.icon + "')",
+              backgroundImage: "url('icons/labels/" + item.icon + "')",
               backgroundColor: item.color
             })
           }
@@ -238,7 +238,7 @@ function editTask (a) {
         allLabels.forEach(function(item){
           if(item.labelId == labelSelect.val()){
             labelIcon.css({
-              backgroundImage: "url('../icons/" + item.icon + "')",
+              backgroundImage: "url('icons/labels/" + item.icon + "')",
               backgroundColor: item.color
             })
           }

@@ -1,6 +1,6 @@
 function home(){
+    $("#content").html("")
     if (allTasks.length >= 1) {
-        $("#content").html("")
 
         //checks and arrange allTasks in order of the chosen filter
 

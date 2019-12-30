@@ -290,7 +290,7 @@ function createTaskElement(taskIndex) {
     class: "taskLabel",
     appendTo: head
   }).css({
-    backgroundImage: "url('../icons/" + obj.label.icon + "')",
+    backgroundImage: "url('icons/labels/" + obj.label.icon + "')",
     backgroundColor: obj.label.color
   })
 
