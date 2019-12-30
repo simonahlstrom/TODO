@@ -100,7 +100,7 @@ function showLabelEdit(copy, label) {
 }
 
 // event handlers for edit-button
-$("#addLabel").click(() => {
+$("#editLabel").click(() => {
   toggleMenu()
   showLabelEdit(labelCopy, labelToEdit)
 })
@@ -114,7 +114,7 @@ function updatePreview(change, type) {
 }
 
 function addLabel() {
-  
+  showLabelEdit(labelCopy, labelToEdit, create)
 }
 
 
