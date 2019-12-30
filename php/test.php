@@ -1,10 +1,10 @@
 <?php
     echo "ok PHP";
 
-    nclude('connectToDB.php');
+    include('connectToDB.php');
 
     $pdo = connectDB();
-    $query = "SELECT * FROM Icons";
+    $query = "SELECT * FROM Icon";
     $sql = $pdo->prepare($query);
     $sql->execute();
     $status = $sql->fetchAll(\PDO::FETCH_ASSOC);
