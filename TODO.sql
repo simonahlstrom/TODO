@@ -47,7 +47,16 @@ CREATE TABLE `Icon` (
 --
 
 INSERT INTO `Icon` (`url`, `type`) VALUES
-('url.png', 'theme');
+('agenda.png', 'label'),
+('cleaning.png', 'label'),
+('cooking.png', 'label'),
+('laundry.png', 'label'),
+('list.png', 'label'),
+('study.png', 'label'),
+('tags.png', 'label'),
+('training.png', 'label'),
+('wallet.png', 'label'),
+('work.png', 'label');
 
 -- --------------------------------------------------------
 
