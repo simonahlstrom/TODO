@@ -213,7 +213,8 @@ CREATE TABLE `User` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `occupation` varchar(100) NOT NULL,
-  `themeId` int(11) NOT NULL
+  `themeId` int(11) NOT NULL,
+  `fontSize` varchar(50) NOT NULL DEFAULT '15px'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
