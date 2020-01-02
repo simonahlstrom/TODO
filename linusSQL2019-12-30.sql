@@ -230,7 +230,11 @@ CREATE TABLE `Theme` (
   `themeName` varchar(100) NOT NULL,
   `mainColor` varchar(100) NOT NULL,
   `subColor` varchar(100) NOT NULL,
-  `accentColor` varchar(100) NOT NULL
+  `accentColor` varchar(100) NOT NULL,
+  `fontColor` varchar(100) NOT NULL,
+  `inputColor` varchar(100) NOT NULL,
+  `archivedColor` varchar(100) NOT NULL,
+  `fontColor2` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
