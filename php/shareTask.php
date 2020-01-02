@@ -6,7 +6,7 @@ $pdo = connectDB();
 
 switch ($action) {
     case "enable":
-        $query = "UPDATE taskMembers
+        $query = "UPDATE TaskMembers
         SET creator = 2 WHERE taskId = ? AND userId = ?";
         $sql = $pdo->prepare($query);
         $sql->bindParam(1, $_GET['taskId']);
@@ -17,7 +17,7 @@ switch ($action) {
         echo 'Sharing enabled.';
         break;
     case "disable":
-        $query = "DELETE FROM `TaskMembers` WHERE taskId = ? AND userId != ?";
+        $query = "DELETE FROM TaskMembers WHERE taskId = ? AND userId != ?";
         $sql = $pdo->prepare($query);
         $sql->bindParam(1, $_GET['taskId']);
         $sql->bindParam(2, $_GET['userId']);
@@ -25,7 +25,7 @@ switch ($action) {
         $sql->execute();
         
 
-        $query = "UPDATE taskMembers
+        $query = "UPDATE TaskMembers
         SET creator = 1 WHERE taskId = ? AND userId = ?";
         $sql = $pdo->prepare($query);
         $sql->bindParam(1, $_GET['taskId']);

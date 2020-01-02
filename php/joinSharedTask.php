@@ -10,7 +10,7 @@ $sql->execute();
 $answer = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
 if ($answer) {
-    $query = "INSERT INTO taskMembers (taskId, userId, creator) 
+    $query = "INSERT INTO TaskMembers (taskId, userId, creator) 
     VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?, 0)";
 
     $sql = $pdo->prepare($query);
@@ -18,7 +18,7 @@ if ($answer) {
     $sql->bindParam(2, $_GET['userId']);
     $sql->execute();
 
-    $query = "INSERT INTO tasksInLabelRel (taskId, labelId) 
+    $query = "INSERT INTO TasksInLabelRel (taskId, labelId) 
     VALUES ((SELECT taskId FROM Tasks WHERE code = ?), ?)";
 
     $sql = $pdo->prepare($query);

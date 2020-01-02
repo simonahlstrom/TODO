@@ -40,12 +40,13 @@ function setup (userId) {
 //Fetches all data about Tasks Sub tasks and Labels
 function getTaskAndLabelData(userId) {
     //hämtar data från DB
-    console.log("kör getTaskandLabel")
+    console.log("kör getTaskandLabel", userId)
     
     //Fetches all labelData
     $.get("php/getAllLabelData.php", {userId: userId})
     .done((data)=>{
         data = JSON.parse(data)
+        console.log("labeldata", data)
         allLabels = []
 
         for (let i=0; i<data[0].length; i++) {

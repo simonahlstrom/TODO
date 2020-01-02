@@ -108,7 +108,7 @@ header {
 }
 
 #mauLogo {
-  justify-content: right;
+  justify-content: flex-end;
   margin-right: 10px;
 }
 
