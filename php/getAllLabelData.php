@@ -4,7 +4,7 @@ include('connectToDB.php');
 // Fetches all tasks and subtasks
 $pdo = connectDB();
 $query = "SELECT Labels.* FROM User 
-JOIN Labels ON User.userId = labels.userId
+JOIN Labels ON User.userId = Labels.userId
 WHERE User.userId = ?";
 
 $sql = $pdo->prepare($query);
@@ -14,7 +14,7 @@ $answer1 = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
 
 $query = "SELECT TasksInLabelRel.* FROM User 
-JOIN Labels ON User.userId = labels.userId 
+JOIN Labels ON User.userId = Labels.userId 
 LEFT JOIN TasksInLabelRel ON Labels.labelId=TasksInLabelRel.labelId 
 WHERE User.userId = ?";
 

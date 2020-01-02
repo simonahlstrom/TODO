@@ -43,7 +43,7 @@ switch ($action) {
         $sql->execute();
 
         $query = "UPDATE TasksinLabelRel
-        SET labelId = ? WHERE taskId = (SELECT taskId FROM tasks WHERE code = ?) AND labelId = ?";
+        SET labelId = ? WHERE taskId = (SELECT taskId FROM Tasks WHERE code = ?) AND labelId = ?";
         $sql = $pdo->prepare($query);
         $sql->bindParam(1, $_GET['labelId']);
         $sql->bindParam(2, $_GET['code']);

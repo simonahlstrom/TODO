@@ -6,7 +6,7 @@ $pdo = connectDB();
 switch ($action) {
     case "new":
         $query = "INSERT INTO Subtasks (subName, deadline, userId, taskId) 
-        VALUES (?, ?, ?, (SELECT taskId FROM tasks WHERE taskName = ? AND code = ?))";
+        VALUES (?, ?, ?, (SELECT taskId FROM Tasks WHERE taskName = ? AND code = ?))";
         $sql = $pdo->prepare($query);
         $sql->bindParam(1, $_GET['subName']);
         $sql->bindParam(2, $_GET['deadline']);

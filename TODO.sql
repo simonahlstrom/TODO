@@ -175,11 +175,11 @@ CREATE TABLE `Theme` (
 -- Dumping data for table `Theme`
 --
 
-INSERT INTO `Theme` (`themeId`, `themeName`, `mainColor`, `subColor`, `accentColor`, `fontColor`, `inputColor`, `archivedColor`, `fontColor2`) VALUES
-(2, 'Dark', '#181a28', '#2c2a71', '#2c2a71', '#dfeee2', '#33334f', '#dfeee254', '#dfeee2'),
-(4, 'MAU', 'whitesmoke', 'grey', '#e4022d', '#352a2a', '#ffffff', '#352a2a54', '#ffffff'),
-(5, 'Dark 2', '#040303', '#3b1d39', '#401f3e', '#fbf5f3', '#5b575e', '#fbf5f354', '#fbf5f3'),
-(6, 'Mint', 'whitesmoke', '#8cd7bf', '#8cd7bf', '#3a4340', '#b2edda', '#3a434054', '#3a4340');
+INSERT INTO `Theme` (`ThemeId`, `themeName`, `mainColor`, `subColor`, `accentColor`, `fontColor`, `inputColor`, `archivedColor`, `fontColor2`) VALUES
+(1,'Dark', '#181a28', '#2c2a71', '#2c2a71', '#dfeee2', '#33334f', '#dfeee254', '#dfeee2'),
+(2,'MAU', 'whitesmoke', 'grey', '#e4022d', '#352a2a', '#ffffff', '#352a2a54', '#ffffff'),
+(3,'Dark 2', '#040303', '#3b1d39', '#401f3e', '#fbf5f3', '#5b575e', '#fbf5f354', '#fbf5f3'),
+(4,'Mint', 'whitesmoke', '#8cd7bf', '#8cd7bf', '#3a4340', '#b2edda', '#3a434054', '#3a4340');
 
 -- --------------------------------------------------------
 
