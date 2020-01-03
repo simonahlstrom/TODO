@@ -10,6 +10,9 @@
 - klicka ner tasks
 
 
+-edittask med en sub med datum skickas 0000-00-00
+-första sub i "new" ger id undefined
+
 
 
 nice to have

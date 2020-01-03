@@ -331,7 +331,8 @@ function editTask (a) {
       //creates old subtasks in the editTask page
       allTasks[a].subtasks.forEach(function(item) {
         if(item.completed == 0) {
-            prepareSubtasks(item.subName, item.subId, item.deadline)
+          console.log(item.deadline)
+          prepareSubtasks(item.subName, item.subId, item.deadline)
         }
       })
 
