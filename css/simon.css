@@ -1,0 +1,287 @@
+/* GENERAL */
+.popup {
+  flex-direction: column;
+  padding: 15px;
+  background-color: var(--mainColor);
+  border: 1px solid grey;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: calc(100vw - 52px);
+}
+
+.ghost {
+  height: 100%;
+  width: 100%;
+  display: none;
+  transition: opacity .3s ease;
+  z-index: 2;
+}
+
+.active {
+  opacity: 1;
+  display: flex;
+}
+
+.button {
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: var(--accentColor);
+  font-family: var(--font);
+  font-size: var(--fontsize);
+  transition: all .2s;
+  color: var(--fontColor2);
+  border: none;
+  cursor: pointer;
+  padding: 7px;
+  opacity: 1;
+
+  /* boxShadow */
+  -webkit-box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4); 
+  box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
+}
+
+input[type='text'], input[type='password'], input[type='date'], select {
+  background-color: var(--inputColor);
+  color: var(--fontColor);
+  border: none;
+  padding: 2.5px;
+  font-size: var(--fontSize);
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+label {
+  margin: 5px;
+}
+
+#popup input[type="text"], #popup input[type="password"], #popup label {
+  width: 80%;
+  height: 20px;
+  text-align: left;
+}
+
+/* HEADER */
+
+header {
+  height: 10vh;
+  background-color: var(--subColor);
+}
+
+#header {
+  height: 100%;
+  justify-content: space-around;
+}
+
+#header > * {
+  flex-grow: 1;
+  flex-basis: 100px;
+}
+
+#todoLogo {
+  color: var(--fontColor2);
+  font-size: 30px;
+  margin-left: 10px;
+  justify-content: left;
+  font-family: 'Fredoka One', cursive;
+}
+
+#profileIcon, #mauLogo a {
+  height: 35px;
+  width: 35px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#profileIcon {
+  background-image: url(../icons/personIcon.png);
+  background-position: center;
+}
+
+#mauLogo a {
+  background-image: url(../icons/mau.png);
+}
+
+#mauLogo {
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+/* MAIN CONTENT */
+
+main {
+  height: 80vh;
+  position: relative;
+}
+
+#content {
+  padding: 10px;
+  height: calc(80vh - 20px);
+  width: calc(100vw - 20px);
+  overflow: scroll;
+
+  background: -moz-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
+  background: -webkit-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
+  background: linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
+
+}
+
+/* CONTROLS */
+
+#controls {
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+#controls div {
+  height: 35px;
+  width: 35px;
+  background-size: cover;
+}
+
+#controlBar {
+  height: 10vh;
+  background-color: var(--subColor);
+}
+
+#home {
+  background-image: url(../icons/house.png);
+}
+#filter {
+  background-image: url(../icons/funnel.png);
+}
+#completed {
+  background-image: url(../icons/folder.png);
+}
+#add {
+  background-image: url(../icons/plus.png);
+}
+
+/* LABELS DIV */
+
+.labelBox {
+  height: 100px;
+  width: 100%;
+  transform: translateY(0);
+  background-color: var(--subColor);
+  transition: all .1s ease;
+}
+
+#labelControls {
+  width: 100vw;
+}
+
+#labelEdit {
+  justify-content: space-evenly;
+}
+
+.activeLabel {
+  transform: translateY(-100%);
+}
+
+#menuDown {
+  background-image: url(../icons/down-arrow.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+
+.slideIn {
+  transition: all .2s ease;
+  opacity: 0;
+  /* transform: translateX(-100%); */
+}
+
+.slideIn-active {
+  opacity: 1;
+  /* transform: translateX(0%); */
+}
+
+.deactivated {
+  opacity: .5;
+}
+
+.labelHighlight {
+  border: 3px solid var(--accentColor);
+}
+
+/* CUSTOMIZE LABEL */
+
+.labelOption {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.gridEdit {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#preview {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: var(--accentColor);
+  margin: 10px;
+}
+
+/* FLIP STYLING FOR ADD/EDIT */
+
+.flip-card {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+/* .flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+} */
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  color: var(--fontColor2);
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: rgb(84, 194, 84);
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: dodgerblue;
+  color: var(--font1);
+  transform: rotateY(180deg);
+}
