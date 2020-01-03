@@ -3,14 +3,17 @@
 // variables regarding colors and icons
 let colors = []
 let icons = []
-let colorDivs = $("<div class='gridEdit' id='colorsContainer'></div>")
-let iconDivs = $("<div class='gridEdit' id='iconsContainer'></div>")
+let colorDivs
+let iconDivs
 
 // requests colors and icon from DB, saving them to variables
 function getColorsAndIcons() {
   $.get('php/getColorsAndIcons.php')
   .done((data) => {
     data = JSON.parse(data)
+
+    colorDivs = $("<div class='gridEdit' id='colorsContainer'></div>")
+    iconDivs = $("<div class='gridEdit' id='iconsContainer'></div>")
 
     // loops to create divs with the right color or icon, for editing labels
     for (let color of data[0]) {
@@ -42,6 +45,15 @@ $('#home').click(() => {
   }
 })
 
+function createLabel() {
+
+  
+  // hide buttons and stuff
+  // $(e.target).css({border: "3px solid transparent"})
+  // $(".slideIn").removeClass("slideIn-active")
+  // $(".flip-card .flip-card-inner").css({transform: "rotateY(0deg)"})
+}
+
 // hide labels-menu handler
 $('#menuDown').click(() => {
   toggleMenu()
@@ -58,9 +70,31 @@ function toggleMenu() {
 }
 
 // create popup with editing options for the labels
-function showLabelEdit(copy, label) {
+function editOrCreateLabel(copy, label, action) {
+  let name
+
+  if (action == "edit") {
+    for (let element of allLabels) {
+      if (element.labelId == label.id) {
+        name = element.labelName
+      }
+    }
+  } else {
+    name = ""
+  }
+
+  let nameOfLabel = $(`<div class='flex'><label for='newName'>Name of your label:</label><input type='text' value='${name}' placeholder='${name}' id='newName'></div>`).css({
+    "flexDirection": "column",
+    "width": "60%"
+  })
+  // $("#newName").val(label.labelName).attr("placeholder", label.labelName)
+  // if (action == "edit") {
+  // } else {
+  // }
+
   let editBox = [
     $("<div class='Container flex'></div>").append(
+      nameOfLabel,
       $("<div class='flex' id='preview'></div>").css({
         backgroundColor: copy.style.backgroundColor,
         backgroundImage: copy.style.backgroundImage,
@@ -74,22 +108,52 @@ function showLabelEdit(copy, label) {
     $("<div class='button' id='save'>Save</div>").click(() => {
       let color = $("#preview").css("backgroundColor")
       let icon = $("#preview").css("backgroundImage"), fileName_Index = icon.lastIndexOf("/") + 1, fileName = icon.substr(fileName_Index).replace(/[\#\?\)\"].*$/,'')
+      let updatedName = $("#newName").val()
 
-      $.get('php/updateLabel.php', {color: color, icon: fileName, labelId: label.id})
-      .done((data) => {
-        data = JSON.parse(data)
-        console.log(data)
-
-        allLabels.forEach((element, i) => {
-          if (element.labelId == label.id) {
-            element.icon = fileName
-            element.color = color
-          }
+      if (action == "edit") {
+        // update label on db
+        $.get('php/updateLabel.php', {color: color, icon: fileName, labelId: label.id, name: updatedName})
+        .done((data) => {
+          data = JSON.parse(data)
+  
+          // update label in browser
+          allLabels.forEach((element, i) => {
+            if (element.labelId == label.id) {
+              element.icon = fileName
+              element.color = color
+              element.element.css({
+                backgroundImage: `url(icons/labels/${fileName})`,
+                backgroundColor: color
+              })
+              element.labelName = updatedName
+            }
+          })
+  
+          home()
+          hidePopup()
         })
-
-        home()
-        hidePopup()
-      })
+      } else if (action == "create") {
+        if (name == updatedName) {
+          console.log("choose another name")
+        } else {
+          $.get('php/createLabel.php', {
+            userId: user.userId,
+            labelName: updatedName,
+            color: color, 
+            icon: fileName
+          })
+          .done((data) => {
+            data = JSON.parse(data)
+            console.log(data)
+    
+            // update label in browser
+            allLabels.push(new Label(data[0]))
+    
+            home()
+            hidePopup()
+          })
+        }
+      }
     })
   ]
 
@@ -98,9 +162,26 @@ function showLabelEdit(copy, label) {
 
 // event handlers for edit-button
 $("#editLabel").click(() => {
+  getColorsAndIcons()
   toggleMenu()
-  showLabelEdit(labelCopy, labelToEdit)
+  editOrCreateLabel(labelCopy, labelToEdit, "edit")
 })
+
+// event handlers for edit-button
+$("#addLabel").click(() => {
+  getColorsAndIcons()
+  toggleMenu()
+  editOrCreateLabel(defaultLabelCopy, defaultLabel, "create")
+})
+
+let defaultLabel = $("<div></div>").css({
+  "backgroundColor": colors[0],
+  "backgroundImage": icons[0]
+})
+
+let defaultLabelCopy = document.createElement("div")
+defaultLabelCopy.style.backgroundColor = colors[0]
+defaultLabelCopy.style.backgroundImage = `url(icons/labels/default.png)`
 
 function updatePreview(change, type) {
   if (type == "color") {
@@ -111,7 +192,7 @@ function updatePreview(change, type) {
 }
 
 // function addLabel() {
-//   showLabelEdit(labelCopy, labelToEdit, create)
+//   editOrCreateLabel(labelCopy, labelToEdit, create)
 // }
 
 
