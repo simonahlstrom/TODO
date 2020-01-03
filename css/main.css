@@ -221,11 +221,15 @@ main {
 
 #labelEdit {
   justify-content: space-evenly;
+  min-height: 10vh;
 }
 
 .activeLabel {
   transform: translateY(-100%);
+}
 
+.activeAction {
+  transform: translateY(-200%);
 }
 
 #menuDown {
