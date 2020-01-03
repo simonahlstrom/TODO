@@ -412,11 +412,10 @@ function editTask (a) {
                     hidePopup()
                   }),
                   $('<input type="button" value="Cancel" class="button">').click(() => {
-                    saveTask(code, "alter")
                     hidePopup()
                   }))])
               } else {
-                saveTask(code, "alter")
+                saveTask(code, "alter", obj.label.labelId)
               }
             } else if (item == "Cancel"){
               subtaskArray = []
