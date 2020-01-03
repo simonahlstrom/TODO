@@ -463,7 +463,6 @@ function leaveTask(obj) {
     })
 
     .done(function(data){
-      cl(data)
       hidePopup()
       getTaskAndLabelData(user.userId)
     })
