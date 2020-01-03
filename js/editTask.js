@@ -4,6 +4,9 @@ function editTask (a) {
     let shared = 1
     let labelIcon
     let labelSelect
+
+    mauFlag = false
+    settingFlag = false
   
     if (a == "new") {
       let code = makeid(4)
@@ -331,7 +334,8 @@ function editTask (a) {
       //creates old subtasks in the editTask page
       allTasks[a].subtasks.forEach(function(item) {
         if(item.completed == 0) {
-            prepareSubtasks(item.subName, item.subId, item.deadline)
+          console.log(item.deadline)
+          prepareSubtasks(item.subName, item.subId, item.deadline)
         }
       })
 

@@ -1,80 +1,574 @@
+/* GENERAL */
 :root {
-    --mainColor: rgb(21, 68, 48);
-    --accentColor: rgb(180, 151, 54);
-    --subColor: rgb(218, 149, 104);
-    --radius: 10px;
-    --fontSize: 14px;
-    --ghostColor: rgba(20, 20, 20, .5);
-    --labelIconSize: 40px;
-    --fontColor: #dfeee2;
-    --fontColor2: #0d631e;
-    --archivedColor: #dfeee294;
-    --subGradient: rgba(44,42,113,0.47);
-    --mainGradient: rgba(24,26,40,0.78);
-    --font: 'Magra', sans-serif;
-    --inputColor: #737373;
+  --mainColor: rgb(21, 68, 48);
+  --accentColor: rgb(180, 151, 54);
+  --subColor: rgb(218, 149, 104);
+  --radius: 10px;
+  --fontSize: 14px;
+  --ghostColor: rgba(20, 20, 20, .5);
+  --labelIconSize: 40px;
+  --fontColor: #dfeee2;
+  --fontColor2: #0d631e;
+  --archivedColor: #dfeee294;
+  --subGradient: rgba(44,42,113,0.47);
+  --mainGradient: rgba(24,26,40,0.78);
+  --font: 'Magra', sans-serif;
+  --inputColor: #737373;
 }
 
 body {
-    background-color: var(--mainColor);
-    color: var(--fontColor);
-    font-size: var(--fontSize);
-    font-family: var(--font);
-    margin: 0px;
-    transition: background-color .3s ease, color .3s ease;
-    overflow-y: hidden;
+  background-color: var(--mainColor);
+  color: var(--fontColor);
+  font-size: var(--fontSize);
+  font-family: var(--font);
+  margin: 0px;
+  transition: background-color .3s ease, color .3s ease;
+  overflow-y: hidden;
 }
 
 #todoLogo {
-    color: rgb(255,255,255) !important;
+  color: rgb(255,255,255) !important;
 }
 
-
 .flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #controls > div {
+cursor: pointer;
+}
+
+.popup {
+  flex-direction: column;
+  padding: 15px;
+  background-color: var(--mainColor);
+  border: 1px solid grey;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: calc(100vw - 52px);
+}
+
+.ghost {
+  height: 100%;
+  width: 100%;
+  display: none;
+  transition: opacity .3s ease;
+  z-index: 2;
+}
+
+.active {
+  opacity: 1;
+  display: flex;
+}
+
+.button {
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: var(--accentColor);
+  font-family: var(--font);
+  font-size: var(--fontsize);
+  transition: all .2s;
+  color: var(--fontColor2);
+  border: none;
   cursor: pointer;
+  padding: 7px;
+  opacity: 1;
+
+  /* boxShadow */
+  -webkit-box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4); 
+  box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
+}
+
+input[type='text'], input[type='password'], input[type='date'], select {
+  background-color: var(--inputColor);
+  color: var(--fontColor);
+  border: none;
+  padding: 2.5px;
+  font-size: var(--fontSize);
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+label {
+  margin: 5px;
+}
+
+#popup input[type="text"], #popup input[type="password"], #popup label {
+  width: 80%;
+  height: 20px;
+  text-align: left;
+}
+
+/* HEADER */
+
+header {
+  height: 10vh;
+  background-color: var(--subColor);
+}
+
+#header {
+  height: 100%;
+  justify-content: space-around;
+}
+
+#header > * {
+  flex-grow: 1;
+  flex-basis: 100px;
+}
+
+#todoLogo {
+  color: var(--fontColor2);
+  font-size: 30px;
+  margin-left: 10px;
+  justify-content: left;
+  font-family: 'Fredoka One', cursive;
+}
+
+#profileIcon, #mauLogo a {
+  height: 35px;
+  width: 35px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#profileIcon {
+  background-image: url(../icons/personIcon.png);
+  background-position: center;
+}
+
+#mauLogo a {
+  background-image: url(../icons/mau.png);
+}
+
+#mauLogo {
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+/* MAIN CONTENT */
+
+main {
+  height: 80vh;
+  position: relative;
+}
+
+#content {
+  padding: 10px;
+  height: calc(80vh - 20px);
+  width: calc(100vw - 20px);
+  overflow: hidden;
+
+  background: -moz-linear-gradient(149deg, rgba(245,245,245,.2) 0%, rgba(50,50,50,0.25) 100%);
+  background: -webkit-linear-gradient(149deg, rgba(245,245,245,.2) 0%, rgba(50,50,50,0.25) 100%);
+  background: linear-gradient(149deg, rgba(245,245,245,.2) 0%, rgba(50,50,50,0.25) 100%);
+
+}
+
+/* CONTROLS */
+
+#controls {
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+#controls div {
+  height: 35px;
+  width: 35px;
+  background-size: cover;
+}
+
+#controlBar {
+  height: 10vh;
+  background-color: var(--subColor);
+}
+
+#home {
+  background-image: url(../icons/house.png);
+}
+#filter {
+  background-image: url(../icons/funnel.png);
+}
+#completed {
+  background-image: url(../icons/folder.png);
+}
+#add {
+  background-image: url(../icons/plus.png);
+}
+
+/* LABELS DIV */
+
+.labelBox {
+  height: 100px;
+  width: 100%;
+  transform: translateY(0);
+  background-color: var(--subColor);
+  transition: all .1s ease;
+}
+
+#labelControls {
+  width: 100vw;
+}
+
+#labelEdit {
+  justify-content: space-evenly;
+}
+
+.activeLabel {
+  transform: translateY(-100%);
+}
+
+#menuDown {
+  background-image: url(../icons/down-arrow.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+
+.slideIn {
+  transition: all .2s ease;
+  opacity: 0;
+  /* transform: translateX(-100%); */
+}
+
+.slideIn-active {
+  opacity: 1;
+  /* transform: translateX(0%); */
+}
+
+.deactivated {
+  opacity: .5;
+}
+
+.labelHighlight {
+  border: 3px solid var(--accentColor);
+}
+
+/* CUSTOMIZE LABEL */
+
+.labelOption {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.gridEdit {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#preview {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: var(--accentColor);
+  margin: 10px;
 }
 
 /* userinfo */
 
 .userInfo, .userInfoPass > div {
-    display: flex;
-    align-items: center;
-    margin: 5px 0; 
+  display: flex;
+  align-items: center;
+  margin: 5px 0; 
 }
 
 .userInfo > div {
-    font-size: calc(var(--fontSize)*1.25)
+  font-size: calc(var(--fontSize)*1.25)
 }
 
 .themeContainer, .logout  {
-    border-top: 1px solid var(--accentColor);
-    padding-top: 5px;
-    margin-top: 5px;
+  border-top: 1px solid var(--accentColor);
+  padding-top: 5px;
+  margin-top: 5px;
 }
 
 .themeContainer > div {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .themeContainer > div:first-child > *, .themeContainer > div:nth-child(2) > * {
-    flex-basis: 20px;
-    flex-grow: 1;
+  flex-basis: 20px;
+  flex-grow: 1;
 }
-
-
 
 .userInfo :first-child, .userInfoPass > div :first-child {
-    flex-basis: 20px;
-    flex-grow: 3;
+  flex-basis: 20px;
+  flex-grow: 3;
 }
 
 .userInfo :last-child, .userInfoPass > div :last-child {
-    flex-basis: 20px;
-    flex-grow: 5;
+  flex-basis: 20px;
+  flex-grow: 5;
+}
+
+/* FLIP STYLING FOR ADD/EDIT */
+
+.flip-card {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+/* .flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+} */
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  color: var(--fontColor2);
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: rgb(84, 194, 84);
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: dodgerblue;
+  color: var(--font1);
+  transform: rotateY(180deg);
+}
+
+/* CSS for task in home() */
+
+.taskHead {
+  display: flex;
+  align-items: center;
+  margin-top: calc(var(--labelIconSize)*.33);
+}
+
+/* .taskName {
+  font-size: calc(var(--fontSize) * 1.3);
+  set in js to accout for long phrases tto fitt 
+} */
+
+.taskLabel {
+  width: var(--labelIconSize);
+  height: var(--labelIconSize);
+  background-image: url("../icons/default.png");
+  background-size: cover;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  margin-right: calc(var(--labelIconSize)*.25);
+  flex-shrink: 0;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  box-shadow: inset 0px 0px 11px 4px rgba(200,200,200,.05);
+}
+
+.labelInfo {
+  margin-top: 5px;
+  border-bottom: 1px solid var(--accentColor);
+}
+
+.subtasks {
+  margin-left: calc(var(--labelIconSize) * .5);
+  
+}
+
+.subtasks > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  
+}
+
+.subtasks > div > div:first-child {
+  flex-grow: 3;
+  flex-basis: 10px;
+  justify-content: space-between;
+}
+.subtasks > div > div:last-child {
+  flex-grow: 1;
+  flex-basis: 10px;
+  justify-content: flex-start;
+}
+
+.subtasks > div > div {
+  display: flex;
+}
+
+.subtasks > div > div > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.taskInfo {
+  display: none;
+  
+}
+
+.taskActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.archived {
+  color: var(--archivedColor);
+  text-decoration-line: line-through
+}
+
+.archived .button {
+  background-color: teal;
+}
+
+
+/* CSS for EditTask*/
+
+.editName > *{
+  display: block;
+  margin: 0 0 5px 5px;
+}
+
+#taskNameInput {
+  width: 90vw;
+  
+
+}
+
+.editLabel {
+  margin-top: 5px;
+}
+
+.editLabel > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  
+}
+
+.editLabel select {
+  font-size: calc(var(--fontSize) * 0.8);
+}
+
+.subtaskTitle, #sharedHeader, .themeContainer  {
+  border-top: 1px solid var(--accentColor);
+  padding-top: 5px;
+}
+
+.subtaskTitle, #sharedHeader, label[for="taskNameInput"], label[for="labelSelect"] {
+  font-size: calc(var(--fontSize) * 1.1);
+}
+
+#dateContainer {
+  height: calc(var(--fontSize) * 1.25);
+}
+
+#subtaskTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#subtaskContainer {
+  margin: 5px 0 5px 5px;
+  min-height: calc(var(--fontSize) * 3);
+  position: relative;
+}
+
+#addSubtask {
+  margin-top: calc(var(--fontSize) * -1.25);
+}
+
+.editSubtask {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(var(--fontSize) * 2.5);
+}
+
+.editSubtask > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editSubtask > :last-child, .editSubtask > :nth-child(2)  {
+  flex-basis: 10px;
+  flex-grow: 1;
+}
+
+.editSubtask > :first-child {
+  flex-basis: 10px;
+  flex-grow: 2;
+}
+
+#sharedHeader{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#oldCode {
+  margin: 0px;
+}
+
+#oldCode > span {
+  font-weight: bold;
+}
+
+#shareContainer {
+  margin: 5px 0 5px 5px;
+  min-height: calc(var(--fontSize) * 2.5);
+}
+
+#shareContainer div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#shareContainer > div > :nth-child(2){ 
+  margin-left: calc(var(--fontSize) * 1.25);
+}
+
+
+
+@media screen and (min-width: 600px) {
+  #content {
+    margin: auto;
+    width: 500px;
+    background: none;
+  }
+
 }
