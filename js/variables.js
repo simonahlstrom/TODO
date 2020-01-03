@@ -48,3 +48,5 @@ let holdIndex = 0
 let timeOut = 0
 let labelCopy
 let labelToEdit
+let edit = true
+let create = true

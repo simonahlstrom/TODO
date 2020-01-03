@@ -30,7 +30,7 @@ function setup (userId) {
 
     $.get("php/getThemes.php")
     .done((data)=>{
-        console.log(data)
+        // console.log(data)
         data = JSON.parse(data)
         theme = data
     })

@@ -27,7 +27,8 @@ function Label(data) {
   this.taskIds = []
   this.element = $('<div>', {
       "class": "label",
-      "id": this.labelId
+      "id": this.labelId,
+      "value": this.labelName
   }).css({
       backgroundImage: `url(icons/labels/${this.icon})`,
       backgroundColor: this.color,
