@@ -1,6 +1,10 @@
 
 3. fix click on tasks in home
 
+- cl i 464 i functions. (stoppar oss från att lämna task)
+- fixa 0000-00-00
+- kolla mot mobilen. se om vi kan fixa något där.
+- desktop version.
 
 7. :root i function 756 (rött) vilka variabler använder vi? / :root i setup.js updateTheme()
 8. fixa theme preview.
@@ -13,7 +17,8 @@
 -radera icon vi inte använder
 -ta bort fix
 
-
+-edittask med en sub med datum skickas 0000-00-00
+-första sub i "new" ger id undefined
 
 
 

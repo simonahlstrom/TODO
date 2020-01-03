@@ -335,7 +335,7 @@ function createTaskElement(taskIndex) {
       $("<div>", {
         class: "subDL",
         appendTo: subAuxChild1,
-        html: (obj.subtasks[i].deadline) ? obj.subtasks[i].deadline : ""
+        html: (obj.subtasks[i].deadline && obj.subtasks[i].deadline != "0000-00-00") ? obj.subtasks[i].deadline : ""
       })
   
       $("<input>", {
@@ -461,7 +461,6 @@ function leaveTask(obj) {
     })
 
     .done(function(data){
-      cl(data)
       hidePopup()
       getTaskAndLabelData(user.userId)
     })
