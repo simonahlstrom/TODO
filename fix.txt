@@ -1,16 +1,10 @@
 
 3. fix click on tasks in home
-
-
 7. :root i function 756 (rött) vilka variabler använder vi? / :root i setup.js updateTheme()
 8. fixa theme preview.
-
-
 8. owner icon
 9. loggo back i labels
-10. om man lägger till en subtask med date och sparar så får gamla subtasks utan deadline en dl på 0000-00-00
 (vill fixa en default.png och back)
-
 -radera icon vi inte använder
 -ta bort fix
 
