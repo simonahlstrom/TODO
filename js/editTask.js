@@ -440,11 +440,3 @@ function editTask (a) {
       })
     }
   }
-
-
- 
-
-  //add task with code.
-
-
-  //cancel button
