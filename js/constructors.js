@@ -141,9 +141,57 @@ function Label(data) {
     clearInterval(timeOut)
   })
   this.remove = function() {
+    //check alltasks with this.labelId
+    //if user.creator = 0 --> leave task
+    //else remove task
+    let t = false
+    let l = false
+
+    for (let i=0; i<allTasks.length; i++) {
+      if(this.labelId == allTasks[i].label.labelId) {
+
+        if(allTasks[i].creator == 0) {
+          console.log("not creator!")
+          $.get('php/leaveTask.php', {
+            taskId: allTasks[i].taskId,
+            userId: user.userId,
+            labelId: this.labelId
+            })
+        
+            .done(function(data){
+              // console.log(data)
+            })
+            .fail(error)
+
+
+        } else {
+          $.get('php/removeTask.php', {taskId: allTasks[i].taskId})
+          .done((data)=>{
+            // console.log(data)
+          })
+          .fail(error)
+
+
+        }
+
+
+      }
+      if(i == allTasks.length-1) {
+        t = true 
+        if (l && t) {
+          getTaskAndLabelData(user.userId)
+        }
+      }
+    }
+
+
     $.get("php/removeLabel.php", {labelId: this.labelId})
     .done((data) => {
-      console.log(data)
+      l = true
+      // console.log(data)
+      if (l && t) {
+        getTaskAndLabelData(user.userId)
+      }
     })
   }
 

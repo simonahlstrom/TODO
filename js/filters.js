@@ -4,11 +4,9 @@ function home(){
 
         //checks and arrange allTasks in order of the chosen filter
 
-        if (filter == "allAsc") {
+        if (filter == "all") {
             allTasks = allTasks.sort((a, b) => (a.added < b.added) ? 1 : -1)
-        } else if (filter == "allDec") {
-            allTasks = allTasks.sort((a, b) => (a.added > b.added) ? 1 : -1)
-        } else if (filter == "urgent") {
+        }  else if (filter == "urgent") {
             allTasks.forEach(function(item){
                 item.subDL()
             })
@@ -17,7 +15,7 @@ function home(){
             allTasks = allTasks.sort((a, b) => (a.urgent > b.urgent) ? 1 : -1)
         } else if (filter == "labels123") {
             allTasks = allTasks.sort((a, b) => (a.label.labelId > b.label.labelId) ? 1 : -1)
-        } else if (filter == "labelABC") {
+        } else if (filter == "labelsABC") {
             allTasks = allTasks.sort((a, b) => (a.label.labelName > b.label.labelName) ? 1 : -1)
             
         }

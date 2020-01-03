@@ -9,9 +9,6 @@
 -bild about us-länk till mau
 - default theme
 
--filter och arkiv meny
--remove labels
--Actionknappar till edit tasks
 
 -fixa filter
 -två prototyper

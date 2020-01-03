@@ -444,7 +444,7 @@ function addTaskFromShareCode(code) {
     .done(function(data){
       hidePopup()
       if (data == "Task doesnt exist") {
-        popup(["Task doesnt exist", timeout])
+        popup(["Task doesnt exist"], timeout)
       } else {
         getTaskAndLabelData(user.userId)
       }
@@ -572,7 +572,8 @@ function userSettings(user) {
         type: "password",
         appendTo: userInfoPassword
       })
-
+      
+      userActions.css({display: "flex"})
       //save and cancel
       $('<input>', {
         class: "button",
@@ -665,6 +666,8 @@ function userSettings(user) {
       })
       
       //save and cancel
+      userActions.css({display: "flex"})
+
       $('<input>', {
         class: "button",
         type: "button",
@@ -916,4 +919,12 @@ function aboutPage() {
     html: "published: 2020-01-09",
     appendTo: "#content"
   })
+}
+
+function filterAndArchiveMeny(obj){
+  console.log("ok")
+  return $("<div>",{
+    class: "buttonMeny",
+    appendTo: ".labelBox",
+    html: obj.name}).click(obj.set)
 }

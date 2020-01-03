@@ -27,7 +27,7 @@ function getColorsAndIcons() {
 
 // show menu with labels
 $('#home').click(() => {
-  toggleMenu("label")
+  toggleMenu("label", 100)
 
   for (let label of allLabels) {
     $('#labels').append(label.element)
@@ -41,14 +41,22 @@ $('#home').click(() => {
 
 // hide labels-menu handler
 $('#menuDown').click(() => {
-  toggleMenu("label")
+  toggleMenu("label", 100)
 })
 // toggle labels-menu
-function toggleMenu(type) {
+//transY is the value of how much .labelbox will move. transy = 0 --> hides the meny 
+function toggleMenu(type, transY) {
+  $('.labelBox').empty()
+
+  $('.labelBox').css({transform: "translateY(-" + transY + "%)"})
+
+
+
+
   if (type=="label") {
-    $('.labelBox').toggleClass('activeLabel')
     
-    $('#labelEdit').append($('<div class="slideIn flex"><div id="removeLabel" class="button flex">REMOVE</div></div><div class="flip-card"><div class="flip-card-inner flex"><div class="flip-card-front flex" id="addLabel">ADD</div><div class="flip-card-back flex" id="editLabel">EDIT</div></div></div><div id="menuDown"></div>'))
+    //skapas i HTML just nu men behöver skapas i js.
+    // $('#labelEdit').append($('<div class="slideIn flex"><div id="removeLabel" class="button flex">REMOVE</div></div><div class="flip-card"><div class="flip-card-inner flex"><div class="flip-card-front flex" id="addLabel">ADD</div><div class="flip-card-back flex" id="editLabel">EDIT</div></div></div><div id="menuDown"></div>'))
 
     //
 
@@ -58,16 +66,29 @@ function toggleMenu(type) {
     $(".slideIn").removeClass("slideIn-active")
     $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
 
-  } else {
-    $('.labelBox').toggleClass('activeAction')
+  } else if (type == "filter"){
+
+    filterArray.forEach((item)=>{
+      filterAndArchiveMeny(item)
+    })
 
 
+
+  } else if (type == "archive") {
+
+    archiveArray.forEach((item)=>{
+      filterAndArchiveMeny(item)
+    })
+
+
+  } else if (type == "task") {
+    console.log("hhm")
 
   }
 
   
   // let boxHeight = $('.labelBox').height()
-  // $('#labelBox').css({
+  // $('.labelBox').css({
   //   "margin-top": `-101px`
   // })
 
@@ -227,8 +248,13 @@ function removeLabel(element) {
   $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
 }
 
-$("#filter").click(()=>{
-  toggleMenu("filter")
+$("#filter").click((event)=>{  
+  toggleMenu("filter", 100)
+  
+})
+
+$("#archive").click((event)=>{
+  toggleMenu("archive", 100)
 })
 
 

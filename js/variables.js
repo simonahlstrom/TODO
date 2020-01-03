@@ -7,9 +7,7 @@ let theme = []
 //used after get all task and label data to control what will happen "home" is default
 let proceed = "homeSetting"
 
-//used for type of filtering tasks
-// values include "urgent", "allAsc" (def), "allDec", "labelsABC" and "labels123"
-let filter = "allAsc"
+
 
 //used for editTask()
 let editTaskButtons = ["Save", "Delete task", "Leave task", "Cancel"]
@@ -29,10 +27,30 @@ let welcomeInfo = [
     }))
 ]
 
+
 //home/filters
 //toggles archived tasks 
 let archiveTasks = 0
-let archiveTasksAll = false //false is default true= both done and undone.
+let archiveTasksAll = true //false is default true= both done and undone.
+
+//used for type of filtering tasks
+// values include "urgent", "all" (def), "labelsABC" and "labels123"
+let filter = "all"
+
+//archive and filter meny
+let filterArray = [
+    {name: "All Tasks", set: ()=>{filter = "all"; home(); toggleMenu("filter", 0)}},
+    {name: "Urgent Tasks", set: ()=>{filter = "urgent"; home(); toggleMenu("filter", 0)}},
+    {name: "Labels ABC", set: ()=>{filter = "labelsABC"; home(); toggleMenu("filter", 0)}},
+    {name: "Labels 123", set: ()=>{filter = "labels123"; home(); toggleMenu("filter", 0)}}
+]
+
+let archiveArray = [
+    {name: "Active tasks", set: ()=>{archiveTasks = 0; archiveTasksAll = false; home(); toggleMenu("archive", 0)}},
+    {name: "Archived tasks", set: ()=>{archiveTasks = 1; archiveTasksAll = false; home(); toggleMenu("archive", 0)}},
+    {name: "Active and Archived Tasks", set: ()=>{archiveTasksAll = true; home(); toggleMenu("archive", 0)}}
+]
+
 
 //toggle settings icon
 let settingFlag = false

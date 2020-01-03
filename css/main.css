@@ -85,6 +85,28 @@ cursor: pointer;
   box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
 }
 
+.buttonMeny {
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: var(--mainColor);
+  font-family: var(--font);
+  font-size: var(--fontsize);
+  transition: all .2s;
+  color: var(--fontColor);
+  border: none;
+  cursor: pointer;
+  padding: 7px;
+  opacity: 1;
+
+  /* boxShadow */
+  -webkit-box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4); 
+  box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
+} 
+
 input[type='text'], input[type='password'], input[type='date'], select {
   background-color: var(--inputColor);
   color: var(--fontColor);
@@ -196,7 +218,7 @@ main {
 #filter {
   background-image: url(../icons/funnel.png);
 }
-#completed {
+#archive {
   background-image: url(../icons/folder.png);
 }
 #add {
@@ -206,12 +228,12 @@ main {
 /* LABELS DIV */
 
 .labelBox {
-  /* height: 100px; */
+  height: 10vh;
   width: 100%;
   transform: translateY(0);
   /* margin-top: -100%; */
   background-color: var(--subColor);
-  transition: all .1s ease;
+  transition: all .35s ease;
   position: relative;
 }
 
@@ -224,13 +246,22 @@ main {
   min-height: 10vh;
 }
 
-.activeLabel {
+/* ändras direkt i js för att kunna kontrolera hela menyn. */
+
+/* .activeLabel {
   transform: translateY(-100%);
 }
 
 .activeAction {
   transform: translateY(-200%);
 }
+
+.activeAction2 {
+  transform: translateY(-100%);
+} */
+
+
+
 
 #menuDown {
   background-image: url(../icons/down-arrow.png);
