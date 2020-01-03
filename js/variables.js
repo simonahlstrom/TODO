@@ -36,30 +36,13 @@ let archiveTasksAll = false //false is default true= both done and undone.
 
 //toggle settings icon
 let settingFlag = false
-
+let mauFlag = false
 
 //pattern check for empty fields 
 let pattern = /^[\s]{1,}$/
 
 //fontsizes
 let fontSizeArray = [{size: "12px", name: "Small"}, {size: "15px", name: "Medium"}, {size: "19px", name: "Large"}]
-
-
-// function setFont(time) {
-//     let n = 0
-//     return setInterval(() => {
-//         $(":root").css({
-//             "--font": fonts[n]
-//         })
-//         console.log("index: " + n + " fontName: " + fonts[n])
-//         if(n==fonts.length-1){
-//             n = 0
-//         } else {
-//             n++
-//         }
-//     }, time);
-
-// }
 
 let holdIndex = 0
 let timeOut = 0

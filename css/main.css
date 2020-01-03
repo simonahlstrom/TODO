@@ -166,9 +166,9 @@ main {
   width: calc(100vw - 20px);
   overflow: hidden;
 
-  background: -moz-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
-  background: -webkit-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
-  background: linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
+  background: -moz-linear-gradient(149deg, rgba(245,245,245,.2) 0%, rgba(50,50,50,0.25) 100%);
+  background: -webkit-linear-gradient(149deg, rgba(245,245,245,.2) 0%, rgba(50,50,50,0.25) 100%);
+  background: linear-gradient(149deg, rgba(245,245,245,.2) 0%, rgba(50,50,50,0.25) 100%);
 
 }
 
@@ -560,4 +560,15 @@ main {
 
 #shareContainer > div > :nth-child(2){ 
   margin-left: calc(var(--fontSize) * 1.25);
+}
+
+
+
+@media screen and (min-width: 600px) {
+  #content {
+    margin: auto;
+    width: 500px;
+    background: none;
+  }
+
 }

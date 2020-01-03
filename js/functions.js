@@ -1,6 +1,3 @@
-//Run editTask with "new" to create new task, or with index from allTasks(array) to edit existing task.
-$('#add').click(function() {editTask("new")})
-$('#mauLogo').click(function() {aboutPage()})
 
 //error message for get
 function error(jqXHR, textStatus, errorThrown) {
@@ -517,6 +514,7 @@ function taskDone(action, obj) {
 
 function userSettings(user) {
   settingFlag = true
+  mauflag = false
   $('#content').html("")
   let userCheck
   
@@ -859,6 +857,8 @@ function updateUserInfo(actionObj) {
 
 function aboutPage() {
   $('#content').html("")
+  mauFlag = true
+  settingFlag = false
 
   $('<div>', {
     "id": "aboutTitle",
@@ -895,7 +895,10 @@ function aboutPage() {
     "class": "button",
     value: "Back",
     appendTo: "#buttonContainer"
-  }).click(function() {home()})
+  }).click(function() {
+    home()
+    mauFlag = false
+  })
 
   $('<input>', {
     type: "button",

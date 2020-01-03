@@ -4,6 +4,9 @@ function editTask (a) {
     let shared = 1
     let labelIcon
     let labelSelect
+
+    mauFlag = false
+    settingFlag = false
   
     if (a == "new") {
       let code = makeid(4)
