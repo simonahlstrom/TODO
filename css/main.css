@@ -562,8 +562,6 @@ main {
   margin-left: calc(var(--fontSize) * 1.25);
 }
 
-
-
 @media screen and (min-width: 600px) {
   #content {
     margin: auto;
