@@ -1,8 +1,14 @@
-// move to run.js later
-getColorsAndIcons()
-
-getUserFromCookie()
-
+//global events
+$('#add').click(function() {editTask("new")})
+$('#mauLogo').click(function() {
+    if(!mauFlag) {
+        aboutPage()
+    } else {
+        home()
+        mauFlag = false
+    }
+    
+})
 $("#profileIcon").click(()=>{
     if(!settingFlag) {
         userSettings(user)
@@ -11,3 +17,9 @@ $("#profileIcon").click(()=>{
         settingFlag = false
     }
 })
+$("#todoLogo").click(home)
+
+// onload functions
+getColorsAndIcons()
+
+getUserFromCookie()
