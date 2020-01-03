@@ -123,7 +123,7 @@ main {
   padding: 10px;
   height: calc(80vh - 20px);
   width: calc(100vw - 20px);
-  overflow: hidden;
+  overflow: scroll;
 
   background: -moz-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);
   background: -webkit-linear-gradient(149deg, rgba(245,245,245,.3) 0%, rgba(50,50,50,0.25) 100%);

@@ -7,7 +7,7 @@
 (vill fixa en default.png och back)
 -radera icon vi inte använder
 -ta bort fix
-
+- klicka ner tasks
 
 
 
