@@ -27,7 +27,7 @@ function getColorsAndIcons() {
 
 // show menu with labels
 $('#home').click(() => {
-  toggleMenu()
+  toggleMenu("label")
 
   for (let label of allLabels) {
     $('#labels').append(label.element)
@@ -41,22 +41,37 @@ $('#home').click(() => {
 
 // hide labels-menu handler
 $('#menuDown').click(() => {
-  toggleMenu()
+  toggleMenu("label")
 })
 // toggle labels-menu
-function toggleMenu() {
-  $('.labelBox').toggleClass('activeLabel')
+function toggleMenu(type) {
+  if (type=="label") {
+    $('.labelBox').toggleClass('activeLabel')
+    
+    $('#labelEdit').append($('<div class="slideIn flex"><div id="removeLabel" class="button flex">REMOVE</div></div><div class="flip-card"><div class="flip-card-inner flex"><div class="flip-card-front flex" id="addLabel">ADD</div><div class="flip-card-back flex" id="editLabel">EDIT</div></div></div><div id="menuDown"></div>'))
 
+    //
+
+    for (let label of allLabels) {
+      label.element.css({border: "3px solid transparent"})
+    }
+    $(".slideIn").removeClass("slideIn-active")
+    $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+
+  } else {
+    $('.labelBox').toggleClass('activeAction')
+
+
+
+  }
+
+  
   // let boxHeight = $('.labelBox').height()
   // $('#labelBox').css({
   //   "margin-top": `-101px`
   // })
 
-  for (let label of allLabels) {
-    label.element.css({border: "3px solid transparent"})
-  }
-  $(".slideIn").removeClass("slideIn-active")
-  $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+  
 }
 
 // create popup with editing options for the labels
@@ -211,6 +226,12 @@ function removeLabel(element) {
   $(".slideIn").removeClass("slideIn-active")
   $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
 }
+
+$("#filter").click(()=>{
+  toggleMenu("filter")
+})
+
+
 
 // // hold event
 // $(document).ready(function() {

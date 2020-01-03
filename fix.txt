@@ -1,11 +1,7 @@
 
 3. fix click on tasks in home
-7. :root i function 756 (rött) vilka variabler använder vi? / :root i setup.js updateTheme()
-8. fixa theme preview.
 8. owner icon
 9. loggo back i labels
-(vill fixa en default.png och back)
-- radera icon vi inte använder
 - ta bort fix
 - klicka ner tasks
 
@@ -13,16 +9,14 @@
 -bild about us-länk till mau
 - default theme
 
+-filter och arkiv meny
+-remove labels
+-Actionknappar till edit tasks
 
--edittask med en sub med datum skickas 0000-00-00
--första sub i "new" ger id undefined
-
-
-
-nice to have
-
-- finns det krav för hur många char det ska vara i ett lösenord? (fixa i func 640 i så fall)
-- kolla case sensitive lösenord/användare
+-fixa filter
+-två prototyper
+-fixa iOS
+-ta bort consol loggar
 
 
 INSERT INTO `Icon` (`url`, `type`) VALUES
