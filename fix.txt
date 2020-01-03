@@ -5,12 +5,13 @@
 8. owner icon
 9. loggo back i labels
 (vill fixa en default.png och back)
--radera icon vi inte använder
--ta bort fix
+- radera icon vi inte använder
+- ta bort fix
 - klicka ner tasks
 
 - add to home if to no task + i about us
 -bild about us-länk till mau
+- default theme
 
 
 -edittask med en sub med datum skickas 0000-00-00
