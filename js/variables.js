@@ -50,3 +50,18 @@ let labelCopy
 let labelToEdit
 let edit = true
 let create = true
+
+// variables regarding colors and icons
+let colors = []
+let icons = []
+let colorDivs
+let iconDivs
+
+let defaultLabel = $("<div></div>").css({
+    "backgroundColor": colors[0],
+    "backgroundImage": icons[0]
+  })
+  
+  let defaultLabelCopy = document.createElement("div")
+  defaultLabelCopy.style.backgroundColor = colors[0]
+  defaultLabelCopy.style.backgroundImage = `url(icons/labels/default.png)`

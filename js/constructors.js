@@ -85,13 +85,15 @@ function Label(data) {
     timeOut = setInterval(function(){
       holdIndex++
       if (holdIndex >= 4) {
-        $(e.target).css({border: "3px solid var(--accentColor)"})
+        $(e.target).css({border: "3px solid blue"})
         $(".slideIn").addClass("slideIn-active")
         $(".flip-card .flip-card-inner").css({transform: "rotateY(180deg)"})
 
         let clone = e.target.cloneNode()
         labelToEdit = e.target
         labelCopy = clone
+
+
       }
     }, 100)
 
@@ -138,6 +140,12 @@ function Label(data) {
     holdIndex = 0
     clearInterval(timeOut)
   })
+  this.remove = function() {
+    $.get("php/removeLabel.php", {labelId: this.labelId})
+    .done((data) => {
+      console.log(data)
+    })
+  }
 
 
 

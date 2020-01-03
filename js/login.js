@@ -68,7 +68,7 @@ function login() {
     $('<label for="password">Password: </label>'),
     $('<input type="password" name="password" id="password">'),
     $("<div class='buttonContainer'>").append(
-      $('<input type="button" value="&#8617" class="button">').click(() => { popup(welcomeInfo)}),
+      $('<input type="button" value="Back" class="button">').click(() => { popup(welcomeInfo)}),
       $('<input type="button" value="Log In" class="button">').click(() => {
         if ($("#username").val() && $("#password").val()) {
           let username = $("#username").val()

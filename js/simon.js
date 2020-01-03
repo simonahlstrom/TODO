@@ -1,11 +1,5 @@
 // GENERAL FUNCTIONS
 
-// variables regarding colors and icons
-let colors = []
-let icons = []
-let colorDivs
-let iconDivs
-
 // requests colors and icon from DB, saving them to variables
 function getColorsAndIcons() {
   $.get('php/getColorsAndIcons.php')
@@ -45,23 +39,19 @@ $('#home').click(() => {
   }
 })
 
-function createLabel() {
-
-  
-  // hide buttons and stuff
-  // $(e.target).css({border: "3px solid transparent"})
-  // $(".slideIn").removeClass("slideIn-active")
-  // $(".flip-card .flip-card-inner").css({transform: "rotateY(0deg)"})
-}
-
 // hide labels-menu handler
 $('#menuDown').click(() => {
   toggleMenu()
 })
-
 // toggle labels-menu
 function toggleMenu() {
   $('.labelBox').toggleClass('activeLabel')
+
+  // let boxHeight = $('.labelBox').height()
+  // $('#labelBox').css({
+  //   "margin-top": `-101px`
+  // })
+
   for (let label of allLabels) {
     label.element.css({border: "3px solid transparent"})
   }
@@ -87,10 +77,6 @@ function editOrCreateLabel(copy, label, action) {
     "flexDirection": "column",
     "width": "60%"
   })
-  // $("#newName").val(label.labelName).attr("placeholder", label.labelName)
-  // if (action == "edit") {
-  // } else {
-  // }
 
   let editBox = [
     $("<div class='Container flex'></div>").append(
@@ -174,14 +160,29 @@ $("#addLabel").click(() => {
   editOrCreateLabel(defaultLabelCopy, defaultLabel, "create")
 })
 
-let defaultLabel = $("<div></div>").css({
-  "backgroundColor": colors[0],
-  "backgroundImage": icons[0]
+$("#removeLabel").click(() => {
+  let message = [
+    $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
+    $("<div class='buttonContainer'></div>").append(
+      $('<input type="button" value="Yes" class="button">').click(() => {
+      removeLabel(labelToEdit)
+      hidePopup()
+      home()
+      }),
+      $('<input type="button" value="No" class="button">').click(() => {
+        hidePopup()
+        $(".slideIn").removeClass("slideIn-active")
+        $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+        labelToEdit = ""
+        for (let label of $(".label")) {
+          label.style.border = "3px solid transparent"
+        }
+      })
+    )
+  ]
+  
+  popup(message)
 })
-
-let defaultLabelCopy = document.createElement("div")
-defaultLabelCopy.style.backgroundColor = colors[0]
-defaultLabelCopy.style.backgroundImage = `url(icons/labels/default.png)`
 
 function updatePreview(change, type) {
   if (type == "color") {
@@ -191,11 +192,25 @@ function updatePreview(change, type) {
   }
 }
 
-// function addLabel() {
-//   editOrCreateLabel(labelCopy, labelToEdit, create)
-// }
+function removeLabel(element) {
+  let index
+  allLabels.forEach((label, i) => {
+    if (label.labelId == element.id) {
+      label.remove()
+      home()
+      index = i
+    }
+  })
+  allLabels.splice(index, 1)
 
+  $("#labels").empty()
 
+  for (let label of allLabels) {
+    $("#labels").append(label.element)
+  }
+  $(".slideIn").removeClass("slideIn-active")
+  $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+}
 
 // // hold event
 // $(document).ready(function() {
