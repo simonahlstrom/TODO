@@ -64,6 +64,8 @@ function prepareSubtasks(name, subId, date) {
   subtaskArray.push([])
   subtaskArray[subtaskArray.length-1].push(subId)
   subtaskArray[subtaskArray.length-1].push(name)
+
+  if (date == "0000-00-00") {date = null}
   subtaskArray[subtaskArray.length-1].push(date)
 
   let subIndex = subtaskArray.length-1
@@ -176,7 +178,7 @@ function saveSubtask(code) {
     if ((item[3] == "delete" && item[0]) || item[3] == undefined) {
       // console.log("first check passed -->", item)
 
-      if (item[0] == "" || item[0] == undefined) {
+      if (item[0] == "" || item[0] == undefined || item[0] == null) {
         action = "new"
         // console.log("new ", item)
       } else if (item[3] == "delete") {
