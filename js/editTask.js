@@ -175,13 +175,7 @@ function editTask (a) {
                   
               } else {
                 saveTask(code, "new", shared)
-                
-
-              }
-
-
-
-              
+              }  
             } else if (item == "Add shared task") {
               popup(["Insert share code", 
               $('<input>', {"id": "shareCodeInput", type: "text"}), 

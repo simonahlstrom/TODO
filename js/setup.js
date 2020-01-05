@@ -13,6 +13,7 @@ function updateTheme(theme) {
 }
 
 function setup (userId) {
+    //Fetches all user data from db and then fetches task and label data
     $.get("php/getUserData.php", {userId: userId})
     .done((data)=>{
         data = JSON.parse(data)
@@ -28,6 +29,7 @@ function setup (userId) {
     })
     .fail(error)
 
+    //Fetches a list of all themes available
     $.get("php/getThemes.php")
     .done((data)=>{
         // console.log(data)
@@ -35,18 +37,19 @@ function setup (userId) {
         theme = data
     })
     .fail(error)
+
+    //Enables the click on the popup ghostdiv
+    ghostFlag = true
 }
 
 //Fetches all data about Tasks Sub tasks and Labels
 function getTaskAndLabelData(userId) {
     //hämtar data från DB
-    console.log("kör getTaskandLabel", userId)
     
     //Fetches all labelData
     $.get("php/getAllLabelData.php", {userId: userId})
     .done((data)=>{
         data = JSON.parse(data)
-        console.log("labeldata", data)
         allLabels = []
 
         for (let i=0; i<data[0].length; i++) {

@@ -43,6 +43,7 @@ $('#home').click(() => {
 $('#menuDown').click(() => {
   toggleMenu("label", 100)
 })
+
 // toggle labels-menu
 //transY is the value of how much .labelbox will move. transy = 0 --> hides the meny 
 function toggleMenu(type, transY) {
@@ -81,10 +82,7 @@ function toggleMenu(type, transY) {
     })
 
 
-  } else if (type == "task") {
-    console.log("hhm")
-
-  }
+  } 
 
   
   // let boxHeight = $('.labelBox').height()

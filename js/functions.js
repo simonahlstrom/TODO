@@ -35,7 +35,7 @@ function popup(message, timeout) {
 
   $(".ghost").click((e) => {
     e.preventDefault()
-    if (!$(e.target).is('#ghost *')) {
+    if (!$(e.target).is('#ghost *') && ghostFlag) {
       hidePopup()
     }
   })
@@ -242,15 +242,14 @@ function sharedTaskMembers(obj) {
   
     if(parseInt(item.creator)) {
       owner = $("<div>", {
-        html: "(o)",
+        html: "(Owner)",
         appendTo: ".taskMember:last-child"
   
       }).css({
         height: "20px",
         width: "20px",
-        border: "1px solid var(--accentColor)",
-        borderRadius: "50%",
         padding: "3px",
+        fontWeight: "bold"
       })
     }
   })
@@ -407,14 +406,13 @@ function createTaskElement(taskIndex) {
   //click event
   element.click(function(e){
     e.stopPropagation()
-    console.log(e.currentTarget.id)
-
-    if(info.css("display") == "none" || e.currentTarget.id == element.attr("id") ) {
+    
+    if(info.css("display") != "none" && (e.target.className == "taskName" || e.target.className == "taskLabel")){
+      $(".taskInfo").css({display: "none"})
+    } else if((info.css("display") == "none" || e.currentTarget.id == element.attr("id"))) {
       $(".taskInfo").css({display: "none"})
       info.css({display: "block"})
-    } else {
-      $(".taskInfo").css({display: "none"})
-    }
+    } 
   })
 
 
@@ -922,9 +920,8 @@ function aboutPage() {
 }
 
 function filterAndArchiveMeny(obj){
-  console.log("ok")
   return $("<div>",{
     class: "buttonMeny",
     appendTo: ".labelBox",
-    html: obj.name}).click(obj.set)
+    html: obj.name}).css({backgroundImage: obj.bgImg}).click(obj.set).css({backgroundImage: obj.bgImg})
 }

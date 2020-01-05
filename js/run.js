@@ -17,7 +17,10 @@ $("#profileIcon").click(()=>{
         settingFlag = false
     }
 })
-$("#todoLogo").click(home)
+$("#todoLogo").click(()=>{
+    home()
+    toggleMenu("task", 0)   
+})
 
 // onload functions
 getColorsAndIcons()

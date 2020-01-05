@@ -215,7 +215,6 @@ function Task(data, objLabel) {
   
   this.subDL = function() {
     this.subtasks = this.subtasks.sort((a, b) => (a.deadline > b.deadline) ? 1 : -1)
-    console.log(this.subtasks)
     
     for (let i = 0; i < this.subtasks.length; i++){
       if(this.subtasks[i].deadline && this.subtasks[i].completed == 0) {
