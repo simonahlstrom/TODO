@@ -247,7 +247,7 @@ main {
 /* LABELS DIV */
 
 .labelBox {
-  height: 10vh;
+  /* height: 10vh; */
   width: 100%;
   transform: translateY(0);
   /* margin-top: -100%; */
@@ -265,6 +265,10 @@ main {
   min-height: 10vh;
 }
 
+#labels {
+  flex-wrap: wrap;
+}
+
 /* ändras direkt i js för att kunna kontrolera hela menyn. */
 
 /* .activeLabel {
@@ -278,18 +282,6 @@ main {
 .activeAction2 {
   transform: translateY(-100%);
 } */
-
-
-
-
-#menuDown {
-  /* background-image: url(../icons/down-arrow.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 35px;
-  width: 35px;
-  margin: 5px; */
-}
 
 .slideIn {
   transition: all .2s ease;

@@ -29,37 +29,89 @@ function getColorsAndIcons() {
 $('#home').click(() => {
   toggleMenu("label", 100)
 
-  for (let label of allLabels) {
-    $('#labels').append(label.element)
-    if (label.activated == 1) {
-      label.element[0].classList.remove("deactivated")
-    } else {
-      label.element[0].classList.add("deactivated")
-    }
-  }
-})
-
-// hide labels-menu handler
-$('#menuDown').click(() => {
-  toggleMenu("label", 100)
+  // for (let label of allLabels) {
+  //   $('#labels').append(label.element)
+  //   if (label.activated == 1) {
+  //     label.element[0].classList.remove("deactivated")
+  //   } else {
+  //     label.element[0].classList.add("deactivated")
+  //   }
+  // }
 })
 
 // toggle labels-menu
 //transY is the value of how much .labelbox will move. transy = 0 --> hides the meny 
 function toggleMenu(type, transY) {
-  $('.labelBox').empty()
-
+  if (type != "hide") {
+    $('.labelBox *').detach()
+  }
   $('.labelBox').css({transform: "translateY(-" + transY + "%)"})
 
-
-
-
   if (type=="label") {
-    
-    //skapas i HTML just nu men behöver skapas i js.
-    // $('#labelEdit').append($('<div class="slideIn flex"><div id="removeLabel" class="button flex">REMOVE</div></div><div class="flip-card"><div class="flip-card-inner flex"><div class="flip-card-front flex" id="addLabel">ADD</div><div class="flip-card-back flex" id="editLabel">EDIT</div></div></div><div id="menuDown"></div>'))
+    $('.labelBox').append($('<div id="labelControls"><div id="labelEdit" class="flex"><div class="slideIn flex"><div id="removeLabel" class="button flex">REMOVE</div></div><div class="flip-card"><div class="flip-card-inner flex"><div class="flip-card-front flex" id="addLabel">ADD</div><div class="flip-card-back flex" id="editLabel">EDIT</div></div></div> <div id="menuDown" class="button">BACK</div></div><div id="labels" class="flex"></div></div>'))
+    updateLabelContainer()
 
-    //
+    // hide labels-menu handler
+    $('#menuDown').click(() => {
+      toggleMenu("hide", 0)
+    })
+
+    // event handlers for edit-button
+    $("#editLabel").click(() => {
+      getColorsAndIcons()
+      toggleMenu("hide", 0)
+      editOrCreateLabel(labelCopy, labelToEdit, "edit")
+    })
+
+    // reset controlbuttons if leaving the container
+    $("#labelEdit").mouseleave(() => {
+      $(".slideIn").removeClass("slideIn-active")
+      $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+      for (let label of allLabels) {
+        label.element.css({border: "3px solid transparent"})
+      }
+    })
+
+    // handler for removing labels, w/ popup
+    $("#removeLabel").click(() => {
+      let message = [
+        $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
+        $("<div class='buttonContainer'></div>").append(
+          $('<input type="button" value="Yes" class="button">').click(() => {
+          removeLabel(labelToEdit)
+          hidePopup()
+          home()
+          }),
+          $('<input type="button" value="No" class="button">').click(() => {
+            hidePopup()
+            $(".slideIn").removeClass("slideIn-active")
+            $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+            labelToEdit = ""
+            for (let label of $(".label")) {
+              label.style.border = "3px solid transparent"
+            }
+          })
+        )
+      ]
+      
+      popup(message)
+    })
+
+    // event handlers for add-button
+    $("#addLabel").click(() => {
+      getColorsAndIcons()
+      toggleMenu("hide", 0)
+      editOrCreateLabel(defaultLabelCopy, defaultLabel, "create")
+    })
+
+    for (let label of allLabels) {
+      $('#labels').append(label.element)
+      if (label.activated == 1) {
+        label.element[0].classList.remove("deactivated")
+      } else {
+        label.element[0].classList.add("deactivated")
+      }
+    }
 
     for (let label of allLabels) {
       label.element.css({border: "3px solid transparent"})
@@ -72,25 +124,12 @@ function toggleMenu(type, transY) {
     filterArray.forEach((item)=>{
       filterAndArchiveMeny(item)
     })
-
-
-
   } else if (type == "archive") {
 
     archiveArray.forEach((item)=>{
       filterAndArchiveMeny(item)
     })
-
-
   } 
-
-  
-  // let boxHeight = $('.labelBox').height()
-  // $('.labelBox').css({
-  //   "margin-top": `-101px`
-  // })
-
-  
 }
 
 // create popup with editing options for the labels
@@ -180,44 +219,6 @@ function editOrCreateLabel(copy, label, action) {
   popup(editBox)
 }
 
-// event handlers for edit-button
-$("#editLabel").click(() => {
-  getColorsAndIcons()
-  toggleMenu()
-  editOrCreateLabel(labelCopy, labelToEdit, "edit")
-})
-
-// event handlers for edit-button
-$("#addLabel").click(() => {
-  getColorsAndIcons()
-  toggleMenu()
-  editOrCreateLabel(defaultLabelCopy, defaultLabel, "create")
-})
-
-$("#removeLabel").click(() => {
-  let message = [
-    $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
-    $("<div class='buttonContainer'></div>").append(
-      $('<input type="button" value="Yes" class="button">').click(() => {
-      removeLabel(labelToEdit)
-      hidePopup()
-      home()
-      }),
-      $('<input type="button" value="No" class="button">').click(() => {
-        hidePopup()
-        $(".slideIn").removeClass("slideIn-active")
-        $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
-        labelToEdit = ""
-        for (let label of $(".label")) {
-          label.style.border = "3px solid transparent"
-        }
-      })
-    )
-  ]
-  
-  popup(message)
-})
-
 function updatePreview(change, type) {
   if (type == "color") {
     $("#preview").css({backgroundColor: change.style.backgroundColor})
@@ -246,7 +247,12 @@ function updateLabelContainer() {
   $("#labels").empty()
 
   for (let label of allLabels) {
-    $("#labels").append(label.element)
+    $('#labels').append(label.element)
+    if (label.activated == 1) {
+      label.element[0].classList.remove("deactivated")
+    } else {
+      label.element[0].classList.add("deactivated")
+    }
   }
 }
 
