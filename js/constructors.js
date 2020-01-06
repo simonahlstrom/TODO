@@ -129,8 +129,8 @@ function Label(data) {
         } else {
           this.classList.add("deactivated")
         }
-        // add this function later when it's time
-        // home()
+       
+        home()
       })
       .fail((error) => {
         console.log(error)

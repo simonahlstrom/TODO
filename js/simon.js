@@ -203,20 +203,24 @@ function removeLabel(element) {
   })
   allLabels.splice(index, 1)
 
+  updateLabelContainer()
+  $(".slideIn").removeClass("slideIn-active")
+  $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+}
+
+function updateLabelContainer() {
   $("#labels").empty()
 
   for (let label of allLabels) {
     $("#labels").append(label.element)
   }
-  $(".slideIn").removeClass("slideIn-active")
-  $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
 }
 
 // // hold event
 // $(document).ready(function() {
 //   let i = 0, timeOut = 0
   
-//   $('#1').on('mousedown touchstart', function(e) {
+//   $('ELEMENT').on('mousedown touchstart', function(e) {
 //     console.log("START")
 
 //     timeOut = setInterval(function(){

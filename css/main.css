@@ -225,16 +225,15 @@ main {
 
 .activeLabel {
   transform: translateY(-100%);
-
 }
 
 #menuDown {
-  background-image: url(../icons/down-arrow.png);
+  /* background-image: url(../icons/down-arrow.png);
   background-size: contain;
   background-repeat: no-repeat;
   height: 35px;
   width: 35px;
-  margin: 5px;
+  margin: 5px; */
 }
 
 .slideIn {
