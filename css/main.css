@@ -1,19 +1,20 @@
 /* GENERAL */
 :root {
-  --mainColor: rgb(21, 68, 48);
-  --accentColor: rgb(180, 151, 54);
-  --subColor: rgb(218, 149, 104);
-  --radius: 10px;
-  --fontSize: 14px;
-  --ghostColor: rgba(20, 20, 20, .5);
-  --labelIconSize: 40px;
-  --fontColor: #dfeee2;
-  --fontColor2: #0d631e;
-  --archivedColor: #dfeee294;
+  --mainColor:#181a28;
+  --accentColor:#2c2a71;
+  --subColor:#2c2a71;
+  --archivedColor:#dfeee254;
+  --inputColor:#33334f;
+  --fontColor:#dfeee2;
+  --fontColor2:#dfeee2;
   --subGradient: rgba(44,42,113,0.47);
   --mainGradient: rgba(24,26,40,0.78);
+  --ghostColor: rgba(20, 20, 20, .5);
+  --radius: 10px;
+  --fontSize: 14px;
   --font: 'Magra', sans-serif;
-  --inputColor: #737373;
+  --labelIconSize: 40px;
+
 }
 
 body {
@@ -24,6 +25,11 @@ body {
   margin: 0px;
   transition: background-color .3s ease, color .3s ease;
   overflow-y: hidden;
+  position: relative;
+}
+
+* {
+  cursor: default;
 }
 
 #todoLogo {
@@ -51,11 +57,12 @@ cursor: pointer;
 }
 
 .ghost {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: none;
   transition: opacity .3s ease;
   z-index: 2;
+  top: 0;
 }
 
 .active {
@@ -84,6 +91,41 @@ cursor: pointer;
   -webkit-box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4); 
   box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
 }
+
+.buttonMeny {
+  min-height: 35px;
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: var(--mainColor);
+  /* font-family: 'Fredoka One'; */
+  font-family: var(--font);
+  letter-spacing: 1px;
+  font-size: var(--fontsize);
+  transition: all .2s;
+  color: var(--fontColor);
+  border: none;
+  cursor: pointer;
+  padding: 7px;
+  opacity: 1;
+
+  background-repeat: no-repeat;
+  background-position: 3px 3px;
+  background-size: 30px;
+
+  flex-basis: 20px;
+  flex-grow: 1;
+
+  white-space: normal;
+
+  /* boxShadow */
+  -webkit-box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4); 
+  box-shadow: inset 2px 2px 7px 0px rgba(100,100,100, 0.4);
+} 
 
 input[type='text'], input[type='password'], input[type='date'], select {
   background-color: var(--inputColor);
@@ -157,7 +199,6 @@ header {
 
 main {
   height: 80vh;
-  position: relative;
 }
 
 #content {
@@ -191,12 +232,12 @@ main {
 }
 
 #home {
-  background-image: url(../icons/house.png);
+  background-image: url(../icons/Labels2.png);
 }
 #filter {
   background-image: url(../icons/funnel.png);
 }
-#completed {
+#archive {
   background-image: url(../icons/folder.png);
 }
 #add {
@@ -206,12 +247,12 @@ main {
 /* LABELS DIV */
 
 .labelBox {
-  /* height: 100px; */
+  height: 10vh;
   width: 100%;
   transform: translateY(0);
   /* margin-top: -100%; */
   background-color: var(--subColor);
-  transition: all .1s ease;
+  transition: all .35s ease;
   position: relative;
 }
 
@@ -221,11 +262,25 @@ main {
 
 #labelEdit {
   justify-content: space-evenly;
+  min-height: 10vh;
 }
 
-.activeLabel {
+/* ändras direkt i js för att kunna kontrolera hela menyn. */
+
+/* .activeLabel {
   transform: translateY(-100%);
 }
+
+.activeAction {
+  transform: translateY(-200%);
+}
+
+.activeAction2 {
+  transform: translateY(-100%);
+} */
+
+
+
 
 #menuDown {
   /* background-image: url(../icons/down-arrow.png);

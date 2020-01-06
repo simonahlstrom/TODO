@@ -26,8 +26,6 @@ function register() {
           let email = $("#email").val()
           let password = $("#password").val()
           let occupation = $("#occupation").val()
-  
-          console.log(username, email, password, occupation)
 
           $.get('php/register.php', {
             username: username,
@@ -47,9 +45,7 @@ function register() {
               console.log(error)
             })
           })
-          .fail((error) => {
-            console.log(error)
-          })
+          .fail(error)
         } else {
           $("#popup").append($("<p>Passwords don't match</p>"))
         }
@@ -79,7 +75,6 @@ function login() {
           })
           .done((data) => {
             data = JSON.parse(data)
-            console.log(data)
     
             if (data[0] != undefined) {
               setup(data[0].userId)
@@ -91,9 +86,7 @@ function login() {
               }, 2000)
             }
           })
-          .fail((error) => {
-            console.log(error)
-          })
+          .fail(error)
         } else {
           $("#popup").append($("<p>Please fill in both fields</p>"))
           setTimeout(() => {

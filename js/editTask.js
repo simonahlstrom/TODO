@@ -147,16 +147,18 @@ function editTask (a) {
       labelSelect.change()
   
       //Edit buttons
-      $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
+      // $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
+      toggleMenu("task", 100)
       editTaskButtonsNew.forEach(function(item) {
           $('<input>', {
-            "class": "flex button",
+            "class": "flex buttonMeny",
             "id": "editTaskButton" + item,
             value: item,
             type: "button",
-            appendTo: "#buttonContainer"
+            appendTo: ".labelBox"
           }).click(function() {
             if(item == "Save") {
+              toggleMenu("task", 0)
               if($('#subtaskNameInput').val() && !$('#subtaskNameInput').val().match(/^[\s]{1,}$/)) {
                 popup(["There's an unfinished subtask.<br> Do you want to save it as well?",
                 $("<div class='buttonContainer'>").append(
@@ -173,11 +175,7 @@ function editTask (a) {
                   
               } else {
                 saveTask(code, "new", shared)
-              }
-
-
-
-              
+              }  
             } else if (item == "Add shared task") {
               popup(["Insert share code", 
               $('<input>', {"id": "shareCodeInput", type: "text"}), 
@@ -199,6 +197,7 @@ function editTask (a) {
               })])
             } else if (item == "Cancel"){
               subtaskArray = []
+              toggleMenu("task", 0)
               home()
             }
           })
@@ -389,20 +388,22 @@ function editTask (a) {
 
 
       //Edit buttons
-      $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
-      
+      // $('<div>', {"class": "flex", "id": "buttonContainer", appendTo: "#content"})
+
+      toggleMenu("task", 100)
       editTaskButtons.forEach(function(item) {
 
         // if((obj.creator != 1 && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
         if(((obj.creator == 2 || obj.creator == 1) && item != "Leave task") || (item != "Delete task" && obj.creator == 0) ) {
           $('<input>', {
-            "class": "flex button",
+            "class": "flex buttonMeny",
             "id": "editTaskButton" + item,
             value: item,
             type: "button",
-            appendTo: "#buttonContainer"
+            appendTo: ".labelBox"
           }).click(function() {
             if(item == "Save") {
+              toggleMenu("task", 0)
               if($('#subtaskNameInput').val() && !$('#subtaskNameInput').val().match(/^[\s]{1,}$/)) {
                 popup(["There's an unfinished subtask.<br> Do you want to save it as well?",
                 $("<div class='buttonContainer'>").append(
@@ -419,11 +420,13 @@ function editTask (a) {
               }
             } else if (item == "Cancel"){
               subtaskArray = []
+              toggleMenu("task", 0)
               home()
             } else {
               popup(["Do you want to " + item.toLowerCase() + "?",
               $("<div class='buttonContainer'>").append(
                 $('<input type="button" value="Yes" class="button">').click(function() {
+                  toggleMenu("task", 0)
                   if(item == "Leave task") {
                     leaveTask(obj)
                   } else {
@@ -440,11 +443,3 @@ function editTask (a) {
       })
     }
   }
-
-
- 
-
-  //add task with code.
-
-
-  //cancel button
