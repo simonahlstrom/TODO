@@ -129,7 +129,13 @@ function toggleMenu(type, transY) {
     archiveArray.forEach((item)=>{
       filterAndArchiveMeny(item)
     })
-  } 
+  } else if (type == "task"){
+    if(transY == 0) {
+      $('.labelBox').css({height: "initial"}) 
+    } else {
+      $('.labelBox').css({height: "10vh"})
+    }
+  }
 }
 
 // create popup with editing options for the labels

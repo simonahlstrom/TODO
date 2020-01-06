@@ -168,7 +168,7 @@ function editTask (a) {
                     saveTask(code, "new", shared)
                     hidePopup()
                   }),
-                  $('<input type="button" value="Cancel" class="button">').click(() => {
+                  $('<input type="button" value="No" class="button">').click(() => {
                     saveTask(code, "new", shared)
                     hidePopup()
                   }))])
@@ -412,7 +412,8 @@ function editTask (a) {
                     saveTask(code, "alter", obj.label.labelId)
                     hidePopup()
                   }),
-                  $('<input type="button" value="Cancel" class="button">').click(() => {
+                  $('<input type="button" value="No" class="button">').click(() => {
+                    saveTask(code, "alter", obj.label.labelId)
                     hidePopup()
                   }))])
               } else {

@@ -355,9 +355,9 @@ function createTaskElement(taskIndex) {
         }).click(function(){
           if (obj.subtasks[i].completed == 0) {
             if(obj.subtasks[i].claimedName == 0) {
-              claimSubtask(user.username, obj.subtasks[i], this)
+              claimSubtask(user.username, obj.subtasks[i], user.username)
             } else if (obj.subtasks[i].claimedName == user.username){
-              claimSubtask(0, obj.subtasks[i], this)
+              claimSubtask(0, obj.subtasks[i], user.username)
             } else {
               popup(["This subtask is already claimed."], timeout)
             }
@@ -464,16 +464,22 @@ function leaveTask(obj) {
     .fail(error)
 }
 
-function claimSubtask(name, obj, elem) {
-
-  $.get("php/claimSubtask.php", {name: name, subId: obj.subId})
+function claimSubtask(name, obj, userName, ) {
+  $.get("php/claimSubtask.php", {name: name, subId: obj.subId, userName: userName})
   .done(function(data) {
+
     if (data==0) {
       $('#subtask' + obj.subId + ' > div:last-child > div:last-child').html("Claim")
-    } else {
+      obj.claimedName = data
+    } else if (data==userName) {
       $('#subtask' + obj.subId + ' > div:last-child > div:last-child').html(data)
+      obj.claimedName = data
+    } else {
+      popup(["This subtask is already claimed."], timeout)
+      $('#subtask' + obj.subId + ' > div:last-child > div:last-child').html(data)
+      obj.claimedName = data
     }
-    obj.claimedName = data
+    
   })
   .fail(error)
 }
