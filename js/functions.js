@@ -1131,7 +1131,7 @@ function editOrCreateLabel(copy, label, action) {
         })
       } else if (action == "create") {
         if (name == updatedName) {
-          console.log("choose another name")
+          // program response saying to enter a name
         } else {
           $.get('php/createLabel.php', {
             userId: user.userId,
@@ -1141,7 +1141,6 @@ function editOrCreateLabel(copy, label, action) {
           })
           .done((data) => {
             data = JSON.parse(data)
-            console.log(data)
     
             // update label in browser
             allLabels.push(new Label(data[0]))
