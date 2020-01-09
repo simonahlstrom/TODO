@@ -993,6 +993,7 @@ function toggleMenu(type, transY) {
       getColorsAndIcons()
       toggleMenu("hide", 0)
       editOrCreateLabel(labelCopy, labelToEdit, "edit")
+      labelToEdit = false
     })
 
     // reset controlbuttons if leaving the container
@@ -1006,27 +1007,30 @@ function toggleMenu(type, transY) {
 
     // handler for removing labels, w/ popup
     $("#removeLabel").click(() => {
-      let message = [
-        $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
-        $("<div class='buttonContainer'></div>").append(
-          $('<input type="button" value="Yes" class="button">').click(() => {
-          removeLabel(labelToEdit)
-          hidePopup()
-          home()
-          }),
-          $('<input type="button" value="No" class="button">').click(() => {
+      if (labelToEdit) {
+        let message = [
+          $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
+          $("<div class='buttonContainer'></div>").append(
+            $('<input type="button" value="Yes" class="button">').click(() => {
+            removeLabel(labelToEdit)
             hidePopup()
-            $(".slideIn").removeClass("slideIn-active")
-            $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
-            labelToEdit = ""
-            for (let label of $(".label")) {
-              label.style.border = "3px solid transparent"
-            }
-          })
-        )
-      ]
-      
-      popup(message)
+            home()
+            labelToEdit = false
+            }),
+            $('<input type="button" value="No" class="button">').click(() => {
+              hidePopup()
+              $(".slideIn").removeClass("slideIn-active")
+              $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+              labelToEdit = false
+              for (let label of $(".label")) {
+                label.style.border = "3px solid transparent"
+              }
+            })
+          )
+        ]
+        
+        popup(message)
+      }
     })
 
     // event handlers for add-button
