@@ -836,6 +836,7 @@ function userSettings(user) {
     settingFlag = false
   })
 
+  $('<div>', {html: instructions, appendTo: "#content"})
 
 }
 

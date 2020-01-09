@@ -3,11 +3,11 @@
 
 -labels klar?
 
-
+<
 
 - add to home if to no task + i about us
 -bild about us-länk till mau
-
+-flytta simon js till vanliga koden.
 -fixa iOS
 -ta bort console loggar
 
@@ -57,6 +57,8 @@ INSERT INTO `Theme` (`themeName`, `mainColor`, `subColor`, `accentColor`, `fontC
 ('Miami', '#2effff', '#fe6dbc', '#fe6dbc', '#3e3402', '#e8da1138', '#079969', '#e8da11' ),
 ('The Great Wave', '#f0e7cc', '#234166', '#457795', '#457795', '#cecaba', '#45779554', '#dae4ea' ),
 ('Under the sea', '#030522', '#1fd7bd', '#1fd7bd', '#2f82db', '#11828257', '#2f82db50', '#2f82db' )
+<<<<<<< HEAD
+=======
 
 // // hold event
 // $(document).ready(function() {
@@ -95,3 +97,4 @@ In the archive you'll find active and archived (completed) tasks, or both at the
 By clicking on the plus-button you'll be able to add new tasks, with corresponding subtasks. You can also give them a deadline if they're urgent to you. You can even share your tasks with friends! Enable sharing on a task and give them the generated code, and they'll be able to add your task to their profile with the import button. A fair warning though, if you'll remove a task you created it'll be removed for everybody who've imported them!
 
 OK, now you're an expert, go on planning and stop missing deadlines!
+>>>>>>> 1f296ae43604cae3bf3b7b08be24a4b332c41289
