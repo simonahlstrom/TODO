@@ -1002,6 +1002,7 @@ function toggleMenu(type, transY) {
       getColorsAndIcons()
       toggleMenu("hide", 0)
       editOrCreateLabel(labelCopy, labelToEdit, "edit")
+      labelToEdit = false
     })
 
     // reset controlbuttons if leaving the container
@@ -1015,7 +1016,11 @@ function toggleMenu(type, transY) {
 
     // handler for removing labels, w/ popup
     $("#removeLabel").click(() => {
+<<<<<<< HEAD
       if(allLabels.length>1) {
+=======
+      if (labelToEdit) {
+>>>>>>> b4797d5a9be1c55053269db0259c7510e4bf33f7
         let message = [
           $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
           $("<div class='buttonContainer'></div>").append(
@@ -1023,12 +1028,16 @@ function toggleMenu(type, transY) {
             removeLabel(labelToEdit)
             hidePopup()
             home()
+<<<<<<< HEAD
+=======
+            labelToEdit = false
+>>>>>>> b4797d5a9be1c55053269db0259c7510e4bf33f7
             }),
             $('<input type="button" value="No" class="button">').click(() => {
               hidePopup()
               $(".slideIn").removeClass("slideIn-active")
               $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
-              labelToEdit = ""
+              labelToEdit = false
               for (let label of $(".label")) {
                 label.style.border = "3px solid transparent"
               }
