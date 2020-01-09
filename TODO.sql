@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jan 09, 2020 at 02:22 PM
+-- Generation Time: Jan 09, 2020 at 02:57 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
@@ -88,7 +88,6 @@ CREATE TABLE `Labels` (
 
 INSERT INTO `Labels` (`labelId`, `userId`, `labelName`, `color`, `icon`, `activated`) VALUES
 (9, 8, 'Linus', 'rgba(200, 51, 30, 0.8)', 'cooking.png', 0),
-(10, 9, 'Economi', 'rgb(233, 196, 106)', 'wallet.png', 1),
 (14, 10, 'School', 'rgb(40, 40, 40)', 'default.png', 1),
 (17, 8, 'Home', 'rgb(244, 162, 97)', 'cleaning.png', 1),
 (20, 10, 'Home', 'rgb(237, 242, 244)', 'cleaning.png', 1),
@@ -115,10 +114,10 @@ CREATE TABLE `Subtasks` (
 --
 
 INSERT INTO `Subtasks` (`subId`, `subName`, `deadline`, `completed`, `claimedName`, `userId`, `taskId`) VALUES
-(56, 'Subtask 1', NULL, 0, 'Linus', 10, 33),
+(56, 'deadline', '2020-01-15', 0, 'Linus', 10, 33),
 (64, 'snow', NULL, 0, '0', 10, 36),
-(65, 'Subtask 2', NULL, 0, 'Linus', 8, 33),
-(66, 'Subtask 3', NULL, 0, 'Linus', 8, 33),
+(65, 'Write report', NULL, 0, 'Linus', 8, 33),
+(66, 'Bug testing', NULL, 0, 'Linus', 8, 33),
 (71, 'groceries', NULL, 0, '0', 9, 39),
 (72, 'Bills', '2020-01-29', 0, '0', 9, 39),
 (73, 'Laundry', '2020-01-15', 0, '0', 9, 39);
@@ -169,7 +168,7 @@ CREATE TABLE `Tasks` (
 INSERT INTO `Tasks` (`taskId`, `taskName`, `code`, `completedTask`, `added`) VALUES
 (30, 'Task done', 'UQ0q', 1, '2020-01-09 13:42:32'),
 (31, 'Active tasks', 'nE7o', 1, '2020-01-09 13:42:45'),
-(33, 'new task', '5h70', 0, '2020-01-06 13:19:52'),
+(33, 'Group Assignment', '5h70', 0, '2020-01-09 14:40:53'),
 (36, 'Shopping list', 'TgiU', 0, '2020-01-09 13:39:18'),
 (38, 'Check stocks', 'BmY9', 0, '2020-01-09 14:19:02'),
 (39, 'Home', '8odV', 0, '2020-01-09 14:20:29');
@@ -193,7 +192,7 @@ INSERT INTO `TasksInLabelRel` (`taskId`, `labelId`) VALUES
 (31, 9),
 (33, 14),
 (36, 20),
-(38, 10),
+(38, 22),
 (39, 22);
 
 -- --------------------------------------------------------
@@ -253,7 +252,7 @@ CREATE TABLE `User` (
 INSERT INTO `User` (`userId`, `username`, `email`, `password`, `occupation`, `themeId`, `fontSize`) VALUES
 (8, 'Linus', 'Linus@TODO.com', 'test', 'Student', 9, '12px'),
 (9, 'Simon', 'Simon@TODO', 'test3', 'Student', 11, '15px'),
-(10, 'Isak', 'isak@TODO.com', 'test2', 'Student', 7, '12px');
+(10, 'Isak', 'isak@TODO.com', 'test2', 'Student', 1, '12px');
 
 --
 -- Indexes for dumped tables

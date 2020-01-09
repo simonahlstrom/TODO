@@ -1,4 +1,3 @@
-
 //error message for get
 function error(jqXHR, textStatus, errorThrown) {
     console.log(textStatus)
@@ -825,7 +824,7 @@ function userSettings(user) {
     ])
   })
 
-  let tutorial = $('<div>', {class: "logout", appendTo: "#content"})
+  $('<div>', {class: "logout", html: instructions, appendTo: "#content"}).css({padding: "5px"})
 
 
 //back to home
@@ -842,7 +841,6 @@ function userSettings(user) {
     toggleMenu("task", 0)
   }).css({flexGrow: 0})
 
-  $('<div>', {html: instructions, appendTo: "#content"})
 
 }
 
@@ -1017,27 +1015,31 @@ function toggleMenu(type, transY) {
 
     // handler for removing labels, w/ popup
     $("#removeLabel").click(() => {
-      let message = [
-        $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
-        $("<div class='buttonContainer'></div>").append(
-          $('<input type="button" value="Yes" class="button">').click(() => {
-          removeLabel(labelToEdit)
-          hidePopup()
-          home()
-          }),
-          $('<input type="button" value="No" class="button">').click(() => {
+      if(allLabels.length>1) {
+        let message = [
+          $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
+          $("<div class='buttonContainer'></div>").append(
+            $('<input type="button" value="Yes" class="button">').click(() => {
+            removeLabel(labelToEdit)
             hidePopup()
-            $(".slideIn").removeClass("slideIn-active")
-            $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
-            labelToEdit = ""
-            for (let label of $(".label")) {
-              label.style.border = "3px solid transparent"
-            }
-          })
-        )
-      ]
-      
-      popup(message)
+            home()
+            }),
+            $('<input type="button" value="No" class="button">').click(() => {
+              hidePopup()
+              $(".slideIn").removeClass("slideIn-active")
+              $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+              labelToEdit = ""
+              for (let label of $(".label")) {
+                label.style.border = "3px solid transparent"
+              }
+            })
+          )
+        ]
+        
+        popup(message)
+      } else {
+        popup(["You must have at least one label, create a new one to remove this one or edit it"], timeout)
+      }
     })
 
     // event handlers for add-button
