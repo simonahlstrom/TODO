@@ -1016,36 +1016,31 @@ function toggleMenu(type, transY) {
 
     // handler for removing labels, w/ popup
     $("#removeLabel").click(() => {
-<<<<<<< HEAD
       if(allLabels.length>1) {
-=======
-      if (labelToEdit) {
->>>>>>> b4797d5a9be1c55053269db0259c7510e4bf33f7
-        let message = [
-          $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
-          $("<div class='buttonContainer'></div>").append(
-            $('<input type="button" value="Yes" class="button">').click(() => {
-            removeLabel(labelToEdit)
-            hidePopup()
-            home()
-<<<<<<< HEAD
-=======
-            labelToEdit = false
->>>>>>> b4797d5a9be1c55053269db0259c7510e4bf33f7
-            }),
-            $('<input type="button" value="No" class="button">').click(() => {
+        if (labelToEdit) {
+          let message = [
+            $("<h2>Are you sure you want to remove this label? All it's data will be lost permanently.</h2>").css("text-align", "center"),
+            $("<div class='buttonContainer'></div>").append(
+              $('<input type="button" value="Yes" class="button">').click(() => {
+              removeLabel(labelToEdit)
               hidePopup()
-              $(".slideIn").removeClass("slideIn-active")
-              $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+              home()
               labelToEdit = false
-              for (let label of $(".label")) {
-                label.style.border = "3px solid transparent"
-              }
-            })
-          )
-        ]
-        
-        popup(message)
+              }),
+              $('<input type="button" value="No" class="button">').click(() => {
+                hidePopup()
+                $(".slideIn").removeClass("slideIn-active")
+                $(".flip-card .flip-card-inner").css({transform: "rotateY(0)"})
+                labelToEdit = false
+                for (let label of $(".label")) {
+                  label.style.border = "3px solid transparent"
+                }
+              })
+            )
+          ]
+          
+          popup(message)
+        }
       } else {
         popup(["You must have at least one label, create a new one to remove this one or edit it"], timeout)
       }
