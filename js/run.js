@@ -3,9 +3,11 @@ $('#add').click(function() {editTask("new")})
 $('#mauLogo').click(function() {
     if(!mauFlag) {
         aboutPage()
+
     } else {
         home()
         mauFlag = false
+        toggleMenu("task", 0)
     }
     
 })
@@ -15,6 +17,7 @@ $("#profileIcon").click(()=>{
     } else {
         home()
         settingFlag = false
+        toggleMenu("task", 0)
     }
 })
 $("#todoLogo").click(()=>{
@@ -24,11 +27,11 @@ $("#todoLogo").click(()=>{
 $("#filter").click((event)=>{  
     toggleMenu("filter", 100)
     
-  })
-  
-  $("#archive").click((event)=>{
-    toggleMenu("archive", 100)
-  })
+})
+
+$("#archive").click((event)=>{
+toggleMenu("archive", 100)
+})
   // show menu with labels
 $('#home').click(() => {
     toggleMenu("label", 100)

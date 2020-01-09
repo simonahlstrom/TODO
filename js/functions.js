@@ -804,7 +804,7 @@ function userSettings(user) {
 
   })
 
-//log out and go back
+//log out
   let settingActions = $('<div>', {class: "logout", appendTo: "#content"})
 
   //log out
@@ -825,8 +825,12 @@ function userSettings(user) {
     ])
   })
 
+  let tutorial = $('<div>', {class: "logout", appendTo: "#content"})
+
+
+//back to home
   toggleMenu("task", 100)
-  //back to home
+
   $('<input>', {
     class: "buttonMeny",
     type: "button",
@@ -899,15 +903,7 @@ function aboutPage() {
 
   $('<div>', {"id": "buttonContainer", appendTo: "#content"})
 
-  $('<input>', {
-    type: "button",
-    "class": "button",
-    value: "Back",
-    appendTo: "#buttonContainer"
-  }).click(function() {
-    home()
-    mauFlag = false
-  })
+  
 
   $('<input>', {
     type: "button",
@@ -925,6 +921,18 @@ function aboutPage() {
     html: "published: 2020-01-09",
     appendTo: "#content"
   })
+
+  toggleMenu("task", 100)
+  $('<input>', {
+    type: "button",
+    class: "buttonMeny",
+    value: "Back",
+    appendTo: ".labelBox"
+  }).click(function() {
+    home()
+    mauFlag = false
+    toggleMenu("task", 0)
+  }).css({flexGrow: 0})
 }
 
 function filterAndArchiveMeny(obj){
