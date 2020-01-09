@@ -3,11 +3,11 @@
 
 -labels klar?
 
-
+<
 
 - add to home if to no task + i about us
 -bild about us-länk till mau
-
+-flytta simon js till vanliga koden.
 -fixa iOS
 -ta bort console loggar
 
@@ -57,27 +57,3 @@ INSERT INTO `Theme` (`themeName`, `mainColor`, `subColor`, `accentColor`, `fontC
 ('Miami', '#2effff', '#fe6dbc', '#fe6dbc', '#3e3402', '#e8da1138', '#079969', '#e8da11' ),
 ('The Great Wave', '#f0e7cc', '#234166', '#457795', '#457795', '#cecaba', '#45779554', '#dae4ea' ),
 ('Under the sea', '#030522', '#1fd7bd', '#1fd7bd', '#2f82db', '#11828257', '#2f82db50', '#2f82db' )
-
-// // hold event
-// $(document).ready(function() {
-//   let i = 0, timeOut = 0
-  
-//   $('ELEMENT').on('mousedown touchstart', function(e) {
-//     console.log("START")
-
-//     timeOut = setInterval(function(){
-//       console.log(i++)
-//     }, 100)
-//   }).bind('mouseup touchend', function() {
-//     console.log("END")
-
-//     if (i >= 4) {
-//       console.log("WORKS")
-//     } else {
-//       e.target.click()
-//     }
-
-//     i = 0
-//     clearInterval(timeOut)
-//   })
-// })

@@ -85,3 +85,5 @@ let defaultLabel = $("<div></div>").css({
   let defaultLabelCopy = document.createElement("div")
   defaultLabelCopy.style.backgroundColor = colors[0]
   defaultLabelCopy.style.backgroundImage = `url(icons/labels/default.png)`
+
+let instructions = "<br>Instructions:<br>1. Add the app to your homescreen to get the full intended functionality. <br>Android: Click the settings button -> Add to homescreen <br>iOS: Click the share button -> Add to homescreen."
