@@ -825,16 +825,18 @@ function userSettings(user) {
     ])
   })
 
-  $('<div>', {"id": "buttonContainer", class: "logout", appendTo: "#content"})
+  toggleMenu("task", 100)
+  //back to home
   $('<input>', {
-    class: "button",
+    class: "buttonMeny",
     type: "button",
     value: "Go to Home",
-    appendTo: "#buttonContainer"
+    appendTo: ".labelBox"
   }).click(function() {
     home()
     settingFlag = false
-  })
+    toggleMenu("task", 0)
+  }).css({flexGrow: 0})
 
 
 }

@@ -34,7 +34,7 @@ function home(){
         }
     } else {
         popup([
-            "Welcome " + user.username + "! <br> Click on the add symbol to create your first task.<br><br>Press the User Icon on the top for more information", 
+            "Welcome " + user.username + "! <br> Press the add symbol to create your first task.<br><br>In the user settings (the User Icon on the top) you can find more information about how you can use the app.", 
             $('<input type="button" value="Continue" class="button">').click(() => {
                 hidePopup()
             })

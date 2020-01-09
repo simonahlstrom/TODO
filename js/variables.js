@@ -10,13 +10,13 @@ let proceed = "homeSetting"
 
 //used for editTask()
 let editTaskButtons = ["Save", "Delete task", "Leave task", "Cancel"]
-let editTaskButtonsNew = ["Save", "Add shared task", "Cancel"]
+let editTaskButtonsNew = ["Save", "Import", "Cancel"]
 let subtaskArray = []
 
 //user in conjunction with popup
 let welcomeInfo = [
     $("<h2>Welcome!</h2>"),
-    $("<div>Welcome to this app, it will do things to make your life easier. Here we'll explain exactly how it works and why it's amazing.</div>"),
+    $("<div>Welcome to TODO, it will do things to make your life easier. Create an account to get started and see why it's amazing.</div>"),
     $("<div class='buttonContainer'>").append(
         $('<input type="button" value="Log In" class="button">').click(() => {
         login()
@@ -62,7 +62,7 @@ let ghostFlag = false
 let pattern = /^[\s]{1,}$/
 
 //fontsizes
-let fontSizeArray = [{size: "12px", name: "Small"}, {size: "15px", name: "Medium"}, {size: "19px", name: "Large"}]
+let fontSizeArray = [{size: "12px", name: "Small"}, {size: "15px", name: "Medium"}, {size: "18px", name: "Large"}]
 
 let holdIndex = 0
 let timeOut = 0

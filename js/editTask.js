@@ -176,7 +176,7 @@ function editTask (a) {
               } else {
                 saveTask(code, "new", shared)
               }  
-            } else if (item == "Add shared task") {
+            } else if (item == "Import") {
               popup(["Insert share code", 
               $('<input>', {"id": "shareCodeInput", type: "text"}), 
               $('<input>', {type: "button", "class": "button", value: "Submit"}).click(function() {
