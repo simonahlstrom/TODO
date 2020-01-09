@@ -42,7 +42,6 @@ function register() {
               setup(data)
             })
             .fail((error) => {
-              console.log(error)
             })
           })
           .fail(error)

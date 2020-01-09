@@ -40,43 +40,6 @@ function Label(data) {
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
       border: "3px solid transparent"
-  // }).click(function(){
-  //   let currentLabel
-  //   let index
-
-  //   // finding the correct label to handle
-  //   allLabels.forEach((element, i) => {
-  //     if (element.labelId == this.id) {
-  //       currentLabel = element
-  //       index = i
-  //     }
-  //   })
-
-  //   // updates the activated column on the regarding label
-  //   $.get('php/toggleActiveLabel.php', {id: currentLabel.labelId, activated: currentLabel.activated})
-  //   .done((data) => {
-  //     data = JSON.parse(data)
-
-  //     // does the same update on the local object
-  //     allLabels.forEach((element, i) => {
-  //       if (index == i) {
-  //         element.activated = data[0].activated
-  //       }
-  //     })
-      
-  //     // handling css-stuff, showing the activited status with opacity
-  //     if (data[0].activated == 1) {
-  //       this.classList.remove("deactivated")
-  //     } else {
-  //       this.classList.add("deactivated")
-  //     }
-  //     // add this function later when it's time
-  //     // home()
-  //   })
-  //   .fail((error) => {
-  //     console.log(error)
-  //   })
-  // })
   }).on('mousedown touchstart', function(e) {
     for (let label of allLabels) {
       label.element.css({border: "3px solid transparent"})
@@ -133,7 +96,6 @@ function Label(data) {
         home()
       })
       .fail((error) => {
-        console.log(error)
       })
     }
 
@@ -151,7 +113,6 @@ function Label(data) {
       if(this.labelId == allTasks[i].label.labelId) {
 
         if(allTasks[i].creator == 0) {
-          console.log("not creator!")
           $.get('php/leaveTask.php', {
             taskId: allTasks[i].taskId,
             userId: user.userId,
@@ -219,9 +180,7 @@ function Task(data, objLabel) {
     for (let i = 0; i < this.subtasks.length; i++){
       if(this.subtasks[i].deadline && this.subtasks[i].completed == 0) {
         this.urgent = this.subtasks[i].deadline
-        console.log(this.urgent)
         return
-        
       }
     }
   }
