@@ -836,7 +836,7 @@ function userSettings(user) {
     settingFlag = false
   })
 
-  $('<div>', {html: "Instructions:<br>1. Add the app to your homescreen to get the full intended functionality. <br>Android: Click the settings button -> Add to homescreen <br>iOS: Click the share button -> Add to homescreen.", appendTo: "#content"})
+  $('<div>', {html: instructions, appendTo: "#content"})
 
 }
 

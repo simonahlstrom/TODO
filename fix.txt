@@ -57,3 +57,44 @@ INSERT INTO `Theme` (`themeName`, `mainColor`, `subColor`, `accentColor`, `fontC
 ('Miami', '#2effff', '#fe6dbc', '#fe6dbc', '#3e3402', '#e8da1138', '#079969', '#e8da11' ),
 ('The Great Wave', '#f0e7cc', '#234166', '#457795', '#457795', '#cecaba', '#45779554', '#dae4ea' ),
 ('Under the sea', '#030522', '#1fd7bd', '#1fd7bd', '#2f82db', '#11828257', '#2f82db50', '#2f82db' )
+<<<<<<< HEAD
+=======
+
+// // hold event
+// $(document).ready(function() {
+//   let i = 0, timeOut = 0
+  
+//   $('ELEMENT').on('mousedown touchstart', function(e) {
+//     console.log("START")
+
+//     timeOut = setInterval(function(){
+//       console.log(i++)
+//     }, 100)
+//   }).bind('mouseup touchend', function() {
+//     console.log("END")
+
+//     if (i >= 4) {
+//       console.log("WORKS")
+//     } else {
+//       e.target.click()
+//     }
+
+//     i = 0
+//     clearInterval(timeOut)
+//   })
+// })
+
+Welcome to TODO! Here you'll find the utilities needed to help you structure your everyday life! The app is designed around the basis of personal Labels, where you can add tasks that require doing, within those tasks you can also add subtasks if needed.
+
+In the home menu, the buttons on the bottom of the screen are Labels - Filters - Archive and Add Task
+
+When pressing labels you can turn on and off individual labels whether you want them displayed or not on the screen. You can also press hold on a label to be given the options to either edit or remove it.
+
+The filter-button is designed to cycle through tasks, displaying them in certain orders. You can either choose to display all your tasks, the urgent ones that have a deadline (in descending order by date) or by labels.
+
+In the archive you'll find active and archived (completed) tasks, or both at the same time, to give you an overview of your progress.
+
+By clicking on the plus-button you'll be able to add new tasks, with corresponding subtasks. You can also give them a deadline if they're urgent to you. You can even share your tasks with friends! Enable sharing on a task and give them the generated code, and they'll be able to add your task to their profile with the import button. A fair warning though, if you'll remove a task you created it'll be removed for everybody who've imported them!
+
+OK, now you're an expert, go on planning and stop missing deadlines!
+>>>>>>> 1f296ae43604cae3bf3b7b08be24a4b332c41289
